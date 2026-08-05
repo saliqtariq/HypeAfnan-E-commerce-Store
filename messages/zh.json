@@ -17,8 +17,34 @@
     "ru": "русский",
     "pt": "português"
   },
-  "home": {
-    "title": "欢迎来到 HypeAfnan",
-    "subtitle": "您的终极潮流目的地"
+  "contactBanner": {
+    "website": "网址",
+    "phone": "电话",
+    "saveInfo": "请保存我的联系信息，以便当 WhatsApp 或网站不可用时，您仍可以通过它们找到我"
+  },
+  "filterBar": {
+    "tabs": {
+      "all": "全部",
+      "new": "最新",
+      "video": "视频",
+      "photos": "图片"
+    },
+    "drawer": {
+      "title": "筛选",
+      "timeFrame": "时间段",
+      "startDate": "开始日期",
+      "endDate": "结束日期",
+      "today": "今天",
+      "yesterday": "昨天",
+      "thisMonth": "本月",
+      "lastMonth": "上月",
+      "thisYear": "今年",
+      "lastYear": "去年",
+      "share": "分享",
+      "neverShared": "未分享",
+      "shared": "已分享",
+      "reset": "重置",
+      "confirm": "确定"
+    }
   }
 }

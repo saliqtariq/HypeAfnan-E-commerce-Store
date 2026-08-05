@@ -1,6 +1,6 @@
 {
   "header": {
-    "category": "الفئة",
+    "category": "Fئة",
     "search": "بحث",
     "signin": "تسجيل الدخول",
     "language": "اللغة"
@@ -17,8 +17,34 @@
     "ru": "русский",
     "pt": "português"
   },
-  "home": {
-    "title": "مرحباً بك في HypeAfnan",
-    "subtitle": "وجهتك المثالية للهايب"
+  "contactBanner": {
+    "website": "الموقع الإلكتروني",
+    "phone": "الهاتف",
+    "saveInfo": "يرجى حفظ معلومتي حتى تتمكن من العثور علي عبرها في حال اختفاء واتساب أو المواقع"
+  },
+  "filterBar": {
+    "tabs": {
+      "all": "الكل",
+      "new": "الجديد",
+      "video": "فيديو",
+      "photos": "صور"
+    },
+    "drawer": {
+      "title": "تصفية",
+      "timeFrame": "الإطار الزمني",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "today": "اليوم",
+      "yesterday": "أمس",
+      "thisMonth": "هذا الشهر",
+      "lastMonth": "الشهر الماضي",
+      "thisYear": "هذه السنة",
+      "lastYear": "السنة الماضية",
+      "share": "مشاركة",
+      "neverShared": "لم تتم مشاركته",
+      "shared": "تمت مشاركته",
+      "reset": "إعادة ضبط",
+      "confirm": "تأكيد"
+    }
   }
 }

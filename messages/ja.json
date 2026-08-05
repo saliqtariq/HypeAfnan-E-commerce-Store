@@ -1,6 +1,6 @@
 {
   "header": {
-    "category": "カテゴリ",
+    "category": "カテゴリー",
     "search": "検索",
     "signin": "サインイン",
     "language": "言語"
@@ -17,8 +17,34 @@
     "ru": "русский",
     "pt": "português"
   },
-  "home": {
-    "title": "HypeAfnanへようこそ",
-    "subtitle": "あなたの究極のハイプ目的地"
+  "contactBanner": {
+    "website": "ウェブサイト",
+    "phone": "電話番号",
+    "saveInfo": "WhatsAppやウェブサイトが消えても見つけられるよう、私の情報を保存しておいてください"
+  },
+  "filterBar": {
+    "tabs": {
+      "all": "すべて",
+      "new": "新着",
+      "video": "動画",
+      "photos": "写真"
+    },
+    "drawer": {
+      "title": "フィルター",
+      "timeFrame": "期間",
+      "startDate": "開始日",
+      "endDate": "終了日",
+      "today": "今日",
+      "yesterday": "昨日",
+      "thisMonth": "今月",
+      "lastMonth": "先月",
+      "thisYear": "今年",
+      "lastYear": "昨年",
+      "share": "共有",
+      "neverShared": "未共有",
+      "shared": "共有済み",
+      "reset": "リセット",
+      "confirm": "確認"
+    }
   }
 }

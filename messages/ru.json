@@ -17,8 +17,34 @@
     "ru": "русский",
     "pt": "português"
   },
-  "home": {
-    "title": "Добро пожаловать в HypeAfnan",
-    "subtitle": "Ваше главное хайп-место"
+  "contactBanner": {
+    "website": "сайт",
+    "phone": "Телефон",
+    "saveInfo": "Пожалуйста, сохраните мои контакты, чтобы вы могли найти меня, если WhatsApp или сайты исчезнут"
+  },
+  "filterBar": {
+    "tabs": {
+      "all": "Все",
+      "new": "Новое",
+      "video": "Видео",
+      "photos": "Фото"
+    },
+    "drawer": {
+      "title": "Фильтр",
+      "timeFrame": "Период",
+      "startDate": "Начальная дата",
+      "endDate": "Конечная дата",
+      "today": "Сегодня",
+      "yesterday": "Вчера",
+      "thisMonth": "Этот месяц",
+      "lastMonth": "Прошлый месяц",
+      "thisYear": "Этот год",
+      "lastYear": "Прошлый год",
+      "share": "Поделиться",
+      "neverShared": "Не поделились",
+      "shared": "Поделились",
+      "reset": "Сбросить",
+      "confirm": "Подтвердить"
+    }
   }
 }

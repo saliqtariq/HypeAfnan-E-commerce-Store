@@ -17,8 +17,34 @@
     "ru": "русский",
     "pt": "português"
   },
-  "home": {
-    "title": "Welcome to HypeAfnan",
-    "subtitle": "Your ultimate hype destination"
+  "contactBanner": {
+    "website": "website",
+    "phone": "Phone",
+    "saveInfo": "Please save my information so that when WhatsApp or websites disappear, you can find me through them"
+  },
+  "filterBar": {
+    "tabs": {
+      "all": "All",
+      "new": "New",
+      "video": "Video",
+      "photos": "Photos"
+    },
+    "drawer": {
+      "title": "Filter",
+      "timeFrame": "Time Frame",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisMonth": "This month",
+      "lastMonth": "Last month",
+      "thisYear": "This year",
+      "lastYear": "Last year",
+      "share": "Share",
+      "neverShared": "Never shared",
+      "shared": "Shared",
+      "reset": "Reset",
+      "confirm": "Confirm"
+    }
   }
 }
