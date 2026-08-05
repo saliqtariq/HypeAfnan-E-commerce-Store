@@ -1,0 +1,24 @@
+{
+  "header": {
+    "category": "カテゴリ",
+    "search": "検索",
+    "signin": "サインイン",
+    "language": "言語"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "简体中文",
+    "fr": "Français",
+    "it": "Italiano",
+    "ja": "日本語",
+    "es": "Español",
+    "de": "Deutsch",
+    "ar": "العربية",
+    "ru": "русский",
+    "pt": "português"
+  },
+  "home": {
+    "title": "HypeAfnanへようこそ",
+    "subtitle": "あなたの究極のハイプ目的地"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "header": {
+    "category": "Catégorie",
+    "search": "Rechercher",
+    "signin": "Se connecter",
+    "language": "Langue"
+  },
+  "languages": {
+    "en": "English",
+    "zh": "简体中文",
+    "fr": "Français",
+    "it": "Italiano",
+    "ja": "日本語",
+    "es": "Español",
+    "de": "Deutsch",
+    "ar": "العربية",
+    "ru": "русский",
+    "pt": "português"
+  },
+  "home": {
+    "title": "Bienvenue chez HypeAfnan",
+    "subtitle": "Votre destination ultime de la hype"
+  }
+}
