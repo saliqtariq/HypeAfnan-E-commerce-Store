@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import productsData from "../../../data/products.json";
+import productsData from "../../../data/products_local.json";
 import ProductDetailClient from "../../../components/ProductDetailClient";
 import type { Product } from "../../../components/ProductGrid";
 

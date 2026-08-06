@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import FilterBar from "./FilterBar";
 import ProductGrid from "./ProductGrid";
-import productsData from "../data/products.json";
+import productsData from "../data/products_local.json";
 import type { Product } from "./ProductGrid";
 
 const allProducts = (productsData as { products: Product[] }).products;
