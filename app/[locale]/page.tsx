@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import FilterBar from "../components/FilterBar";
+import HomeClient from "../components/HomeClient";
 
 export default function Home() {
   const t = useTranslations("contactBanner");
@@ -34,8 +34,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Filter and Tab Navigation Bar */}
-      <FilterBar />
+      {/* Filter Bar + Product Grid (client-side for interactivity) */}
+      <HomeClient />
     </main>
   );
 }
+

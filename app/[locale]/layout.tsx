@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "HypeAfnan",
   description: "HypeAfnan - Your ultimate hype destination",
+  referrer: "no-referrer",
 };
 
 export function generateStaticParams() {
