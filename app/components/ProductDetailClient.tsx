@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -46,6 +46,27 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const locale = (params?.locale as string) || "en";
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
 
+  // Track whether we have internal navigation history to go back to
+  const hasInternalHistory = useRef(false);
+
+  useEffect(() => {
+    // If the page loaded with a referrer from the same origin, we have history to go back to.
+    // Also, Next.js client-side navigation pushes to history, so we track via popstate.
+    const referrer = document.referrer;
+    if (referrer && new URL(referrer).origin === window.location.origin) {
+      hasInternalHistory.current = true;
+    }
+  }, []);
+
+  const goBack = useCallback(() => {
+    if (hasInternalHistory.current && window.history.length > 1) {
+      router.back();
+    } else {
+      // No internal history — navigate home instead of exiting the browser
+      router.push(`/${locale}`);
+    }
+  }, [router, locale]);
+
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-gray-400">
@@ -85,7 +106,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
     <div className="min-h-screen bg-white relative">
       {/* Back button — absolutely positioned on the extreme left so it doesn't push down content */}
       <button
-        onClick={() => router.back()}
+        onClick={goBack}
         className="absolute left-4 top-2 z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white shadow text-gray-600 hover:text-gray-900 hover:shadow-md transition-all border border-gray-100 cursor-pointer"
         aria-label="Go back"
       >

@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { CategoryIcon, SearchIcon } from "../Icons";
+import CategoryModal from "../CategoryModal";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -27,12 +28,27 @@ export default function Header() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const isSearchPage = pathname.includes("/search");
+  const hasSearchQuery = !!searchParams.get("q");
+  const isSearchPage = pathname.includes("/search") && hasSearchQuery;
 
   const [openLang, setOpenLang] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || searchParams.get("search") || "");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSelectCategory = (groupName: string, tagId?: number, tagName?: string) => {
+    setIsCategoryOpen(false);
+    if (groupName === "all") {
+      router.push(`/${locale}`);
+      return;
+    }
+    const params = new URLSearchParams();
+    if (tagId) params.set("tagId", String(tagId));
+    if (tagName) params.set("tagName", tagName);
+    if (groupName) params.set("groupName", groupName);
+    router.push(`/${locale}/search?${params.toString()}`);
+  };
 
   // Close language dropdown when clicking outside
   useEffect(() => {
@@ -116,11 +132,10 @@ export default function Header() {
                         <li key={code}>
                           <button
                             onClick={() => switchLanguage(code)}
-                            className={`w-full text-left px-5 py-3 text-[15px] flex items-center justify-between transition-colors duration-100 cursor-pointer border-none bg-transparent ${
-                              locale === code
+                            className={`w-full text-left px-5 py-3 text-[15px] flex items-center justify-between transition-colors duration-100 cursor-pointer border-none bg-transparent ${locale === code
                                 ? "text-[#38c172] font-medium"
                                 : "text-[#1f2937] hover:bg-[#f9fafb]"
-                            }`}
+                              }`}
                           >
                             {label}
                             {locale === code && (
@@ -169,6 +184,14 @@ export default function Header() {
             </div>
           </form>
         </div>
+
+        {/* Category Modal Drawer */}
+        <CategoryModal
+          isOpen={isCategoryOpen}
+          onClose={() => setIsCategoryOpen(false)}
+          locale={locale}
+          onSelectCategory={handleSelectCategory}
+        />
       </header>
     );
   }
@@ -180,7 +203,7 @@ export default function Header() {
         {/* Left Section */}
         <div className="flex items-center gap-4 sm:gap-[40px] flex-1">
           <button
-            onClick={() => router.push(`/${locale}/search`)}
+            onClick={() => setIsCategoryOpen(true)}
             className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70"
             type="button"
             id="category-btn"
@@ -249,11 +272,10 @@ export default function Header() {
                     <li key={code}>
                       <button
                         onClick={() => switchLanguage(code)}
-                        className={`w-full text-left px-5 py-3 text-[15px] flex items-center justify-between transition-colors duration-100 cursor-pointer border-none bg-transparent ${
-                          locale === code
+                        className={`w-full text-left px-5 py-3 text-[15px] flex items-center justify-between transition-colors duration-100 cursor-pointer border-none bg-transparent ${locale === code
                             ? "text-[#38c172] font-medium"
                             : "text-[#1f2937] hover:bg-[#f9fafb]"
-                        }`}
+                          }`}
                       >
                         {label}
                         {locale === code && (
@@ -285,6 +307,14 @@ export default function Header() {
           </Link>
         </div>
       </nav>
+
+      {/* Category Modal Drawer */}
+      <CategoryModal
+        isOpen={isCategoryOpen}
+        onClose={() => setIsCategoryOpen(false)}
+        locale={locale}
+        onSelectCategory={handleSelectCategory}
+      />
     </header>
   );
 }

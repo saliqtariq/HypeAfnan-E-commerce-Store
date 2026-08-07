@@ -1,0 +1,1177 @@
+[
+  {
+    "groupId": 85659551,
+    "groupName": "Classify",
+    "order": -1000,
+    "tags": [
+      {
+        "tagId": 85658997,
+        "tagName": "Top",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9h8b6n1fsc7gd15op1f4f1mduc.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 22585
+      },
+      {
+        "tagId": 85659215,
+        "tagName": "Leather jacket",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9hirm3qhis1794htcrqrbc.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1260
+      },
+      {
+        "tagId": 85658996,
+        "tagName": "Down Jackets",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9hpv80m131s2h1f13o9h4cp11.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3738
+      },
+      {
+        "tagId": 85659168,
+        "tagName": "T-shirt",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9sgsmjc9g1i1o1mi91hn6bdlv.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 12297
+      },
+      {
+        "tagId": 85659342,
+        "tagName": "Shorts",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507110966_1051_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2531
+      },
+      {
+        "tagId": 85659245,
+        "tagName": "Pants",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504865726_5370_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3735
+      },
+      {
+        "tagId": 85659163,
+        "tagName": "Shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749508200782_994_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 11392
+      },
+      {
+        "tagId": 85660809,
+        "tagName": "Leather shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749508231597_3597_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 212
+      },
+      {
+        "tagId": 85659419,
+        "tagName": "Bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9sm0amfngili1uh21f4ketc31.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 8692
+      },
+      {
+        "tagId": 85661522,
+        "tagName": "Belt",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9smgq51j6epg913bh1rjrfvj3c.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1463
+      },
+      {
+        "tagId": 85666729,
+        "tagName": "Watch",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9sn53dof15io1cj21u2u1fjq3n.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 857
+      },
+      {
+        "tagId": 85666701,
+        "tagName": "glasses",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9so9jmq6d1t1r13nq1o7km542.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1206
+      },
+      {
+        "tagId": 85666648,
+        "tagName": "Blanket",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9sp9il1igrs9018g1hlcmkj4d.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 4
+      },
+      {
+        "tagId": 85659155,
+        "tagName": "Scarf",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9sqr3t1bd8h2ep9la4i144c4o.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 198
+      },
+      {
+        "tagId": 85666617,
+        "tagName": "Ornaments",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9srebl11723cc1pul1tttb5q53.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1
+      },
+      {
+        "tagId": 85659153,
+        "tagName": "Hat",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504942683_5237_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 303
+      },
+      {
+        "tagId": 85666359,
+        "tagName": "Mobile phone shell",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9stkhh199l8fu1nsn1cb6c4m5p.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 9
+      },
+      {
+        "tagId": 85661967,
+        "tagName": "Draw bar box",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9svpn81p3t16v79b41tpuqal64.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 273
+      },
+      {
+        "tagId": 85661603,
+        "tagName": "Underwear",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9t0dcj1ng61fq6jpr9ag1uoj6f.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 51
+      },
+      {
+        "tagId": 85659209,
+        "tagName": "Mink",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9t0uio1t3s15rr1ggug671elq6q.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 42
+      },
+      {
+        "tagId": 85665997,
+        "tagName": "户外机能",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9t1f2k1240191a144le3cj8v75.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 8
+      }
+    ]
+  },
+  {
+    "groupId": 85659527,
+    "groupName": "Men clothes",
+    "order": -900,
+    "tags": [
+      {
+        "tagId": 85659159,
+        "tagName": "LV men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505202551_5473_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 5690
+      },
+      {
+        "tagId": 85659157,
+        "tagName": "DIOR men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505214066_8688_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3162
+      },
+      {
+        "tagId": 85659249,
+        "tagName": "GUCCI men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505223607_382_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1525
+      },
+      {
+        "tagId": 85659319,
+        "tagName": "Burberry men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505239270_5858_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1743
+      },
+      {
+        "tagId": 85659174,
+        "tagName": "PRADA men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505250089_4356_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2656
+      },
+      {
+        "tagId": 85659206,
+        "tagName": "Balencia clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505267232_9658_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 894
+      },
+      {
+        "tagId": 85659587,
+        "tagName": "DG men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505289179_968_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2286
+      },
+      {
+        "tagId": 85658995,
+        "tagName": "Moncler men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505307551_3920_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3486
+      },
+      {
+        "tagId": 85660449,
+        "tagName": "Loro Piana clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505323383_2215_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1952
+      },
+      {
+        "tagId": 85659172,
+        "tagName": "FENDI men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505335938_4276_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1020
+      },
+      {
+        "tagId": 85659374,
+        "tagName": "CASABLANCA Clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505348982_3729_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 925
+      },
+      {
+        "tagId": 85660383,
+        "tagName": "Versace men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505361282_8659_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 198
+      },
+      {
+        "tagId": 85659418,
+        "tagName": "Valentino men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505491879_8385_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 79
+      },
+      {
+        "tagId": 85667641,
+        "tagName": "VETEMENTS clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505568029_8394_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 34
+      },
+      {
+        "tagId": 85659273,
+        "tagName": "LOEWE men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505581385_5852_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 660
+      },
+      {
+        "tagId": 85660714,
+        "tagName": "Denim tears clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9tjhpi1p4ejkvtfac281jvfdr.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 314
+      },
+      {
+        "tagId": 85659581,
+        "tagName": "Gallery dept chothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505704636_6168_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 558
+      },
+      {
+        "tagId": 85660676,
+        "tagName": "RickOwens clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505721055_2955_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 22
+      },
+      {
+        "tagId": 85659256,
+        "tagName": "Givenchy men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505736741_4145_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 389
+      },
+      {
+        "tagId": 85659187,
+        "tagName": "Hermes men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505755881_8453_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 579
+      },
+      {
+        "tagId": 85665935,
+        "tagName": "Ami clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505812191_4072_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 66
+      },
+      {
+        "tagId": 85661347,
+        "tagName": "Maison Margiela clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9tvuka99h17061i6p11sl17o3c.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 20
+      },
+      {
+        "tagId": 85659170,
+        "tagName": "CELINE men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505833518_4571_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 357
+      },
+      {
+        "tagId": 85658999,
+        "tagName": "Zegna men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505894707_6999_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1057
+      },
+      {
+        "tagId": 85659325,
+        "tagName": "Amiri men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505919685_8427_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 415
+      },
+      {
+        "tagId": 85659446,
+        "tagName": "BC men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505934342_605_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 818
+      },
+      {
+        "tagId": 85659251,
+        "tagName": "TF men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505956680_9711_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 592
+      },
+      {
+        "tagId": 85659275,
+        "tagName": "Chrome Hearts clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505968707_530_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 350
+      },
+      {
+        "tagId": 85660853,
+        "tagName": "Stone Island men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505987905_6525_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 190
+      },
+      {
+        "tagId": 85660881,
+        "tagName": "BV men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506002440_5891_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 173
+      },
+      {
+        "tagId": 85661159,
+        "tagName": "ARCTERYX",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506076868_4076_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 255
+      },
+      {
+        "tagId": 85659343,
+        "tagName": "Palm Angels clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506198980_3992_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 113
+      },
+      {
+        "tagId": 85660389,
+        "tagName": "SR men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506213330_8416_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 23
+      },
+      {
+        "tagId": 85667175,
+        "tagName": "Berluti men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506282733_2644_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 47
+      },
+      {
+        "tagId": 85659417,
+        "tagName": "Canada goose clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506324482_1810_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 126
+      },
+      {
+        "tagId": 85661398,
+        "tagName": "McQueen men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506366373_5837_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 19
+      },
+      {
+        "tagId": 85659358,
+        "tagName": "ESSENTIALS clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506454585_719_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 88
+      },
+      {
+        "tagId": 85659515,
+        "tagName": "BALMAIN clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506468694_4098_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 39
+      },
+      {
+        "tagId": 85660413,
+        "tagName": "Berluti man clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506502567_4468_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 62
+      },
+      {
+        "tagId": 85663498,
+        "tagName": "Chanel clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506523841_2682_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 20
+      },
+      {
+        "tagId": 85661760,
+        "tagName": "MMJ men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506537677_4558_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 5
+      },
+      {
+        "tagId": 85667603,
+        "tagName": "Lululemon clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506556207_1255_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3
+      },
+      {
+        "tagId": 85661757,
+        "tagName": "Ferragamo men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506600215_5585_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3
+      },
+      {
+        "tagId": 85667082,
+        "tagName": "Off-White men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506660879_9100_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 5
+      },
+      {
+        "tagId": 85667684,
+        "tagName": "TB men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506687804_4230_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 26
+      },
+      {
+        "tagId": 85660954,
+        "tagName": "Alexander wang clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506708032_6168_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 13
+      },
+      {
+        "tagId": 85659470,
+        "tagName": "DSQUARED2",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506742482_515_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3
+      },
+      {
+        "tagId": 85660603,
+        "tagName": "YSL clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506784419_4983_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 60
+      },
+      {
+        "tagId": 85667441,
+        "tagName": "MK men clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506810589_4168_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 9
+      },
+      {
+        "tagId": 85667050,
+        "tagName": "Y3 men clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9uqha6odg1n94tu21nlanmar.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2
+      },
+      {
+        "tagId": 85667542,
+        "tagName": "The North Face clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9u1m4l86gbp21cge14k11q2p1d.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 10
+      }
+    ]
+  },
+  {
+    "groupId": 85659522,
+    "groupName": "Women clothes",
+    "order": -800,
+    "tags": [
+      {
+        "tagId": 85660966,
+        "tagName": "LV women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v09bj1cp9h191qkqkgq1rl0bs.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 179
+      },
+      {
+        "tagId": 85659219,
+        "tagName": "Gucci women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v0mk026gvaa141k1b6l1ehuc7.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 152
+      },
+      {
+        "tagId": 85659213,
+        "tagName": "Dior women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v16c51run1h21f61bsbgsci.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 256
+      },
+      {
+        "tagId": 85659218,
+        "tagName": "Prada women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v1k3nulo59s1fm1e8r1283ct.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 175
+      },
+      {
+        "tagId": 85659207,
+        "tagName": "Fendi women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v237c1juf37kams1gv818akd8.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 24
+      },
+      {
+        "tagId": 85660979,
+        "tagName": "Burberry women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v2jhv1hok19gn1a9366f1ghbdj.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 39
+      },
+      {
+        "tagId": 85659220,
+        "tagName": "Loewe women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v3258a99lpk39t1ckqj72du.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 18
+      },
+      {
+        "tagId": 85662345,
+        "tagName": "TB women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v3fd81lvegmsg3r15j1ed8e9.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 5
+      },
+      {
+        "tagId": 85660952,
+        "tagName": "Chanel women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v3uj517p317urbgigdu16feek.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 10
+      },
+      {
+        "tagId": 85659211,
+        "tagName": "BC Women clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507227057_7446_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 11
+      },
+      {
+        "tagId": 85662349,
+        "tagName": "Celine women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v4ks71g6a16csgprucu1fusev.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 22
+      },
+      {
+        "tagId": 85667501,
+        "tagName": "Versace women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v62781v5d1jk0i6q1ibl67jfa.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 4
+      },
+      {
+        "tagId": 85662402,
+        "tagName": "Hermes women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v6lutqhdb4tmer1ufq17g7fl.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 92
+      },
+      {
+        "tagId": 85660963,
+        "tagName": "Valentino women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v76kqkhupoc14stjclepag0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 18
+      },
+      {
+        "tagId": 85668209,
+        "tagName": "Givenchy women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v7m0818oc39rq9q1lqgtd3gb.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2
+      },
+      {
+        "tagId": 85662356,
+        "tagName": "Moncler women clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9v8cls3bqbqi1cquu9kir3gm.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 244
+      },
+      {
+        "tagId": 85659206,
+        "tagName": "Balencia clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505267232_9658_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 894
+      },
+      {
+        "tagId": 85660954,
+        "tagName": "Alexander wang clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506708032_6168_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 13
+      },
+      {
+        "tagId": 85659275,
+        "tagName": "Chrome Hearts clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505968707_530_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 350
+      },
+      {
+        "tagId": 85667542,
+        "tagName": "The North Face clothes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9u1m4l86gbp21cge14k11q2p1d.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 10
+      },
+      {
+        "tagId": 85660676,
+        "tagName": "RickOwens clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505721055_2955_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 22
+      },
+      {
+        "tagId": 85660603,
+        "tagName": "YSL clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506784419_4983_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 60
+      },
+      {
+        "tagId": 85661159,
+        "tagName": "ARCTERYX",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506076868_4076_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 255
+      },
+      {
+        "tagId": 85659417,
+        "tagName": "Canada goose clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506324482_1810_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 126
+      },
+      {
+        "tagId": 85663498,
+        "tagName": "Chanel clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749506523841_2682_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 20
+      },
+      {
+        "tagId": 85667641,
+        "tagName": "VETEMENTS clothes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749505568029_8394_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 34
+      }
+    ]
+  },
+  {
+    "groupId": 85659514,
+    "groupName": "Men shoes",
+    "order": -700,
+    "tags": [
+      {
+        "tagId": 85659879,
+        "tagName": "LV men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vhmg81a7o1u6cbr91s6m1miuiu.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2299
+      },
+      {
+        "tagId": 85660850,
+        "tagName": "Dior men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vj8h7ndlo6517tm1n35nnbj9.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 895
+      },
+      {
+        "tagId": 85660800,
+        "tagName": "Hermes men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0880t85e1ujs2q2l6bjussc.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1799
+      },
+      {
+        "tagId": 85659162,
+        "tagName": "Prada men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507647268_7467_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 620
+      },
+      {
+        "tagId": 85660629,
+        "tagName": "ZEGNA men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504610687_6538_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 928
+      },
+      {
+        "tagId": 85660630,
+        "tagName": "Loro piana Shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504591797_8366_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 802
+      },
+      {
+        "tagId": 85659556,
+        "tagName": "Ferragamo men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507793365_7823_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 107
+      },
+      {
+        "tagId": 85668851,
+        "tagName": "Burberry men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vkmh71dko1b6diuh1u71mtpka.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 76
+      },
+      {
+        "tagId": 85664983,
+        "tagName": "Fendi men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507615697_5275_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 188
+      },
+      {
+        "tagId": 85659886,
+        "tagName": "Givenchy men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vm2251be4pjhb00pqcgn4lb.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 132
+      },
+      {
+        "tagId": 85659891,
+        "tagName": "Balenciaga men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507773513_5907_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 294
+      },
+      {
+        "tagId": 85659873,
+        "tagName": "Moncler men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507690286_2_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 333
+      },
+      {
+        "tagId": 85661287,
+        "tagName": "Gucci men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vjmi513i51q00152f1a7vqoljk.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 131
+      },
+      {
+        "tagId": 85665900,
+        "tagName": "McQueen men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vmkkv1ang5726oshhf1k3rlm.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 41
+      },
+      {
+        "tagId": 85665605,
+        "tagName": "Versace men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vo3sn1or8dvh13l51fdfds0m1.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 7
+      },
+      {
+        "tagId": 85665846,
+        "tagName": "Arcteryx Shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9volop10nl9vr3jpiig1tb3mc.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 43
+      },
+      {
+        "tagId": 85660798,
+        "tagName": "Celine men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507925572_8439_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 12
+      },
+      {
+        "tagId": 85661269,
+        "tagName": "Off-White Shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vuimm1eip3p665v1jif15i9op.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 49
+      },
+      {
+        "tagId": 85668592,
+        "tagName": "TOD＇S men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9vvfhh147o14vpfle1ettoihpa.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 39
+      },
+      {
+        "tagId": 85664986,
+        "tagName": "Nike shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507943998_4638_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 16
+      },
+      {
+        "tagId": 85665598,
+        "tagName": "YSL men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita02d9g1f1b13vl1v6d19bh9reqb.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 3
+      },
+      {
+        "tagId": 85660804,
+        "tagName": "Valentino men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749508471894_4584_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 67
+      },
+      {
+        "tagId": 85660642,
+        "tagName": "Chanel men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749507636549_9377_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 45
+      },
+      {
+        "tagId": 85660810,
+        "tagName": "BV men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita08uqfm8l95h4dk1b7mfgpsn.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 51
+      },
+      {
+        "tagId": 85660832,
+        "tagName": "DG men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504638645_5523_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 179
+      },
+      {
+        "tagId": 85660611,
+        "tagName": "BC Shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0aj8j114rbgq1067j4316t3td.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 627
+      },
+      {
+        "tagId": 85665575,
+        "tagName": "Adidas shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0b9051d7ivcr546ch21b9uto.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 37
+      },
+      {
+        "tagId": 85664994,
+        "tagName": "Berluti men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504682474_2835_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 115
+      },
+      {
+        "tagId": 85668438,
+        "tagName": "Loewe men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749508458822_3363_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 39
+      },
+      {
+        "tagId": 85668424,
+        "tagName": "Bally men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0f7q4q4gidgvs9k5jugpv4.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 17
+      },
+      {
+        "tagId": 85659554,
+        "tagName": "Amiri men shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0fnej13cqmk01gdgrpp8uovf.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 52
+      },
+      {
+        "tagId": 85668395,
+        "tagName": "HOGAN men shoes",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504653777_9548_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 16
+      },
+      {
+        "tagId": 85659888,
+        "tagName": "RickOwens shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0h7msif2v771kqaq1ssgv10g.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 7
+      }
+    ]
+  },
+  {
+    "groupId": 85659509,
+    "groupName": "Women shoes",
+    "order": -600,
+    "tags": [
+      {
+        "tagId": 85660824,
+        "tagName": "LV women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0i4cqkoev1j1lsm1dr5aac10r.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 658
+      },
+      {
+        "tagId": 85661288,
+        "tagName": "Gucci women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0imhok78vcs1aapfgpjj9116.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 47
+      },
+      {
+        "tagId": 85660849,
+        "tagName": "Dior women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0j3qerf810152ctl9k17t211h.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 358
+      },
+      {
+        "tagId": 85669143,
+        "tagName": "Prada women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0jep317bt1vu21n9s1pv05r111s.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 34
+      },
+      {
+        "tagId": 85669118,
+        "tagName": "Fendi women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0na561gqmojp4n2f53eqr12i.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 44
+      },
+      {
+        "tagId": 85665802,
+        "tagName": "Chanel women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0o2foe9o38sv1q35q50q12t.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 193
+      },
+      {
+        "tagId": 85660811,
+        "tagName": "Balenciaga women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0ogk71uo21158kf03c11o5l138.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 120
+      },
+      {
+        "tagId": 85659888,
+        "tagName": "RickOwens shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0h7msif2v771kqaq1ssgv10g.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 7
+      },
+      {
+        "tagId": 85660805,
+        "tagName": "Valentino women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0pj2o1c611lr9frfqphagb13t.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 20
+      },
+      {
+        "tagId": 85665788,
+        "tagName": "Hermes women shoes",
+        "tagImage": "https://xcimg.szwego.com/img/2fd54dfb/20260713/i1783950375077_5464_0_0.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 1573
+      },
+      {
+        "tagId": 85669084,
+        "tagName": "LOEWE women shoes",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0q4p1sk11e2p1upcejgdf4148.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 9
+      }
+    ]
+  },
+  {
+    "groupId": 85659505,
+    "groupName": "Men bag",
+    "order": -500,
+    "tags": [
+      {
+        "tagId": 85660911,
+        "tagName": "LV men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0s7dujqtqi41cklr9l16tp158.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1756
+      },
+      {
+        "tagId": 85659420,
+        "tagName": "Gucci men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0sl97s94bg92cc5kg1pep15j.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 79
+      },
+      {
+        "tagId": 85670258,
+        "tagName": "Burberry men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0t1ip12t91l501011el81qm415u.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 44
+      },
+      {
+        "tagId": 85670240,
+        "tagName": "Dior men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0teno1s2l1c9mlva14n8kdh169.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 437
+      },
+      {
+        "tagId": 85670225,
+        "tagName": "LOEWE men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita0v0np18hqoih9i112k1bkh16k.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 14
+      },
+      {
+        "tagId": 85661211,
+        "tagName": "Hermes bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1h4tlflf52vu9p1b2im4b1f4.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 967
+      },
+      {
+        "tagId": 85661199,
+        "tagName": "Prada men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita12h1q6hcp3b133qu8s1iij17f.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 100
+      },
+      {
+        "tagId": 85670141,
+        "tagName": "Fendi men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita12tq81np11k5i7015n5i2c17q.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 33
+      },
+      {
+        "tagId": 85670098,
+        "tagName": "Balenciaga men bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1401qf0g1cga12mc10o416p18g.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 201
+      },
+      {
+        "tagId": 88912342,
+        "tagName": "MONTBLANC Bag",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1757126176545_1399_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 160
+      },
+      {
+        "tagId": 85661191,
+        "tagName": "BV bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita169pvgj911s31qfnc31of9196.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 540
+      },
+      {
+        "tagId": 85662292,
+        "tagName": "Goyard bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita16lnr6gr18qm54e1dvs19s519h.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 707
+      },
+      {
+        "tagId": 85670018,
+        "tagName": "Loro piana Bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita175ne5nbd721ubbivb1cfo19s.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 129
+      }
+    ]
+  },
+  {
+    "groupId": 85659492,
+    "groupName": "Women bag",
+    "order": -400,
+    "tags": [
+      {
+        "tagId": 85661191,
+        "tagName": "BV bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita169pvgj911s31qfnc31of9196.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 540
+      },
+      {
+        "tagId": 85670018,
+        "tagName": "Loro piana Bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita175ne5nbd721ubbivb1cfo19s.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 129
+      },
+      {
+        "tagId": 85671399,
+        "tagName": "Versace women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1aegt9adir1r4gsou3dl1b6.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 42
+      },
+      {
+        "tagId": 85662292,
+        "tagName": "Goyard bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita16lnr6gr18qm54e1dvs19s519h.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 707
+      },
+      {
+        "tagId": 85661192,
+        "tagName": "Gucci women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1c52a5cug5i10vha6vcgo1cc.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 8
+      },
+      {
+        "tagId": 85664908,
+        "tagName": "Dior women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1cksjqae1c4h1u5o1vsg11131cn.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 645
+      },
+      {
+        "tagId": 85661205,
+        "tagName": "Prada women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1e39di9ndk91hvp1la91h881d2.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 9
+      },
+      {
+        "tagId": 85667358,
+        "tagName": "Burberry women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1enk9u7hejvdgs1am3oh41dd.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 16
+      },
+      {
+        "tagId": 85671212,
+        "tagName": "CELINE women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1f5pf103g1m9i15u3eu011g61do.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 120
+      },
+      {
+        "tagId": 85671177,
+        "tagName": "Fendi women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1fk88pr9coc1kv8v3i1jjp1e3.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 109
+      },
+      {
+        "tagId": 85671083,
+        "tagName": "Chanel women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1g2taot2qdu1nbf1bgt1oro1ee.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 843
+      },
+      {
+        "tagId": 85660917,
+        "tagName": "LV women bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1gfft10tvmpl741u6d7ud1ep.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 2062
+      },
+      {
+        "tagId": 85661211,
+        "tagName": "Hermes bag",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1ita1h4tlflf52vu9p1b2im4b1f4.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 967
+      }
+    ]
+  },
+  {
+    "groupId": 85659489,
+    "groupName": "glasses",
+    "order": -300,
+    "tags": [
+      {
+        "tagId": 85666701,
+        "tagName": "glasses",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9so9jmq6d1t1r13nq1o7km542.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1206
+      }
+    ]
+  },
+  {
+    "groupId": 85659454,
+    "groupName": "Watch",
+    "order": -200,
+    "tags": [
+      {
+        "tagId": 85666729,
+        "tagName": "Watch",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9sn53dof15io1cj21u2u1fjq3n.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 857
+      }
+    ]
+  },
+  {
+    "groupId": 85659468,
+    "groupName": "Belt",
+    "order": -100,
+    "tags": [
+      {
+        "tagId": 85661522,
+        "tagName": "Belt",
+        "tagImage": "https://xcimg.szwego.com/wsxcWeb/db44d733/o_1it9smgq51j6epg913bh1rjrfvj3c.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1463
+      }
+    ]
+  },
+  {
+    "groupId": -3,
+    "groupName": "Ungrouped",
+    "order": 0,
+    "tags": [
+      {
+        "tagId": 99119147,
+        "tagName": "Ralph Lauren",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1779683072119_6320_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 17
+      },
+      {
+        "tagId": 98879218,
+        "tagName": "Acne Studios",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1779117167077_2716_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 26
+      },
+      {
+        "tagId": 92036359,
+        "tagName": "DG bag",
+        "tagImage": "https://xcimg.szwego.com/20221215/i1671034750_8564_0.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 53
+      },
+      {
+        "tagId": 87102105,
+        "tagName": "789",
+        "tagImage": "https://xcimg.szwego.com/img/f181550f/20250303/i1740973830317_2254_0_1.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 18
+      },
+      {
+        "tagId": 86074442,
+        "tagName": "456",
+        "tagImage": "https://xcimg.szwego.com/imgHD/f04956a2/20250612/cmp_i1749742827316_8674_0_5.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 2
+      },
+      {
+        "tagId": 85937364,
+        "tagName": "123",
+        "tagImage": "https://xcimg.szwego.com/20250611/i1749634020_3654_0.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 13
+      },
+      {
+        "tagId": 85695498,
+        "tagName": "Casablanca shoes",
+        "tagImage": "https://xcimg.szwego.com/img/9c152310/20250527/i1748341125554_6680_0_0.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 12
+      },
+      {
+        "tagId": 85694230,
+        "tagName": "Bruttii men shoes",
+        "tagImage": "https://xcimg.szwego.com/img/db44d733/20250610/windows1749540964636_1013214248-347866786.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 10
+      },
+      {
+        "tagId": 85693402,
+        "tagName": "Remember me",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749503050301_9241_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 1
+      },
+      {
+        "tagId": 85683106,
+        "tagName": "Shipping daily",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504142481_299_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 64
+      },
+      {
+        "tagId": 85671499,
+        "tagName": "Transaction records",
+        "tagImage": "https://xcimg.szwego.com/normal/db44d733/i1749504247865_8754_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg",
+        "itemCount": 58
+      },
+      {
+        "tagId": 85659414,
+        "tagName": "Other brands",
+        "tagImage": "https://xcimg.szwego.com/imgHD/f04956a2/20251130/cmp_i1764513952821_6455_0_6.jpg?imageView2/2/w/310/h/310/format/jpg",
+        "itemCount": 600
+      }
+    ]
+  }
+]
