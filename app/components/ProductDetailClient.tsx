@@ -83,29 +83,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Navigation Bar - matching Szwego's header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-white sticky top-0 z-50">
+      {/* Back button — extreme left, no extra bar */}
+      <div className="px-3 pt-3 pb-1">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors bg-transparent border-none cursor-pointer p-0"
+          className="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow text-gray-600 hover:text-gray-900 hover:shadow-md transition-all border border-gray-100"
+          aria-label="Go back"
         >
           <BackIcon />
-        </button>
-
-        <div className="flex items-center gap-2">
-          {/* Topokay brand logo placeholder */}
-          <div className="w-7 h-7 rounded-full bg-[#e67e22] flex items-center justify-center">
-            <span className="text-white text-[9px] font-bold leading-none">T</span>
-          </div>
-          <span className="text-[16px] font-semibold text-gray-900">Topokay</span>
-        </div>
-
-        <button
-          onClick={() => {}}
-          className="text-gray-500 hover:text-gray-900 transition-colors bg-transparent border-none cursor-pointer p-0"
-          aria-label="Login"
-        >
-          <span className="text-[13px]">Log in</span>
         </button>
       </div>
 
