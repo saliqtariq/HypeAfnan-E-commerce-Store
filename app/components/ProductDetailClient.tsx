@@ -83,21 +83,19 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Back button — extreme left, no extra bar */}
-      <div className="px-3 pt-3 pb-1">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow text-gray-600 hover:text-gray-900 hover:shadow-md transition-all border border-gray-100"
-          aria-label="Go back"
-        >
-          <BackIcon />
-        </button>
-      </div>
-
       <div className="max-w-[720px] mx-auto">
-        {/* Seller info row - matching Szwego */}
-        <div className="flex items-center justify-between px-4 py-3">
+        {/* Seller info row with back button on far left */}
+        <div className="flex items-center justify-between px-2 py-2">
           <div className="flex items-center gap-2">
+            {/* Back button — extreme left */}
+            <button
+              onClick={() => router.back()}
+              className="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow text-gray-600 hover:text-gray-900 hover:shadow-md transition-all border border-gray-100 shrink-0"
+              aria-label="Go back"
+            >
+              <BackIcon />
+            </button>
+
             <div className="w-8 h-8 rounded-full bg-[#e67e22] flex items-center justify-center shrink-0">
               <span className="text-white text-[10px] font-bold">T</span>
             </div>
