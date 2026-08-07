@@ -40,6 +40,33 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Ignore huge downloaded image folder
+# -------------------------------------------------------
+# LOCAL-ONLY ASSETS — never commit to GitHub
+# These are large files generated locally by scraper/downloader scripts.
+# Re-generate them by running the scripts in /scripts/.
+# -------------------------------------------------------
+
+# Downloaded product images (40k+ WebP files, ~several GB)
+public/images/products/
 public/images/products/*
+
+# Downloaded category thumbnails
+public/images/categories/
+public/images/categories/*
+
+# Large scraped product databases (re-generatable via scripts)
+app/data/products.json
+app/data/products_index.json
+app/data/products_local.json
+
+# Download progress checkpoint
+app/data/download_checkpoint.json
+
+# Category tag mapping (re-generatable)
+app/data/product_tags.json
+app/data/tag_map.json
+
+# Raw Szwego API scrape artifacts
+szwego_tags.json
+szwego_api_sample.json
 

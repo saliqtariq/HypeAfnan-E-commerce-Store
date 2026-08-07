@@ -96,7 +96,7 @@ export default function Header() {
               className="flex items-center gap-0 no-underline absolute left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer"
             >
               <Image
-                src="/mainhypeafnanlogo.png"
+                src="/images/mainlogocleanbluecolor.png"
                 alt="HypeAfnan Logo"
                 width={44}
                 height={44}
@@ -104,7 +104,7 @@ export default function Header() {
                 priority
               />
               <span className="text-[20px] sm:text-[24px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none ml-1 font-sans">
-                Hypeafnan
+                HypeAfnan
               </span>
             </Link>
 
@@ -234,7 +234,7 @@ export default function Header() {
           id="brand-link"
         >
           <Image
-            src="/mainhypeafnanlogo.png"
+            src="/images/mainlogocleanbluecolor.png"
             alt="HypeAfnan Logo"
             width={52}
             height={52}
@@ -242,7 +242,7 @@ export default function Header() {
             priority
           />
           <span className="text-[20px] sm:text-[28px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none -ml-[2px] -translate-y-[2px] font-sans">
-            Hypeafnan
+            HypeAfnan
           </span>
         </Link>
 

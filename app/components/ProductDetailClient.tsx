@@ -121,7 +121,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               <span className="text-white text-[10px] font-bold">H</span>
             </div>
             <div>
-              <p className="text-[14px] font-semibold text-gray-900 m-0 leading-tight">Hypeafnan</p>
+              <p className="text-[14px] font-semibold text-gray-900 m-0 leading-tight">HypeAfnan</p>
               <p className="text-[11px] text-gray-400 m-0 leading-tight">Just now</p>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             <div className="w-8 h-8 rounded-full bg-[#e67e22] flex items-center justify-center shrink-0">
               <span className="text-white text-[10px] font-bold">H</span>
             </div>
-            <span className="text-[15px] font-semibold text-gray-900">Hypeafnan</span>
+            <span className="text-[15px] font-semibold text-gray-900">HypeAfnan</span>
           </div>
           <span className="text-[13px] text-gray-400">Contact Us : +923199775990</span>
         </div>
