@@ -5,6 +5,8 @@ import FilterBar from "./FilterBar";
 import ProductGrid from "./ProductGrid";
 import type { Product } from "./ProductGrid";
 
+import { useSearchParams } from "next/navigation";
+
 const PAGE_LIMIT = 30;
 
 interface HomeClientProps {
@@ -13,15 +15,47 @@ interface HomeClientProps {
 }
 
 export default function HomeClient({ initialProducts, initialTotal }: HomeClientProps) {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
+
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  // Start with the pre-rendered products — no API call needed for page 1
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [page, setPage] = useState(1);
-  const [total] = useState(initialTotal);
+  const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialProducts.length < initialTotal);
   const observerTarget = useRef<HTMLDivElement>(null);
   const isFetching = useRef(false);
+
+  const fetchPage = useCallback(async (pageNum: number, category: string, reset = false, search = "") => {
+    if (isFetching.current) return;
+    isFetching.current = true;
+    setLoading(true);
+    try {
+      const searchUrlParam = search ? `&search=${encodeURIComponent(search)}` : "";
+      const res = await fetch(`/api/products?page=${pageNum}&limit=${PAGE_LIMIT}&category=${category}${searchUrlParam}`);
+      if (!res.ok) throw new Error("Failed to fetch");
+      const data = await res.json();
+      setProducts((prev) => (reset ? data.products : [...prev, ...data.products]));
+      setTotal(data.total);
+      setHasMore(pageNum < data.totalPages);
+    } catch (e) {
+      console.error("Error fetching products:", e);
+    } finally {
+      setLoading(false);
+      isFetching.current = false;
+    }
+  }, []);
+
+  // Sync search param changes from Header search modal
+  useEffect(() => {
+    if (searchQuery) {
+      setPage(1);
+      setProducts([]);
+      fetchPage(1, activeCategory, true, searchQuery);
+    }
+  }, [searchQuery, activeCategory, fetchPage]);
 
   const handleFilterChange = (filters: {
     category: string;
@@ -32,25 +66,14 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
     share: string;
   }) => {
     setViewMode(filters.viewMode);
-  };
 
-  const fetchPage = useCallback(async (pageNum: number) => {
-    if (isFetching.current) return;
-    isFetching.current = true;
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/products?page=${pageNum}&limit=${PAGE_LIMIT}`);
-      if (!res.ok) throw new Error("Failed to fetch");
-      const data = await res.json();
-      setProducts((prev) => [...prev, ...data.products]);
-      setHasMore(pageNum < data.totalPages);
-    } catch (e) {
-      console.error("Error fetching products:", e);
-    } finally {
-      setLoading(false);
-      isFetching.current = false;
+    if (filters.category !== activeCategory) {
+      setActiveCategory(filters.category);
+      setPage(1);
+      setProducts([]);
+      fetchPage(1, filters.category, true);
     }
-  }, []);
+  };
 
   // Infinite scroll: load next page when sentinel comes into view
   useEffect(() => {
@@ -59,7 +82,7 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
         if (entries[0].isIntersecting && hasMore && !isFetching.current) {
           setPage((prev) => {
             const next = prev + 1;
-            fetchPage(next);
+            fetchPage(next, activeCategory, false, searchQuery);
             return next;
           });
         }

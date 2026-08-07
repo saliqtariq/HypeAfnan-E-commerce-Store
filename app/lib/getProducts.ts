@@ -34,10 +34,17 @@ export function getAllProducts(): Product[] {
   const fallbackFile = path.join(cwd, "app/data/products.json");
   const file = fs.existsSync(indexFile) ? indexFile : fallbackFile;
 
-  const raw = fs.readFileSync(file, "utf-8");
-  const data = JSON.parse(raw);
-  cachedIndex = (data.products || []) as Product[];
-  return cachedIndex;
+  try {
+    const raw = fs.readFileSync(file, "utf-8");
+    const data = JSON.parse(raw);
+    cachedIndex = (data.products || []) as Product[];
+  } catch {
+    // Fallback to full products.json if index is unreadable
+    const raw = fs.readFileSync(fallbackFile, "utf-8");
+    const data = JSON.parse(raw);
+    cachedIndex = (data.products || []) as Product[];
+  }
+  return cachedIndex!;
 }
 
 /**
@@ -53,9 +60,18 @@ export function getProductById(id: string): Product | undefined {
     const mainFile = path.join(cwd, "app/data/products.json");
     const isVercel = !!process.env.VERCEL;
     const file = !isVercel && fs.existsSync(localFile) ? localFile : mainFile;
-    const raw = fs.readFileSync(file, "utf-8");
-    const data = JSON.parse(raw);
-    cachedFull = (data.products || []) as Product[];
+
+    let raw: string;
+    try {
+      raw = fs.readFileSync(file, "utf-8");
+      const data = JSON.parse(raw);
+      cachedFull = (data.products || []) as Product[];
+    } catch {
+      // products_local.json may be mid-write (download script running) — fall back to stable products.json
+      raw = fs.readFileSync(mainFile, "utf-8");
+      const data = JSON.parse(raw);
+      cachedFull = (data.products || []) as Product[];
+    }
   }
 
   return cachedFull.find(

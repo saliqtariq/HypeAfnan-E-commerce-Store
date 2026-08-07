@@ -118,7 +118,7 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
             <Link
               key={productId}
               href={`/${locale}/product/${productId}`}
-              className="group relative block overflow-hidden bg-gray-100"
+              className="group relative block overflow-hidden bg-gray-100 cursor-pointer"
               style={{ aspectRatio: "1 / 1" }}
             >
               {/* Product Image */}

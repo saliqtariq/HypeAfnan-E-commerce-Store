@@ -82,25 +82,25 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-[720px] mx-auto">
-        {/* Seller info row with back button on far left */}
-        <div className="flex items-center justify-between px-2 py-2">
-          <div className="flex items-center gap-2">
-            {/* Back button — extreme left */}
-            <button
-              onClick={() => router.back()}
-              className="flex items-center justify-center w-8 h-8 rounded-full bg-white shadow text-gray-600 hover:text-gray-900 hover:shadow-md transition-all border border-gray-100 shrink-0"
-              aria-label="Go back"
-            >
-              <BackIcon />
-            </button>
+    <div className="min-h-screen bg-white relative">
+      {/* Back button — absolutely positioned on the extreme left so it doesn't push down content */}
+      <button
+        onClick={() => router.back()}
+        className="absolute left-4 top-2 z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white shadow text-gray-600 hover:text-gray-900 hover:shadow-md transition-all border border-gray-100 cursor-pointer"
+        aria-label="Go back"
+      >
+        <BackIcon />
+      </button>
 
+      <div className="max-w-[720px] mx-auto">
+        {/* Seller info row */}
+        <div className="flex items-center justify-between px-4 py-2">
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-[#e67e22] flex items-center justify-center shrink-0">
-              <span className="text-white text-[10px] font-bold">T</span>
+              <span className="text-white text-[10px] font-bold">H</span>
             </div>
             <div>
-              <p className="text-[14px] font-semibold text-gray-900 m-0 leading-tight">Topokay</p>
+              <p className="text-[14px] font-semibold text-gray-900 m-0 leading-tight">Hypeafnan</p>
               <p className="text-[11px] text-gray-400 m-0 leading-tight">Just now</p>
             </div>
           </div>
@@ -202,15 +202,15 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           )}
         </div>
 
-        {/* Footer - matching Szwego */}
+        {/* Footer */}
         <div className="px-4 py-6 border-t border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-[#e67e22] flex items-center justify-center shrink-0">
-              <span className="text-white text-[10px] font-bold">T</span>
+              <span className="text-white text-[10px] font-bold">H</span>
             </div>
-            <span className="text-[15px] font-semibold text-gray-900">Topokay</span>
+            <span className="text-[15px] font-semibold text-gray-900">Hypeafnan</span>
           </div>
-          <span className="text-[13px] text-gray-400">Contact Us : 📧 646464300@qq.com</span>
+          <span className="text-[13px] text-gray-400">Contact Us : +923199775990</span>
         </div>
       </div>
     </div>
