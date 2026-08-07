@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 
 export interface Product {
-  id: string;
+  id?: string;
   goodsId?: string;
   title?: string;
   name?: string;
