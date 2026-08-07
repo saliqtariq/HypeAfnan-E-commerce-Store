@@ -1,9 +1,23 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import HomeClient from "../components/HomeClient";
+import { getAllProducts } from "../lib/getProducts";
+import type { Product } from "../components/ProductGrid";
+
+// Cache this page on Vercel's CDN for 5 minutes
+// First visitor triggers a render; all subsequent visitors within 5min get the cached HTML instantly
+export const revalidate = 300;
+
+const PAGE_LIMIT = 30;
 
 export default function Home() {
   const t = useTranslations("contactBanner");
+
+  // Read first page of products on the SERVER — baked into the HTML
+  // No API call needed from the browser on initial load
+  const allProducts = getAllProducts() as Product[];
+  const initialProducts = allProducts.slice(0, PAGE_LIMIT);
+  const total = allProducts.length;
 
   return (
     <main className="flex flex-col items-center w-full">
@@ -34,9 +48,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Filter Bar + Product Grid (client-side for interactivity) */}
-      <HomeClient />
+      {/* Pass pre-rendered products — browser shows them instantly without any API call */}
+      <HomeClient initialProducts={initialProducts} initialTotal={total} />
     </main>
   );
 }
-

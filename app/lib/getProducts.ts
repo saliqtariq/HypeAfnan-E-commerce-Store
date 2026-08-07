@@ -16,37 +16,49 @@ export type Product = {
   [key: string]: unknown;
 };
 
-let cachedProducts: Product[] | null = null;
+// Separate cache for listing (lean index) vs detail (full data)
+let cachedIndex: Product[] | null = null;
+let cachedFull: Product[] | null = null;
 
 /**
- * Returns all products, reading from the correct file.
- *
- * On Vercel: uses products.json (original CDN image URLs) because
- *   the local /images/products/ folder is gitignored and not deployed.
- * Locally:   uses products_local.json if available (local WebP paths),
- *   falling back to products.json.
+ * Returns lean products for listing (id, title, coverImage, category only).
+ * Uses products_index.json (4.5MB) — much faster cold starts than products.json (24.7MB).
  */
 export function getAllProducts(): Product[] {
-  if (cachedProducts) return cachedProducts;
+  if (cachedIndex) return cachedIndex;
 
   const cwd = process.cwd();
-  const localFile = path.join(cwd, "app/data/products_local.json");
-  const mainFile = path.join(cwd, "app/data/products.json");
 
-  // On Vercel the local image files don't exist (gitignored), so always
-  // use products.json (CDN URLs) there. Locally prefer products_local.json.
-  const isVercel = !!process.env.VERCEL;
-  const file = !isVercel && fs.existsSync(localFile) ? localFile : mainFile;
+  // Always prefer the lean index for listing — works on Vercel and locally
+  const indexFile = path.join(cwd, "app/data/products_index.json");
+  const fallbackFile = path.join(cwd, "app/data/products.json");
+  const file = fs.existsSync(indexFile) ? indexFile : fallbackFile;
 
   const raw = fs.readFileSync(file, "utf-8");
   const data = JSON.parse(raw);
-  cachedProducts = (data.products || []) as Product[];
-  return cachedProducts;
+  cachedIndex = (data.products || []) as Product[];
+  return cachedIndex;
 }
 
+/**
+ * Returns a single product with full data for the product detail page.
+ * Uses products.json (full data) for detail — only called per-product, not in bulk.
+ * On Vercel: uses products.json (CDN image URLs).
+ * Locally: uses products_local.json (local WebP paths) if available.
+ */
 export function getProductById(id: string): Product | undefined {
-  const products = getAllProducts();
-  return products.find(
+  if (!cachedFull) {
+    const cwd = process.cwd();
+    const localFile = path.join(cwd, "app/data/products_local.json");
+    const mainFile = path.join(cwd, "app/data/products.json");
+    const isVercel = !!process.env.VERCEL;
+    const file = !isVercel && fs.existsSync(localFile) ? localFile : mainFile;
+    const raw = fs.readFileSync(file, "utf-8");
+    const data = JSON.parse(raw);
+    cachedFull = (data.products || []) as Product[];
+  }
+
+  return cachedFull.find(
     (p) => p.goodsId === id || p.id === id || p.searchCode === id
   );
 }

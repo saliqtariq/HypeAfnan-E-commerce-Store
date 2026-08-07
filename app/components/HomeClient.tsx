@@ -7,13 +7,19 @@ import type { Product } from "./ProductGrid";
 
 const PAGE_LIMIT = 30;
 
-export default function HomeClient() {
+interface HomeClientProps {
+  initialProducts: Product[];
+  initialTotal: number;
+}
+
+export default function HomeClient({ initialProducts, initialTotal }: HomeClientProps) {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [products, setProducts] = useState<Product[]>([]);
+  // Start with the pre-rendered products — no API call needed for page 1
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [total] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(initialProducts.length < initialTotal);
   const observerTarget = useRef<HTMLDivElement>(null);
   const isFetching = useRef(false);
 
@@ -36,10 +42,7 @@ export default function HomeClient() {
       const res = await fetch(`/api/products?page=${pageNum}&limit=${PAGE_LIMIT}`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
-      setProducts((prev) =>
-        pageNum === 1 ? data.products : [...prev, ...data.products]
-      );
-      setTotal(data.total);
+      setProducts((prev) => [...prev, ...data.products]);
       setHasMore(pageNum < data.totalPages);
     } catch (e) {
       console.error("Error fetching products:", e);
@@ -48,11 +51,6 @@ export default function HomeClient() {
       isFetching.current = false;
     }
   }, []);
-
-  // Load first page on mount
-  useEffect(() => {
-    fetchPage(1);
-  }, [fetchPage]);
 
   // Infinite scroll: load next page when sentinel comes into view
   useEffect(() => {
