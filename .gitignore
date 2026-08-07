@@ -42,3 +42,4 @@ next-env.d.ts
 
 # Ignore huge downloaded image folder
 public/images/products/*
+
