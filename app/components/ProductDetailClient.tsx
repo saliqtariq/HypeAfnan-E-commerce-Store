@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Product } from "./ProductGrid";
 
 interface ProductDetailClientProps {
@@ -148,11 +149,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         {images.length > 0 && (
           <div className="px-4">
             {/* Main large image */}
-            <div className="w-full bg-gray-100 overflow-hidden mb-2" style={{ aspectRatio: "1 / 1" }}>
-              <img
+            <div className="relative w-full bg-gray-100 overflow-hidden mb-2" style={{ aspectRatio: "1 / 1" }}>
+              <Image
                 src={images[selectedImageIdx]}
                 alt={title || "product"}
-                className="w-full h-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 720px"
+                className="object-cover"
               />
             </div>
 
@@ -163,14 +167,16 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                   <button
                     key={idx}
                     onClick={() => setSelectedImageIdx(idx)}
-                    className={`shrink-0 w-[72px] h-[72px] overflow-hidden border-2 transition-all bg-transparent p-0 cursor-pointer ${
+                    className={`relative shrink-0 w-[72px] h-[72px] overflow-hidden border-2 transition-all bg-transparent p-0 cursor-pointer ${
                       selectedImageIdx === idx ? "border-[#38c172]" : "border-transparent"
                     }`}
                   >
-                    <img
+                    <Image
                       src={img}
                       alt={`View ${idx + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="72px"
+                      className="object-cover"
                     />
                   </button>
                 ))}
