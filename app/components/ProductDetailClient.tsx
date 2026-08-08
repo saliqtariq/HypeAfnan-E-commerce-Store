@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef, useTransition } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -58,14 +58,16 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
     }
   }, []);
 
+  const [, startTransition] = useTransition();
+
   const goBack = useCallback(() => {
     if (hasInternalHistory.current && window.history.length > 1) {
-      router.back();
+      startTransition(() => router.back());
     } else {
       // No internal history — navigate home instead of exiting the browser
-      router.push(`/${locale}`);
+      startTransition(() => router.push(`/${locale}`));
     }
-  }, [router, locale]);
+  }, [router, locale, startTransition]);
 
   if (!product) {
     return (
@@ -117,8 +119,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         {/* Seller info row */}
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e67e22] flex items-center justify-center shrink-0">
-              <span className="text-white text-[10px] font-bold">H</span>
+            <div className="w-8 h-8 rounded-full overflow-hidden shrink-0">
+              <Image
+                src="/images/hypeafnancircularlogopic.png"
+                alt="HypeAfnan Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <p className="text-[14px] font-semibold text-gray-900 m-0 leading-tight">HypeAfnan</p>
@@ -160,7 +168,9 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 720px"
-                className="object-cover"
+                className={`${
+                  images[selectedImageIdx]?.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
+                }`}
               />
             </div>
 
@@ -226,8 +236,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         {/* Footer */}
         <div className="px-4 py-6 border-t border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e67e22] flex items-center justify-center shrink-0">
-              <span className="text-white text-[10px] font-bold">H</span>
+            <div className="w-8 h-8 rounded-full overflow-hidden shrink-0">
+              <Image
+                src="/images/hypeafnancircularlogopic.png"
+                alt="HypeAfnan Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="text-[15px] font-semibold text-gray-900">HypeAfnan</span>
           </div>

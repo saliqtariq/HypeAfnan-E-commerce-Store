@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useTransition } from "react";
 import { CategoryIcon, SearchIcon } from "../Icons";
 import CategoryModal from "../CategoryModal";
 
@@ -34,20 +34,21 @@ export default function Header() {
   const [openLang, setOpenLang] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || searchParams.get("search") || "");
+  const [, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const handleSelectCategory = (groupName: string, tagId?: number, tagName?: string) => {
     setIsCategoryOpen(false);
     if (groupName === "all") {
-      router.push(`/${locale}`);
+      startTransition(() => router.push(`/${locale}`));
       return;
     }
     const params = new URLSearchParams();
     if (tagId) params.set("tagId", String(tagId));
     if (tagName) params.set("tagName", tagName);
     if (groupName) params.set("groupName", groupName);
-    router.push(`/${locale}/search?${params.toString()}`);
+    startTransition(() => router.push(`/${locale}/search?${params.toString()}`));
   };
 
   // Close language dropdown when clicking outside
@@ -64,7 +65,7 @@ export default function Header() {
   function switchLanguage(code: string) {
     const segments = pathname.split("/");
     segments[1] = code;
-    router.push(segments.join("/") + (searchParams.toString() ? `?${searchParams.toString()}` : ""));
+    startTransition(() => router.push(segments.join("/") + (searchParams.toString() ? `?${searchParams.toString()}` : "")));
     setOpenLang(false);
   }
 
@@ -72,7 +73,7 @@ export default function Header() {
     e.preventDefault();
     const query = searchQuery.trim();
     if (!query) return;
-    router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
+    startTransition(() => router.push(`/${locale}/search?q=${encodeURIComponent(query)}`));
   };
 
   // If we are on the /search page, render the Szwego Search Header bar
@@ -83,7 +84,7 @@ export default function Header() {
           <div className="flex items-center justify-between relative h-[50px] mb-4">
             {/* Close Button */}
             <button
-              onClick={() => router.push(`/${locale}`)}
+              onClick={() => startTransition(() => router.push(`/${locale}`))}
               className="flex items-center gap-1 text-[15px] text-gray-700 hover:text-gray-900 bg-transparent border-none cursor-pointer p-0 font-normal"
             >
               <span className="text-[18px] leading-none">✕</span>
@@ -96,11 +97,11 @@ export default function Header() {
               className="flex items-center gap-0 no-underline absolute left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer"
             >
               <Image
-                src="/images/mainlogocleanbluecolor.png"
+                src="/images/hypeafnancircularlogopic.png"
                 alt="HypeAfnan Logo"
-                width={44}
-                height={44}
-                className="w-[32px] h-[32px] sm:w-[44px] sm:h-[44px] object-contain block rounded-full"
+                width={54}
+                height={54}
+                className="w-[38px] h-[38px] sm:w-[54px] sm:h-[54px] object-contain block rounded-full"
                 priority
               />
               <span className="text-[20px] sm:text-[24px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none ml-1 font-sans">
@@ -215,7 +216,7 @@ export default function Header() {
           </button>
 
           <button
-            onClick={() => router.push(`/${locale}/search`)}
+            onClick={() => startTransition(() => router.push(`/${locale}/search`))}
             className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70"
             type="button"
             id="search-btn"
@@ -234,11 +235,11 @@ export default function Header() {
           id="brand-link"
         >
           <Image
-            src="/images/mainlogocleanbluecolor.png"
+            src="/images/hypeafnancircularlogopic.png"
             alt="HypeAfnan Logo"
-            width={52}
-            height={52}
-            className="w-[32px] h-[32px] sm:w-[52px] sm:h-[52px] object-contain block rounded-full"
+            width={54}
+            height={54}
+            className="w-[38px] h-[38px] sm:w-[54px] sm:h-[54px] object-contain block rounded-full"
             priority
           />
           <span className="text-[20px] sm:text-[28px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none -ml-[2px] -translate-y-[2px] font-sans">

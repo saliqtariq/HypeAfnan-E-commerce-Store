@@ -128,7 +128,9 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                   alt={title || "product"}
                   fill
                   sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, (max-width: 1024px) 20vw, 16vw"
-                  className="object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                  className={`${
+                    coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
+                  } group-hover:scale-[1.03] transition-transform duration-300`}
                   loading="lazy"
                   placeholder="blur"
                   blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="

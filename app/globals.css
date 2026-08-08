@@ -16,4 +16,51 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* Prevent layout shift on mobile when scrollbar appears */
+  overflow-x: hidden;
+}
+
+/* ── Page transition: fade-in when navigating ─────────────────── */
+main {
+  animation: pageFadeIn 0.18s ease-out both;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Top loading bar (native CSS, no package needed) ──────────── */
+#nprogress .bar {
+  background: #38c172 !important;
+  height: 3px !important;
+}
+
+/* ── Better tap response on mobile ────────────────────────────── */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; /* removes 300ms tap delay on mobile */
+  cursor: pointer;
+}
+
+a:active, button:active {
+  opacity: 0.72;
+  transition: opacity 0.08s ease;
+}
+
+/* ── Smooth scrolling everywhere ───────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Prevent text selection flash when tapping buttons quickly ── */
+button, a {
+  -webkit-user-select: none;
+  user-select: none;
 }
