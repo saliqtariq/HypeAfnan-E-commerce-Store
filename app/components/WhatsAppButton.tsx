@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
     <div className="fixed bottom-24 right-6 sm:right-10 z-[999] flex flex-col gap-1">
       {/* Facebook Button */}
       <a
-        href="https://www.facebook.com/Hype-Afnan"
+        href="https://www.facebook.com/people/Hype-Afnan/61579790579100/?mibextid=wwXIfr&rdid=pejoryT9fUTVqvEI&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F192k5ct7HP%2F%3Fmibextid%3DwwXIfr"
         target="_blank"
         rel="noopener noreferrer"
         className="w-[60px] h-[60px] hover:scale-110 transition-transform cursor-pointer drop-shadow-md"
@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
 
       {/* Instagram Button */}
       <a
-        href="https://www.instagram.com/hypeafnan"
+        href="https://www.instagram.com/hypeafnan.inc"
         target="_blank"
         rel="noopener noreferrer"
         className="w-[60px] h-[60px] hover:scale-110 transition-transform cursor-pointer drop-shadow-md"
