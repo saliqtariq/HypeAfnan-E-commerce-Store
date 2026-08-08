@@ -8,6 +8,7 @@ interface Tag {
   tagId: number;
   tagName: string;
   tagImage: string;
+  cdnImage?: string;
   itemCount: number;
 }
 

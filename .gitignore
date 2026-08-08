@@ -50,9 +50,9 @@ next-env.d.ts
 public/images/products/
 public/images/products/*
 
-# Downloaded category thumbnails
-public/images/categories/
-public/images/categories/*
+# Downloaded category thumbnails — intentionally TRACKED in git
+# Only 165 files / 2.28 MB — safe to commit, needed for Vercel deployment
+# public/images/categories/ is NOT ignored (fully local & independent from any CDN)
 
 # Large scraped product databases (re-generatable via scripts)
 app/data/products.json
