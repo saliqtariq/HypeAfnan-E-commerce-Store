@@ -34,7 +34,7 @@ export default function SearchPage() {
         if (tagId) urlParams.set("tagId", tagId);
         if (tagName) urlParams.set("tagName", tagName);
         if (groupName) urlParams.set("groupName", groupName);
-        urlParams.set("limit", "60");
+        urlParams.set("limit", "300");
 
         const res = await fetch(`/api/products?${urlParams.toString()}`);
         if (!res.ok) throw new Error("Search failed");

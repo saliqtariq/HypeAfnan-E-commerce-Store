@@ -162,16 +162,54 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           <div className="px-4">
             {/* Main large image */}
             <div className="relative w-full bg-gray-100 overflow-hidden mb-2" style={{ aspectRatio: "1 / 1" }}>
-              <Image
-                src={images[selectedImageIdx]}
-                alt={title || "product"}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 720px"
-                className={`${
-                  images[selectedImageIdx]?.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
-                }`}
-              />
+              {images[selectedImageIdx]?.includes('SimpleHeroSection') ? (
+                <>
+                  <Image
+                    src="/images/Firstproductbg.jpeg"
+                    alt="HypeAfnan Promo"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 720px"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/50" />
+                  <div
+                    className="absolute inset-0 flex flex-col items-center justify-center px-6 py-6 text-white z-10 text-center"
+                    style={{ fontFamily: '"Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif' }}
+                  >
+                    <p className="text-3xl sm:text-4xl font-bold leading-none tracking-tight mb-4">HYPEAFNAN</p>
+                    <div className="flex flex-col gap-3 items-center">
+                      <div className="flex items-center gap-2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                          <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                        </svg>
+                        <span className="text-base sm:text-lg">+923199775990</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                        <span className="text-base sm:text-lg">Afnaninvain@gmail.com</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                          <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+                        </svg>
+                        <span className="text-base sm:text-lg">hypeafnan.vercel.app</span>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Image
+                  src={images[selectedImageIdx]}
+                  alt={title || "product"}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 720px"
+                  className="object-cover"
+                />
+              )}
             </div>
 
             {/* Thumbnail strip */}

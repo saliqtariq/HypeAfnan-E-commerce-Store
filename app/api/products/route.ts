@@ -9,7 +9,7 @@ const tagMap = tagMapData as Record<string, { groupName: string; tagName: string
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
-  const limit = Math.min(60, Math.max(1, parseInt(searchParams.get("limit") || "30", 10)));
+  const limit = Math.min(300, Math.max(1, parseInt(searchParams.get("limit") || "30", 10)));
   const search = (searchParams.get("search") || "").trim().toLowerCase();
 
   const category = (searchParams.get("category") || "all").toLowerCase();
@@ -44,11 +44,22 @@ export async function GET(req: NextRequest) {
   // Exact Category / Tag Filtering using index map
   if (tagId) {
     const targetTagId = Number(tagId);
-    filtered = filtered.filter((p: any) => {
-      const pId = p.goodsId || p.id;
-      const tags = productTagsMap[pId];
-      return tags && tags.includes(targetTagId);
-    });
+
+    // Special case: Top category (85658997) — show newest 300 products from our collection
+    if (targetTagId === 85658997) {
+      const sorted = [...products].sort((a: any, b: any) => {
+        const tsA = a.timestamp || a.createdAt || 0;
+        const tsB = b.timestamp || b.createdAt || 0;
+        return tsB - tsA;
+      });
+      filtered = sorted.slice(0, 300);
+    } else {
+      filtered = filtered.filter((p: any) => {
+        const pId = p.goodsId || p.id;
+        const tags = productTagsMap[pId];
+        return tags && tags.includes(targetTagId);
+      });
+    }
   } else if (groupName && groupName !== "all") {
     // Filter by group (e.g., Men clothes, Men shoes, Belt, Watch, etc.)
     const groupTagIds = Object.keys(tagMap)
@@ -89,7 +100,10 @@ export async function GET(req: NextRequest) {
     { products: items, total, page, limit, totalPages },
     {
       headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        // Cache category pages (Top etc.) for 24 hours; regular pages for 1 minute
+        "Cache-Control": tagId === "85658997"
+          ? "public, s-maxage=86400, stale-while-revalidate=3600"
+          : "public, s-maxage=60, stale-while-revalidate=300",
       },
     }
   );

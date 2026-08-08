@@ -114,6 +114,61 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
             );
           }
 
+          // Special first promo card — render with custom background + text overlay
+          if (coverImg.includes('SimpleHeroSection')) {
+            return (
+              <Link
+                key={productId}
+                href={`/${locale}/product/${productId}`}
+                className="group relative block overflow-hidden cursor-pointer"
+                style={{ aspectRatio: "1 / 1" }}
+              >
+                {/* Background Image */}
+                <Image
+                  src="/images/Firstproductbg.jpeg"
+                  alt="HypeAfnan Promo"
+                  fill
+                  sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
+                  className="object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                  priority
+                />
+                {/* Dark overlay for readability */}
+                <div className="absolute inset-0 bg-black/50" />
+
+                {/* Text Content */}
+                <div
+                  className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2 text-white z-10 text-center"
+                  style={{ fontFamily: '"Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif' }}
+                >
+                  <p className="text-[13px] sm:text-[15px] leading-none tracking-tight mb-2 font-bold">
+                    HYPEAFNAN
+                  </p>
+                  <div className="flex flex-col gap-[3px]">
+                    <div className="flex items-center gap-1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                        <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                      </svg>
+                      <span className="text-[7px] sm:text-[8px] leading-none">+923199775990</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                        <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                      </svg>
+                      <span className="text-[7px] sm:text-[8px] leading-none">Afnaninvain@gmail.com</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                        <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+                      </svg>
+                      <span className="text-[7px] sm:text-[8px] leading-none">hypeafnan.vercel.app</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            );
+          }
+
+
           return (
             <Link
               key={productId}
