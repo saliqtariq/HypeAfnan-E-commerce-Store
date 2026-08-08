@@ -21,6 +21,19 @@ export async function GET(req: NextRequest) {
 
   let filtered = products;
 
+  // Apply daily rotation to the default catalog so pagination stays in sync with homepage
+  if (category === "all" && !tagId && !tagName && !groupName && !search) {
+    const promoCard = products[0];
+    const restProducts = products.slice(1);
+    const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+    const startIdx = (dayNumber * 299) % restProducts.length;
+    
+    // Create the fully rotated array
+    const slice1 = restProducts.slice(startIdx);
+    const slice2 = restProducts.slice(0, startIdx);
+    filtered = [promoCard, ...slice1, ...slice2];
+  }
+
   // Filter by Tab/Category
   if (category === "new") {
     filtered = [...products].sort((a, b) => {

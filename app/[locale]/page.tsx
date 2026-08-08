@@ -4,11 +4,10 @@ import HomeClient from "../components/HomeClient";
 import { getAllProducts } from "../lib/getProducts";
 import type { Product } from "../components/ProductGrid";
 
-// Cache this page on Vercel's CDN for 5 minutes
-// First visitor triggers a render; all subsequent visitors within 5min get the cached HTML instantly
-export const revalidate = 300;
+// Regenerate this page every 24 hours on Vercel
+export const revalidate = 86400;
 
-const PAGE_LIMIT = 30;
+const PAGE_LIMIT = 300;
 
 export default function Home() {
   const t = useTranslations("contactBanner");
@@ -16,8 +15,20 @@ export default function Home() {
   // Read first page of products on the SERVER — baked into the HTML
   // No API call needed from the browser on initial load
   const allProducts = getAllProducts() as Product[];
-  const initialProducts = allProducts.slice(0, PAGE_LIMIT);
   const total = allProducts.length;
+
+  // Keep the promo card (first product) pinned — rotate the rest daily
+  // Each day picks a fresh batch of 29 products based on the day number
+  const promoCard = allProducts[0];
+  const restProducts = allProducts.slice(1);
+  const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24)); // changes every 24 hrs
+  const startIdx = (dayNumber * (PAGE_LIMIT - 1)) % restProducts.length;
+  const slice1 = restProducts.slice(startIdx, startIdx + PAGE_LIMIT - 1);
+  // Wrap around if we hit the end of the list
+  const slice2 = slice1.length < PAGE_LIMIT - 1
+    ? restProducts.slice(0, (PAGE_LIMIT - 1) - slice1.length)
+    : [];
+  const initialProducts = [promoCard, ...slice1, ...slice2];
 
   return (
     <main className="flex flex-col items-center w-full">

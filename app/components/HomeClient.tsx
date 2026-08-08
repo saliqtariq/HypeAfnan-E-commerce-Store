@@ -7,7 +7,7 @@ import type { Product } from "./ProductGrid";
 
 import { useSearchParams } from "next/navigation";
 
-const PAGE_LIMIT = 30;
+const PAGE_LIMIT = 300;
 
 interface HomeClientProps {
   initialProducts: Product[];
