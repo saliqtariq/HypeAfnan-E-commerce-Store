@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { createClient } from "../lib/supabase/client";
+import { useAppContext } from "../context/AppContext";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
+  const { showToast } = useAppContext();
   const [view, setView] = useState<"options" | "email_signin" | "email_signup">("options");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -73,14 +75,15 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
         });
         if (error) throw error;
         setSuccessMsg("Check your email for confirmation!");
+        showToast("Sign up successful! Please check your email.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
+        showToast("Sign in successful!");
         onClose();
-        window.location.reload();
       }
     } catch (err: any) {
       console.error("Auth error:", err);
@@ -158,21 +161,9 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
               </svg>
-              <span>Sign in with Google</span>
+              <span>Continue with Google</span>
             </button>
 
-            {/* Facebook Sign In */}
-            <button
-              onClick={() => handleOAuth("facebook")}
-              disabled={loading}
-              type="button"
-              className="w-full h-[52px] px-5 flex items-center justify-start gap-4 bg-white hover:bg-gray-50 border border-gray-200 rounded-2xl text-[15px] font-medium text-gray-700 transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2" className="shrink-0">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-              <span>Sign in with Facebook</span>
-            </button>
 
             {/* Email Sign In Option */}
             <button

@@ -8,6 +8,9 @@ import { useState, useRef, useEffect, useTransition, useCallback, useMemo, Suspe
 import { CategoryIcon, SearchIcon } from "../Icons";
 import CategoryModal from "../CategoryModal";
 import AuthModal from "../AuthModal";
+import ProfileModal from "../ProfileModal";
+import { createClient } from "../../lib/supabase/client";
+import { useAppContext } from "../../context/AppContext";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -31,15 +34,37 @@ function HeaderContent() {
 
   const isSearchPage = useMemo(() => (pathname || "").includes("/search"), [pathname]);
 
+  const { showToast } = useAppContext();
+  const supabase = useMemo(() => createClient(), []);
+  const [user, setUser] = useState<any>(null);
+  const [openUserMenu, setOpenUserMenu] = useState(false);
+
   const [openLang, setOpenLang] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || searchParams.get("search") || "");
   const [, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data?.user || null);
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   const handleSelectCategory = useCallback((groupName: string, tagId?: number, tagName?: string) => {
     setIsCategoryOpen(false);
@@ -54,22 +79,50 @@ function HeaderContent() {
     startTransition(() => router.push(`/${locale}/search?${params.toString()}`));
   }, [locale, router, startTransition]);
 
-  // Close language dropdown and mobile menu when clicking outside
+  // Close language dropdown, user menu, and mobile menu when clicking outside
   useEffect(() => {
     function handleOutside(e: MouseEvent) {
       const target = e.target as Node;
       if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setOpenLang(false);
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(target)) {
+        setOpenUserMenu(false);
+      }
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
         setIsMobileMenuOpen(false);
       }
     }
     document.addEventListener("mousedown", handleOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleOutside);
   }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setOpenUserMenu(false);
+    showToast("Signed out successfully!");
+  };
+
+  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const avatarUrl = event.target?.result as string;
+      try {
+        await supabase.auth.updateUser({ data: { avatar_url: avatarUrl } });
+        setUser((prev: any) => ({
+          ...prev,
+          user_metadata: { ...prev?.user_metadata, avatar_url: avatarUrl },
+        }));
+        showToast("Avatar updated successfully!");
+      } catch {
+        showToast("Failed to update avatar");
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   const switchLanguage = useCallback((code: string) => {
     const currentPath = pathname || `/${locale}`;
@@ -168,14 +221,103 @@ function HeaderContent() {
                 )}
               </div>
 
-              {/* Sign In Button matching Szwego/Topokay reference */}
-              <button
-                type="button"
-                onClick={() => setIsAuthOpen(true)}
-                className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858] shadow-xs"
-              >
-                Sign In
-              </button>
+              {/* Sign In Button or User Profile Avatar */}
+              {!user ? (
+                <button
+                  type="button"
+                  onClick={() => setIsAuthOpen(true)}
+                  className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858] shadow-xs"
+                >
+                  Sign In
+                </button>
+              ) : (
+                <div className="relative" ref={userMenuRef}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenUserMenu((v) => !v)}
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f3f4f6] hover:bg-[#e5e7eb] flex items-center justify-center cursor-pointer border-none transition-colors overflow-hidden"
+                    aria-label="User Profile"
+                  >
+                    {user.user_metadata?.avatar_url ? (
+                      <Image
+                        src={user.user_metadata.avatar_url}
+                        alt="Avatar"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#9ca3af">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                    )}
+                  </button>
+
+                  {openUserMenu && (
+                    <div className="absolute right-0 top-full mt-2.5 w-[260px] bg-white border border-[#e5e7eb] rounded-2xl shadow-xl z-50 p-4 animate-in fade-in zoom-in-95 duration-150">
+                      {/* Profile Header (Clicking opens ProfileModal) */}
+                      <div 
+                        onClick={() => {
+                          setIsProfileOpen(true);
+                          setOpenUserMenu(false);
+                        }}
+                        className="flex items-center gap-3 cursor-pointer p-1 -m-1 rounded-xl hover:bg-gray-50 transition-colors group"
+                        title="Click to edit profile"
+                      >
+                        <div className="relative w-12 h-12 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 overflow-hidden border border-gray-200">
+                          {user.user_metadata?.avatar_url ? (
+                            <Image
+                              src={user.user_metadata.avatar_url}
+                              alt="Avatar"
+                              width={48}
+                              height={48}
+                              className="w-full h-full object-cover rounded-full"
+                            />
+                          ) : (
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="#9ca3af">
+                              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                          )}
+                          {/* Hover Overlay */}
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                              <circle cx="12" cy="13" r="4"/>
+                            </svg>
+                          </div>
+                          <input
+                            ref={avatarInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleAvatarUpload}
+                            className="hidden"
+                          />
+                        </div>
+
+                        <div className="flex flex-col overflow-hidden">
+                          <span className="text-[15px] font-semibold text-gray-900 truncate">
+                            {user.user_metadata?.full_name || user.email?.split('@')[0] || "User"}
+                          </span>
+                          <span className="text-[12px] text-gray-500 truncate">
+                            {user.email}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-gray-100 my-3" />
+
+                      {/* Sign Out Button */}
+                      <button
+                        type="button"
+                        onClick={handleSignOut}
+                        className="w-full text-left py-1.5 px-1 text-[15px] font-medium text-gray-700 hover:text-red-600 transition-colors bg-transparent border-none cursor-pointer flex items-center gap-2"
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -310,14 +452,97 @@ function HeaderContent() {
               )}
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsAuthOpen(true)}
-              className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
-              id="signin-btn"
-            >
-              Sign In
-            </button>
+            {/* Sign In Button or User Avatar on Main Header */}
+            {!user ? (
+              <button
+                type="button"
+                onClick={() => setIsAuthOpen(true)}
+                className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
+                id="signin-btn"
+              >
+                Sign In
+              </button>
+            ) : (
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setOpenUserMenu((v) => !v)}
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f3f4f6] hover:bg-[#e5e7eb] flex items-center justify-center cursor-pointer border-none transition-colors overflow-hidden"
+                  aria-label="User Profile"
+                >
+                  {user.user_metadata?.avatar_url ? (
+                    <Image
+                      src={user.user_metadata.avatar_url}
+                      alt="Avatar"
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#9ca3af">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                  )}
+                </button>
+
+                {openUserMenu && (
+                  <div className="absolute right-0 top-full mt-2.5 w-[260px] bg-white border border-[#e5e7eb] rounded-2xl shadow-xl z-50 p-4 animate-in fade-in zoom-in-95 duration-150">
+                    {/* Profile Header (Clicking opens ProfileModal) */}
+                    <div 
+                      onClick={() => {
+                        setIsProfileOpen(true);
+                        setOpenUserMenu(false);
+                      }}
+                      className="flex items-center gap-3 cursor-pointer p-1 -m-1 rounded-xl hover:bg-gray-50 transition-colors group"
+                      title="Click to edit profile"
+                    >
+                      <div className="relative w-12 h-12 rounded-full bg-[#f3f4f6] flex items-center justify-center shrink-0 overflow-hidden border border-gray-200">
+                        {user.user_metadata?.avatar_url ? (
+                          <Image
+                            src={user.user_metadata.avatar_url}
+                            alt="Avatar"
+                            width={48}
+                            height={48}
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        ) : (
+                          <svg width="26" height="26" viewBox="0 0 24 24" fill="#9ca3af">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                          </svg>
+                        )}
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                          </svg>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col overflow-hidden">
+                        <span className="text-[15px] font-semibold text-gray-900 truncate">
+                          {user.user_metadata?.full_name || user.email?.split('@')[0] || "User"}
+                        </span>
+                        <span className="text-[12px] text-gray-500 truncate">
+                          {user.email}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-gray-100 my-3" />
+
+                    {/* Sign Out Button */}
+                    <button
+                      type="button"
+                      onClick={handleSignOut}
+                      className="w-full text-left py-1.5 px-1 text-[15px] font-medium text-gray-700 hover:text-red-600 transition-colors bg-transparent border-none cursor-pointer flex items-center gap-2"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* MOBILE: Hamburger Menu */}
@@ -391,6 +616,14 @@ function HeaderContent() {
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
         locale={locale}
+      />
+
+      {/* Profile Modal (Edit Avatar & Name) */}
+      <ProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        user={user}
+        onUserUpdate={(updatedUser) => setUser(updatedUser)}
       />
     </header>
   );
