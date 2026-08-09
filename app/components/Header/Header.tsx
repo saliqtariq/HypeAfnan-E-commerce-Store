@@ -7,6 +7,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState, useRef, useEffect, useTransition, useCallback, useMemo, Suspense } from "react";
 import { CategoryIcon, SearchIcon } from "../Icons";
 import CategoryModal from "../CategoryModal";
+import AuthModal from "../AuthModal";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -33,6 +34,7 @@ function HeaderContent() {
   const [openLang, setOpenLang] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || searchParams.get("search") || "");
   const [, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -102,17 +104,17 @@ function HeaderContent() {
             {/* Center Brand */}
             <Link
               href={`/${locale}`}
-              className="flex items-center gap-0 no-underline absolute left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer"
+              className="flex items-center gap-2 no-underline absolute left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer"
             >
               <Image
                 src="/images/hypeafnancircularlogopic.png"
                 alt="HypeAfnan Logo"
-                width={54}
-                height={54}
-                className="w-[38px] h-[38px] sm:w-[54px] sm:h-[54px] object-contain block rounded-full"
+                width={36}
+                height={36}
+                className="w-[26px] h-[26px] sm:w-[36px] sm:h-[36px] object-cover block rounded-full"
                 priority
               />
-              <span className="text-[20px] sm:text-[24px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none ml-1 font-sans">
+              <span className="text-[20px] sm:text-[24px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
                 HypeAfnan
               </span>
             </Link>
@@ -166,13 +168,14 @@ function HeaderContent() {
                 )}
               </div>
 
-              {/* Sign In Button matching Szwego reference */}
-              <Link
-                href={`/${locale}/signin`}
+              {/* Sign In Button matching Szwego/Topokay reference */}
+              <button
+                type="button"
+                onClick={() => setIsAuthOpen(true)}
                 className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858] shadow-xs"
               >
                 Sign In
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -238,18 +241,18 @@ function HeaderContent() {
         {/* Center Section - Logo & Brand */}
         <Link
           href={`/${locale}`}
-          className="flex items-center gap-0 no-underline absolute left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer"
+          className="flex items-center gap-2 no-underline absolute left-1/2 -translate-x-1/2 whitespace-nowrap cursor-pointer"
           id="brand-link"
         >
           <Image
             src="/images/hypeafnancircularlogopic.png"
             alt="HypeAfnan Logo"
-            width={54}
-            height={54}
-            className="w-[38px] h-[38px] sm:w-[54px] sm:h-[54px] object-contain block rounded-full"
+            width={36}
+            height={36}
+            className="w-[26px] h-[26px] sm:w-[36px] sm:h-[36px] object-cover block rounded-full"
             priority
           />
-          <span className="text-[20px] sm:text-[28px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none -ml-[2px] -translate-y-[2px] font-sans">
+          <span className="text-[20px] sm:text-[28px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
             HypeAfnan
           </span>
         </Link>
@@ -307,13 +310,14 @@ function HeaderContent() {
               )}
             </div>
 
-            <Link
-              href={`/${locale}/signin`}
+            <button
+              type="button"
+              onClick={() => setIsAuthOpen(true)}
               className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
               id="signin-btn"
             >
               Sign In
-            </Link>
+            </button>
           </div>
 
           {/* MOBILE: Hamburger Menu */}
@@ -358,13 +362,16 @@ function HeaderContent() {
                   )}
                 </div>
                 
-                <Link
-                  href={`/${locale}/signin`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsAuthOpen(true);
+                  }}
                   className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap shadow-sm"
                 >
                   Sign In
-                </Link>
+                </button>
               </div>
             )}
           </div>
@@ -377,6 +384,13 @@ function HeaderContent() {
         onClose={() => setIsCategoryOpen(false)}
         locale={locale}
         onSelectCategory={handleSelectCategory}
+      />
+
+      {/* Auth Popup Modal */}
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        locale={locale}
       />
     </header>
   );

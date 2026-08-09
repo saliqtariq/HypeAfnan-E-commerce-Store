@@ -117,12 +117,12 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         {/* Seller info row */}
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full overflow-hidden shrink-0">
+            <div className="w-[24px] h-[24px] sm:w-[28px] sm:h-[28px] rounded-full overflow-hidden shrink-0">
               <Image
                 src="/images/hypeafnancircularlogopic.png"
                 alt="HypeAfnan Logo"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -255,19 +255,16 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </div>
           )}
 
-          {/* Search Code — prominent badge, tap to copy */}
+          {/* Search Code */}
           {searchCode && (
-            <button
-              type="button"
+            <div
               onClick={() => copyToClipboard(searchCode, "Search code copied!")}
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-[13px] font-mono text-gray-700 border border-gray-200 transition-colors cursor-pointer mb-1"
-              title="Tap to copy search code"
+              className="text-[13px] text-gray-600 cursor-pointer hover:text-gray-900 transition-colors"
+              title="Click to copy search code"
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-              </svg>
-              Code: <span className="font-semibold text-gray-900">{searchCode}</span>
-            </button>
+              <span className="font-medium">Search Code: </span>
+              <span>{searchCode}</span>
+            </div>
           )}
 
           {/* Title if present */}
@@ -279,12 +276,12 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         {/* Footer */}
         <div className="px-4 py-6 border-t border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full overflow-hidden shrink-0">
+            <div className="w-[24px] h-[24px] sm:w-[28px] sm:h-[28px] rounded-full overflow-hidden shrink-0">
               <Image
                 src="/images/hypeafnancircularlogopic.png"
                 alt="HypeAfnan Logo"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 className="w-full h-full object-cover"
               />
             </div>
