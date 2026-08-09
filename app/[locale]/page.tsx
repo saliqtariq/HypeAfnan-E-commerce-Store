@@ -43,7 +43,7 @@ export default function Home() {
             priority
           />
           <div className="relative z-10 flex flex-col items-center gap-4 sm:gap-6 w-full px-4 text-center">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight italic" style={{ fontFamily: 'Impact, sans-serif' }}>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight">
               HYPEAFNAN
             </h1>
             

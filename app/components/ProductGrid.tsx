@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useAppContext } from "../context/AppContext";
 
 export interface Product {
   id?: string;
@@ -47,8 +47,21 @@ function ShareIcon() {
 }
 
 export default function ProductGrid({ products, viewMode = "grid" }: ProductGridProps) {
-  const params = useParams();
-  const locale = (params?.locale as string) || "en";
+  const { locale, copyToClipboard } = useAppContext();
+
+  const handleShareProduct = useCallback(
+    (e: React.MouseEvent, title?: string, productId?: string) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const productUrl = `${window.location.origin}/${locale}/product/${productId}`;
+      if (navigator.share) {
+        navigator.share({ title: title || "Product", url: productUrl });
+      } else {
+        copyToClipboard(productUrl, "Link copied!");
+      }
+    },
+    [locale, copyToClipboard]
+  );
 
   if (!products || products.length === 0) {
     return (
@@ -202,13 +215,7 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
 
               {/* Share Icon - top right, matching Szwego */}
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  if (navigator.share) {
-                    navigator.share({ title: title || "Product", url: window.location.href });
-                  }
-                }}
+                onClick={(e) => handleShareProduct(e, title, productId)}
                 className="absolute top-1.5 right-1.5 w-6 h-6 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-gray-600 hover:text-gray-900 shadow-sm"
                 aria-label="Share product"
               >

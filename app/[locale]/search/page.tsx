@@ -21,6 +21,14 @@ export default function SearchPage() {
   const [categoryTitle, setCategoryTitle] = useState("");
 
   useEffect(() => {
+    // No query and no filters — just show empty prompt
+    if (!initialQuery && !groupName && !tagId && !tagName) {
+      setProducts([]);
+      setSearched(false);
+      setLoading(false);
+      return;
+    }
+
     async function loadCategoryProducts() {
       setLoading(true);
       setSearched(true);
@@ -40,18 +48,15 @@ export default function SearchPage() {
         if (!res.ok) throw new Error("Search failed");
         const data = await res.json();
 
-        // Exact match redirect if search code provided
-        if (initialQuery) {
-          const exactMatch = data.products?.find(
-            (p: Product) =>
-              p.searchCode === initialQuery || p.goodsCode === initialQuery || p.id === initialQuery || p.goodsId === initialQuery
-          );
-
-          if (exactMatch) {
-            const targetId = exactMatch.goodsId || exactMatch.id || exactMatch.searchCode;
+        // If API found an exact code match, go straight to product detail only when it's unique
+        if (data.exactMatch) {
+          if (data.products?.length === 1) {
+            const match = data.products[0];
+            const targetId = match.goodsId || match.id || match.searchCode;
             router.push(`/${locale}/product/${targetId}`);
             return;
           }
+          // Multiple products share this code — fall through to show grid
         }
 
         setProducts(data.products || []);
@@ -70,14 +75,27 @@ export default function SearchPage() {
     <div className="min-h-screen bg-white">
       <main className="max-w-[1440px] mx-auto py-6">
         {loading && (
-          <div className="flex justify-center py-12">
+          <div className="flex flex-col items-center justify-center py-20 gap-3">
             <div className="animate-spin h-6 w-6 border-2 border-[#38c172] border-t-transparent rounded-full" />
+            <p className="text-[14px] text-gray-400">Searching...</p>
+          </div>
+        )}
+
+        {/* No query yet — prompt the user */}
+        {!loading && !searched && (
+          <div className="flex flex-col items-center justify-center py-20 gap-2 text-center px-4">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            </svg>
+            <p className="text-[16px] font-medium text-gray-500 mt-2">Search products</p>
+            <p className="text-[13px] text-gray-400">Type a product name or its search code (e.g. <span className="font-mono bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">216377</span>)</p>
           </div>
         )}
 
         {!loading && searched && products.length === 0 && (
           <div className="text-center py-16 text-gray-400">
-            <p className="text-[15px]">No products found for "{categoryTitle}"</p>
+            <p className="text-[15px]">No products found for &ldquo;{categoryTitle}&rdquo;</p>
+            <p className="text-[13px] mt-1">Try a different keyword or product code</p>
           </div>
         )}
 

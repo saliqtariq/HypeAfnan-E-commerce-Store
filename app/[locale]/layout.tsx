@@ -7,6 +7,7 @@ import "../globals.css";
 import Header from "../components/Header";
 import WhatsAppButton from "../components/WhatsAppButton";
 import RouteProgressBar from "../components/RouteProgressBar";
+import { AppProvider } from "../context/AppContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,12 +52,15 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <RouteProgressBar />
-          <Header />
-          {children}
-          <WhatsAppButton />
+          <AppProvider>
+            <RouteProgressBar />
+            <Header />
+            {children}
+            <WhatsAppButton />
+          </AppProvider>
         </NextIntlClientProvider>
       </body>
     </html>
   );
 }
+

@@ -96,6 +96,22 @@ export async function GET(req: NextRequest) {
   }
 
   if (search) {
+    // Find ALL products whose searchCode or goodsId exactly matches the query
+    const exactCodeMatches = products.filter(
+      (p) =>
+        (p.searchCode || "").toLowerCase() === search ||
+        (p.goodsId || p.id || "").toLowerCase() === search
+    );
+
+    if (exactCodeMatches.length > 0) {
+      // Return all exact matches — client redirects only if there's exactly 1
+      return NextResponse.json(
+        { products: exactCodeMatches, total: exactCodeMatches.length, page: 1, limit, totalPages: 1, exactMatch: true },
+        { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
+      );
+    }
+
+    // Fuzzy match: title, searchCode, category
     filtered = filtered.filter(
       (p) =>
         (p.title || p.name || "").toLowerCase().includes(search) ||

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useState, useRef, useEffect, useTransition } from "react";
+import { useState, useRef, useEffect, useTransition, useCallback, useMemo, Suspense } from "react";
 import { CategoryIcon, SearchIcon } from "../Icons";
 import CategoryModal from "../CategoryModal";
 
@@ -21,24 +21,25 @@ const LANGUAGES = [
   { code: "pt", label: "português" },
 ];
 
-export default function Header() {
+function HeaderContent() {
   const t = useTranslations("header");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const hasSearchQuery = !!searchParams.get("q");
-  const isSearchPage = pathname.includes("/search") && hasSearchQuery;
+  const isSearchPage = useMemo(() => (pathname || "").includes("/search"), [pathname]);
 
   const [openLang, setOpenLang] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || searchParams.get("search") || "");
   const [, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSelectCategory = (groupName: string, tagId?: number, tagName?: string) => {
+  const handleSelectCategory = useCallback((groupName: string, tagId?: number, tagName?: string) => {
     setIsCategoryOpen(false);
     if (groupName === "all") {
       startTransition(() => router.push(`/${locale}`));
@@ -49,32 +50,39 @@ export default function Header() {
     if (tagName) params.set("tagName", tagName);
     if (groupName) params.set("groupName", groupName);
     startTransition(() => router.push(`/${locale}/search?${params.toString()}`));
-  };
+  }, [locale, router, startTransition]);
 
-  // Close language dropdown when clicking outside
+  // Close language dropdown and mobile menu when clicking outside
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+    function handleOutside(e: MouseEvent) {
+      const target = e.target as Node;
+      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setOpenLang(false);
       }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
+        setIsMobileMenuOpen(false);
+      }
     }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("mousedown", handleOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleOutside);
+    };
   }, []);
 
-  function switchLanguage(code: string) {
-    const segments = pathname.split("/");
+  const switchLanguage = useCallback((code: string) => {
+    const currentPath = pathname || `/${locale}`;
+    const segments = currentPath.split("/");
     segments[1] = code;
     startTransition(() => router.push(segments.join("/") + (searchParams.toString() ? `?${searchParams.toString()}` : "")));
     setOpenLang(false);
-  }
+  }, [pathname, locale, searchParams, router, startTransition]);
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
+  const handleSearchSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     const query = searchQuery.trim();
     if (!query) return;
     startTransition(() => router.push(`/${locale}/search?q=${encodeURIComponent(query)}`));
-  };
+  }, [searchQuery, locale, router, startTransition]);
 
   // If we are on the /search page, render the Szwego Search Header bar
   if (isSearchPage) {
@@ -205,7 +213,7 @@ export default function Header() {
         <div className="flex items-center gap-4 sm:gap-[40px] flex-1">
           <button
             onClick={() => setIsCategoryOpen(true)}
-            className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70"
+            className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] px-2 text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70 touch-manipulation min-w-[44px] min-h-[44px] justify-center sm:justify-start"
             type="button"
             id="category-btn"
           >
@@ -215,17 +223,16 @@ export default function Header() {
             </span>
           </button>
 
-          <button
-            onClick={() => startTransition(() => router.push(`/${locale}/search`))}
-            className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70"
-            type="button"
+          <Link
+            href={`/${locale}/search`}
+            className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] px-2 text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70 touch-manipulation min-w-[44px] min-h-[44px] justify-center sm:justify-start no-underline"
             id="search-btn"
           >
             <SearchIcon />
             <span className="hidden sm:inline-block text-[15px] font-normal text-[#2d3748] tracking-[-0.1px]">
               {t("search")}
             </span>
-          </button>
+          </Link>
         </div>
 
         {/* Center Section - Logo & Brand */}
@@ -249,63 +256,118 @@ export default function Header() {
 
         {/* Right Section */}
         <div className="flex items-center gap-3 flex-1 justify-end">
-          <div className="relative" ref={dropdownRef}>
-            <button
-              className="flex items-center justify-center bg-transparent border-none cursor-pointer transition-opacity duration-150 ease-in hover:opacity-70"
-              type="button"
-              id="language-btn"
-              aria-label={t("language")}
-              onClick={() => setOpenLang((v) => !v)}
-            >
-              <Image
-                src="/globeicon.png"
-                alt="Language"
-                width={44}
-                height={44}
-                className="w-11 h-11 object-contain"
-              />
-            </button>
+          {/* DESKTOP: Globe and Sign In */}
+          <div className="hidden sm:flex items-center gap-3">
+            <div className="relative" ref={dropdownRef}>
+              <button
+                className="flex items-center justify-center bg-transparent border-none cursor-pointer transition-opacity duration-150 ease-in hover:opacity-70"
+                type="button"
+                id="language-btn"
+                aria-label={t("language")}
+                onClick={() => setOpenLang((v) => !v)}
+              >
+                <Image
+                  src="/globeicon.png"
+                  alt="Language"
+                  width={44}
+                  height={44}
+                  className="w-11 h-11 object-contain"
+                />
+              </button>
 
-            {openLang && (
-              <div className="absolute right-0 top-full mt-2 w-[200px] bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
-                <ul className="py-2 max-h-[360px] overflow-y-auto">
-                  {LANGUAGES.map(({ code, label }) => (
-                    <li key={code}>
-                      <button
-                        onClick={() => switchLanguage(code)}
-                        className={`w-full text-left px-5 py-3 text-[15px] flex items-center justify-between transition-colors duration-100 cursor-pointer border-none bg-transparent ${locale === code
-                            ? "text-[#38c172] font-medium"
-                            : "text-[#1f2937] hover:bg-[#f9fafb]"
-                          }`}
-                      >
-                        {label}
-                        {locale === code && (
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path
-                              d="M2 8L6.5 12.5L14 4"
-                              stroke="#38c172"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        )}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+              {openLang && (
+                <div className="absolute right-0 top-full mt-2 w-[200px] bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
+                  <ul className="py-2 max-h-[360px] overflow-y-auto">
+                    {LANGUAGES.map(({ code, label }) => (
+                      <li key={code}>
+                        <button
+                          onClick={() => switchLanguage(code)}
+                          className={`w-full text-left px-5 py-3 text-[15px] flex items-center justify-between transition-colors duration-100 cursor-pointer border-none bg-transparent ${locale === code
+                              ? "text-[#38c172] font-medium"
+                              : "text-[#1f2937] hover:bg-[#f9fafb]"
+                            }`}
+                        >
+                          {label}
+                          {locale === code && (
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M2 8L6.5 12.5L14 4"
+                                stroke="#38c172"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <Link
+              href={`/${locale}/signin`}
+              className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
+              id="signin-btn"
+            >
+              Sign In
+            </Link>
+          </div>
+
+          {/* MOBILE: Hamburger Menu */}
+          <div className="sm:hidden relative" ref={mobileMenuRef}>
+            <button
+              onClick={() => setIsMobileMenuOpen((v) => !v)}
+              className="flex items-center justify-center p-2 bg-transparent border-none text-[#2d3748] cursor-pointer touch-manipulation min-w-[44px] min-h-[44px]"
+              aria-label="Menu"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            
+            {isMobileMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 bg-white border border-[#e5e7eb] rounded-xl shadow-lg z-50 p-3 flex items-center gap-4 animate-in fade-in zoom-in-95 duration-200 min-w-max">
+                <div className="relative">
+                  <button
+                    className="flex items-center justify-center bg-transparent border-none cursor-pointer transition-opacity duration-150 ease-in hover:opacity-70"
+                    type="button"
+                    onClick={() => setOpenLang((v) => !v)}
+                  >
+                    <Image src="/globeicon.png" alt="Language" width={36} height={36} className="w-9 h-9 object-contain" />
+                  </button>
+                  {openLang && (
+                    <div className="absolute right-0 top-full mt-2 w-[180px] bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
+                      <ul className="py-2 max-h-[250px] overflow-y-auto">
+                        {LANGUAGES.map(({ code, label }) => (
+                          <li key={code}>
+                            <button
+                              onClick={() => { switchLanguage(code); setIsMobileMenuOpen(false); }}
+                              className={`w-full text-left px-4 py-3 text-[14px] flex items-center justify-between cursor-pointer border-none bg-transparent ${locale === code ? "text-[#38c172] font-medium" : "text-[#1f2937] hover:bg-[#f9fafb]"}`}
+                            >
+                              {label}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                
+                <Link
+                  href={`/${locale}/signin`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap shadow-sm"
+                >
+                  Sign In
+                </Link>
               </div>
             )}
           </div>
-
-          {/* Sign In Button */}
-          <Link
-            href={`/${locale}/signin`}
-            className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
-            id="signin-btn"
-          >
-            Sign In
-          </Link>
         </div>
       </nav>
 
@@ -317,5 +379,15 @@ export default function Header() {
         onSelectCategory={handleSelectCategory}
       />
     </header>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense fallback={
+      <header className="sticky top-0 z-[100] w-full bg-white border-b border-[#eaeaea] h-[68px] sm:h-[80px]" />
+    }>
+      <HeaderContent />
+    </Suspense>
   );
 }

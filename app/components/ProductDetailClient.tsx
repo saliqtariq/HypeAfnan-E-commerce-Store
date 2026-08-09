@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useCallback, useEffect, useRef, useTransition } from "react";
+import React, { useState, useCallback, useEffect, useRef, useTransition, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "./ProductGrid";
+import { useAppContext } from "../context/AppContext";
 
 interface ProductDetailClientProps {
   product: Product | null;
@@ -42,8 +43,7 @@ function WhatsAppIcon() {
 
 export default function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
-  const params = useParams();
-  const locale = (params?.locale as string) || "en";
+  const { locale, copyToClipboard } = useAppContext();
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
 
   // Track whether we have internal navigation history to go back to
@@ -69,40 +69,38 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
     }
   }, [router, locale, startTransition]);
 
-  if (!product) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-gray-400">
-        <p className="text-[16px]">Product not found.</p>
-        <Link href={`/${locale}`} className="mt-4 text-[#38c172] text-[14px] underline">← Back to store</Link>
-      </div>
-    );
-  }
-
-  const images: string[] = [];
-  if (product.coverImage) images.push(product.coverImage);
-  if (product.imageUrl && !images.includes(product.imageUrl)) images.push(product.imageUrl);
-  if (product.images) {
-    for (const img of product.images) {
-      if (!images.includes(img)) images.push(img);
+  const images = useMemo(() => {
+    if (!product) return [];
+    const imgs: string[] = [];
+    if (product.coverImage) imgs.push(product.coverImage);
+    if (product.imageUrl && !imgs.includes(product.imageUrl)) imgs.push(product.imageUrl);
+    if (product.images) {
+      for (const img of product.images) {
+        if (!imgs.includes(img)) imgs.push(img);
+      }
     }
-  }
+    return imgs;
+  }, [product]);
 
-  const title = product.title || product.name || "";
-  const searchCode = product.searchCode || product.goodsCode || "";
-  const productId = product.goodsId || product.id || searchCode || "";
+  const title = product?.title || product?.name || "";
+  const searchCode = product?.searchCode || product?.goodsCode || "";
+  const productId = product?.goodsId || product?.id || searchCode || "";
 
-  const whatsappMessage = encodeURIComponent(
-    `Hi, I'm interested in this product:\n${title ? `Name: ${title}\n` : ""}${searchCode ? `Search Code: ${searchCode}\n` : ""}${productId ? `Product ID: ${productId}\n` : ""}Please advise on the price.`
-  );
+  const whatsappMessage = useMemo(() => {
+    return encodeURIComponent(
+      `Hi, I'm interested in this product:\n${title ? `Name: ${title}\n` : ""}${searchCode ? `Search Code: ${searchCode}\n` : ""}${productId ? `Product ID: ${productId}\n` : ""}Please advise on the price.`
+    );
+  }, [title, searchCode, productId]);
+
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
 
-  const handleShare = () => {
+  const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator.share({ title: title || "Product", url: window.location.href });
     } else {
-      navigator.clipboard?.writeText(window.location.href);
+      copyToClipboard(window.location.href, "Product link copied!");
     }
-  };
+  }, [title, copyToClipboard]);
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -249,7 +247,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           </button>
 
           {/* Category breadcrumb */}
-          {product.category && (
+          {product?.category && (
             <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-3">
               <span>Top</span>
               <span>/</span>
@@ -257,12 +255,19 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </div>
           )}
 
-          {/* Search Code */}
+          {/* Search Code — prominent badge, tap to copy */}
           {searchCode && (
-            <div className="text-[13px] text-gray-600">
-              <span className="font-medium">Search Code: </span>
-              <span>{searchCode}</span>
-            </div>
+            <button
+              type="button"
+              onClick={() => copyToClipboard(searchCode, "Search code copied!")}
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-[13px] font-mono text-gray-700 border border-gray-200 transition-colors cursor-pointer mb-1"
+              title="Tap to copy search code"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+              Code: <span className="font-semibold text-gray-900">{searchCode}</span>
+            </button>
           )}
 
           {/* Title if present */}

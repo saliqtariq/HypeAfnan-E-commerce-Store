@@ -57,7 +57,7 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
     }
   }, [searchQuery, activeCategory, fetchPage]);
 
-  const handleFilterChange = (filters: {
+  const handleFilterChange = useCallback((filters: {
     category: string;
     viewMode: "grid" | "list";
     startDate: string;
@@ -73,7 +73,7 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
       setProducts([]);
       fetchPage(1, filters.category, true);
     }
-  };
+  }, [activeCategory, fetchPage]);
 
   // Infinite scroll: load next page when sentinel comes into view
   useEffect(() => {
