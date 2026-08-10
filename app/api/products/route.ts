@@ -54,11 +54,11 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  // Exact Category / Tag Filtering using index map
+  // Exact Category / Tag Filtering using product_tags.json (scraped directly from Topokay)
   if (tagId) {
     const targetTagId = Number(tagId);
 
-    // Special case: Top category (85658997) — show newest 300 products from our collection
+    // Special case: Top category (85658997) — show newest 300 products
     if (targetTagId === 85658997) {
       const sorted = [...products].sort((a: any, b: any) => {
         const tsA = a.timestamp || a.createdAt || 0;
@@ -67,6 +67,7 @@ export async function GET(req: NextRequest) {
       });
       filtered = sorted.slice(0, 300);
     } else {
+      // Strict exact match only — no fuzzy fallback
       filtered = filtered.filter((p: any) => {
         const pId = p.goodsId || p.id;
         const tags = productTagsMap[pId];
@@ -74,24 +75,23 @@ export async function GET(req: NextRequest) {
       });
     }
   } else if (groupName && groupName !== "all") {
-    // Filter by group (e.g., Men clothes, Men shoes, Belt, Watch, etc.)
+    // Filter by group — show all tags that belong to this group
     const groupTagIds = Object.keys(tagMap)
       .filter((tid) => tagMap[tid].groupName.toLowerCase() === groupName)
       .map((tid) => Number(tid));
 
+    // Strict exact match only — no fuzzy fallback
     filtered = filtered.filter((p: any) => {
       const pId = p.goodsId || p.id;
       const tags = productTagsMap[pId];
       return tags && tags.some((t) => groupTagIds.includes(t));
     });
   } else if (tagName) {
+    // Match by tag name string — exact tag name match only
     filtered = filtered.filter((p: any) => {
       const pId = p.goodsId || p.id;
       const tags = productTagsMap[pId];
-      if (tags) {
-        return tags.some((t) => (tagMap[String(t)]?.tagName || "").toLowerCase().includes(tagName));
-      }
-      return (p.title || p.name || "").toLowerCase().includes(tagName);
+      return tags && tags.some((t) => (tagMap[String(t)]?.tagName || "").toLowerCase().includes(tagName));
     });
   }
 

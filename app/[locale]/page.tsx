@@ -48,7 +48,7 @@ export default function Home() {
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight">
               HYPEAFNAN
             </h1>
-            <p className="text-sm sm:text-base md:text-2xl font-bold tracking-tight mt-0.5" style={{color: '#ffb6c1'}}>
+            <p className="text-lg sm:text-2xl md:text-4xl font-bold tracking-tight mt-0.5" style={{color: '#ffb6c1'}}>
               Sic Parvis Magna.
             </p>
           </div>

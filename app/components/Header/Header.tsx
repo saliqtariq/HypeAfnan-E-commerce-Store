@@ -167,7 +167,7 @@ function HeaderContent() {
                 className="w-[26px] h-[26px] sm:w-[36px] sm:h-[36px] object-cover block rounded-full"
                 priority
               />
-              <span className="text-[20px] sm:text-[24px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
+              <span className="text-[20px] sm:text-[24px] font-extrabold text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
                 HypeAfnan
               </span>
             </Link>
@@ -394,7 +394,7 @@ function HeaderContent() {
             className="w-[26px] h-[26px] sm:w-[36px] sm:h-[36px] object-cover block rounded-full"
             priority
           />
-          <span className="text-[20px] sm:text-[28px] font-normal text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
+          <span className="text-[20px] sm:text-[28px] font-extrabold text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
             HypeAfnan
           </span>
         </Link>
