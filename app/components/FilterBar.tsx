@@ -104,7 +104,7 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
               >
                 {label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-[#38c172] rounded-full" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.75 bg-[#38c172] rounded-full" />
                 )}
               </button>
             );
@@ -163,10 +163,9 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
 
       {/* Filter Right Slide-Over Drawer */}
       {isFilterOpen && (
-        <div className="fixed inset-0 z-[1000] flex justify-end bg-black/40 transition-opacity">
+        <div className="fixed inset-0 z-1000 flex justify-end bg-black/40 transition-opacity">
           <div className="absolute inset-0" onClick={() => setIsFilterOpen(false)} />
-
-          <div className="relative w-full max-w-[420px] h-full bg-white shadow-2xl flex flex-col justify-between z-10 animate-in slide-in-from-right duration-300 border-l border-[#e5e7eb]">
+          <div className="relative w-full max-w-105 h-full bg-white shadow-2xl flex flex-col justify-between z-10 animate-in slide-in-from-right duration-300 border-l border-[#e5e7eb]">
             {/* Drawer Header */}
             <div>
               <div className="relative flex items-center justify-between p-5 border-b border-[#f3f4f6]">

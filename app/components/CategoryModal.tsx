@@ -36,9 +36,9 @@ export default function CategoryModal({ isOpen, onClose, locale, onSelectCategor
   const currentGroup = groups[selectedGroupIdx] || groups[0];
 
   return (
-    <div className="fixed inset-0 z-[999] flex flex-col bg-white overflow-hidden">
+    <div className="fixed inset-0 z-999 flex flex-col bg-white overflow-hidden">
       {/* Header Bar */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#eaeaea] bg-white shrink-0 h-[54px]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#eaeaea] bg-white shrink-0 h-13.5">
         <button
           onClick={onClose}
           className="flex items-center gap-1.5 text-[15px] font-medium text-gray-700 hover:text-gray-900 bg-transparent border-none cursor-pointer p-0"
@@ -63,7 +63,7 @@ export default function CategoryModal({ isOpen, onClose, locale, onSelectCategor
       {/* Main Split Layout */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left Sidebar */}
-        <div className="w-[110px] sm:w-[150px] bg-[#f5f5f7] overflow-y-auto shrink-0 border-r border-[#e5e7eb]">
+        <div className="w-27.5 sm:w-37.5 bg-[#f5f5f7] overflow-y-auto shrink-0 border-r border-[#e5e7eb]">
           {groups.map((group, idx) => {
             const isSelected = idx === selectedGroupIdx;
             return (
@@ -77,7 +77,7 @@ export default function CategoryModal({ isOpen, onClose, locale, onSelectCategor
                 }`}
               >
                 {isSelected && (
-                  <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-[#38c172]" />
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#38c172]" />
                 )}
                 {group.groupName}
               </button>
@@ -112,7 +112,7 @@ export default function CategoryModal({ isOpen, onClose, locale, onSelectCategor
                 }}
                 className="flex flex-col items-center cursor-pointer group transition-transform duration-150 active:scale-95"
               >
-                <div className="w-[84px] h-[84px] sm:w-[100px] sm:h-[100px] rounded-lg bg-[#f8f9fa] border border-gray-100 flex items-center justify-center overflow-hidden mb-2 relative group-hover:border-[#38c172] transition-colors">
+                <div className="w-21 h-21 sm:w-25 sm:h-25 rounded-lg bg-[#f8f9fa] border border-gray-100 flex items-center justify-center overflow-hidden mb-2 relative group-hover:border-[#38c172] transition-colors">
                   {tag.tagImage ? (
                     <Image
                       src={tag.tagImage}

@@ -73,7 +73,7 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="max-w-[1440px] mx-auto py-6">
+      <main className="max-w-360 mx-auto py-6">
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
             <div className="animate-spin h-6 w-6 border-2 border-[#38c172] border-t-transparent rounded-full" />

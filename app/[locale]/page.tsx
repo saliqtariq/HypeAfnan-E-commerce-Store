@@ -33,8 +33,8 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center w-full">
       {/* Hero Section */}
-      <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-4">
-        <div className="relative w-full aspect-[4/5] sm:aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/9] rounded-md overflow-hidden bg-black text-white">
+      <section className="w-full max-w-300 mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-4">
+        <div className="relative w-full aspect-4/5 sm:aspect-4/3 md:aspect-3/2 lg:aspect-video rounded-md overflow-hidden bg-black text-white">
           <Image
             src="/images/afnanpicnewcroped.jpeg"
             alt="HypeAfnan Hero Background"

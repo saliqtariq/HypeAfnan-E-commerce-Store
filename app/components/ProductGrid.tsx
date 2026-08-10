@@ -100,7 +100,7 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                 href={`/${locale}/product/${productId}`}
                 className="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 transition-colors border-b border-gray-100"
               >
-                <div className="relative w-[80px] h-[80px] shrink-0 overflow-hidden bg-gray-100 rounded">
+                <div className="relative w-20 h-20 bg-gray-100 rounded shrink-0 overflow-hidden">
                   {coverImg && (
                     <Image
                       src={coverImg}
@@ -115,9 +115,9 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  {title && <p className="text-[13px] text-gray-800 truncate">{title}</p>}
+                  {title && <p className="text-sm text-gray-800 truncate">{title}</p>}
                   {(product.searchCode || product.goodsCode) && (
-                    <p className="text-[11px] text-gray-400 mt-1">
+                    <p className="text-xs text-gray-400 mt-1">
                       Code: {product.searchCode || product.goodsCode}
                     </p>
                   )}
@@ -153,10 +153,10 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                   className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2 text-white z-10 text-center"
                   style={{ fontFamily: '"Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif' }}
                 >
-                  <p className="text-[13px] sm:text-[15px] leading-none tracking-tight mb-2 font-bold">
+                  <p className="text-sm sm:text-base leading-none tracking-tight mb-2 font-bold">
                     HYPEAFNAN
                   </p>
-                  <div className="flex flex-col gap-[3px]">
+                  <div className="flex flex-col gap-0.75">
                     <div className="flex items-center gap-1">
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                         <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />

@@ -142,9 +142,9 @@ function HeaderContent() {
   // If we are on the /search page, render the Szwego Search Header bar
   if (isSearchPage) {
     return (
-      <header className="sticky top-0 z-[100] w-full bg-white border-b border-[#eaeaea]">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-[32px] py-4">
-          <div className="flex items-center justify-between relative h-[50px] mb-4">
+      <header className="sticky top-0 z-100 w-full bg-white border-b border-[#eaeaea]">
+        <div className="w-full max-w-360 mx-auto px-4 sm:px-8 py-4">
+          <div className="flex items-center justify-between relative h-12.5 mb-4">
             {/* Close Button */}
             <button
               onClick={() => startTransition(() => router.push(`/${locale}`))}
@@ -164,7 +164,7 @@ function HeaderContent() {
                 alt="HypeAfnan Logo"
                 width={36}
                 height={36}
-                className="w-[26px] h-[26px] sm:w-[36px] sm:h-[36px] object-cover block rounded-full"
+                className="w-6.5 h-6.5 sm:w-9 sm:h-9 object-cover block rounded-full"
                 priority
               />
               <span className="text-[20px] sm:text-[24px] font-extrabold text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
@@ -190,8 +190,8 @@ function HeaderContent() {
                 </button>
 
                 {openLang && (
-                  <div className="absolute right-0 top-full mt-2 w-[200px] bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
-                    <ul className="py-2 max-h-[360px] overflow-y-auto">
+                  <div className="absolute right-0 top-full mt-2 w-50 bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
+                    <ul className="py-2 max-h-90 overflow-y-auto">
                       {LANGUAGES.map(({ code, label }) => (
                         <li key={code}>
                           <button
@@ -226,7 +226,7 @@ function HeaderContent() {
                 <button
                   type="button"
                   onClick={() => setIsAuthOpen(true)}
-                  className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858] shadow-xs"
+                  className="inline-flex items-center justify-center h-8.5 px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858] shadow-xs"
                 >
                   Sign In
                 </button>
@@ -254,7 +254,7 @@ function HeaderContent() {
                   </button>
 
                   {openUserMenu && (
-                    <div className="absolute right-0 top-full mt-2.5 w-[260px] bg-white border border-[#e5e7eb] rounded-2xl shadow-xl z-50 p-4 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="absolute right-0 top-full mt-2.5 w-65 bg-white border border-[#e5e7eb] rounded-2xl shadow-xl z-50 p-4 animate-in fade-in zoom-in-95 duration-150">
                       {/* Profile Header (Clicking opens ProfileModal) */}
                       <div 
                         onClick={() => {
@@ -352,13 +352,13 @@ function HeaderContent() {
 
   // Standard Store Header View
   return (
-    <header className="sticky top-0 z-[100] w-full bg-white border-b border-[#eaeaea]">
-      <nav className="flex items-center justify-between relative max-w-[1440px] mx-auto px-4 sm:px-[32px] h-[68px] sm:h-[80px]">
+    <header className="sticky top-0 z-100 w-full bg-white border-b border-[#eaeaea]">
+      <nav className="flex items-center justify-between relative max-w-360 mx-auto px-4 sm:px-8 h-17 sm:h-20">
         {/* Left Section */}
-        <div className="flex items-center gap-4 sm:gap-[40px] flex-1">
+        <div className="flex items-center gap-4 sm:gap-10 flex-1">
           <button
             onClick={() => setIsCategoryOpen(true)}
-            className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] px-2 text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70 touch-manipulation min-w-[44px] min-h-[44px] justify-center sm:justify-start"
+            className="flex items-center gap-2.5 bg-transparent border-none cursor-pointer py-1.5 px-2 text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70 touch-manipulation min-w-11 min-h-11 justify-center sm:justify-start"
             type="button"
             id="category-btn"
           >
@@ -370,7 +370,7 @@ function HeaderContent() {
 
           <Link
             href={`/${locale}/search`}
-            className="flex items-center gap-[10px] bg-transparent border-none cursor-pointer py-[6px] px-2 text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70 touch-manipulation min-w-[44px] min-h-[44px] justify-center sm:justify-start no-underline"
+            className="flex items-center gap-2.5 bg-transparent border-none cursor-pointer py-1.5 px-2 text-[#2d3748] text-[15px] font-normal leading-none whitespace-nowrap transition-opacity duration-150 ease-in hover:opacity-70 touch-manipulation min-w-11 min-h-11 justify-center sm:justify-start no-underline"
             id="search-btn"
           >
             <SearchIcon />
@@ -391,7 +391,7 @@ function HeaderContent() {
             alt="HypeAfnan Logo"
             width={36}
             height={36}
-            className="w-[26px] h-[26px] sm:w-[36px] sm:h-[36px] object-cover block rounded-full"
+            className="w-6.5 h-6.5 sm:w-9 sm:h-9 object-cover block rounded-full"
             priority
           />
           <span className="text-[20px] sm:text-[28px] font-extrabold text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
@@ -421,8 +421,8 @@ function HeaderContent() {
               </button>
 
               {openLang && (
-                <div className="absolute right-0 top-full mt-2 w-[200px] bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
-                  <ul className="py-2 max-h-[360px] overflow-y-auto">
+                <div className="absolute right-0 top-full mt-2 w-50 bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
+                  <ul className="py-2 max-h-90 overflow-y-auto">
                     {LANGUAGES.map(({ code, label }) => (
                       <li key={code}>
                         <button
@@ -457,7 +457,7 @@ function HeaderContent() {
               <button
                 type="button"
                 onClick={() => setIsAuthOpen(true)}
-                className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
+                className="inline-flex items-center justify-center h-8.5 px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap transition-colors duration-150 ease-in hover:bg-[#20b858]"
                 id="signin-btn"
               >
                 Sign In
@@ -486,7 +486,7 @@ function HeaderContent() {
                 </button>
 
                 {openUserMenu && (
-                  <div className="absolute right-0 top-full mt-2.5 w-[260px] bg-white border border-[#e5e7eb] rounded-2xl shadow-xl z-50 p-4 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="absolute right-0 top-full mt-2.5 w-65 bg-white border border-[#e5e7eb] rounded-2xl shadow-xl z-50 p-4 animate-in fade-in zoom-in-95 duration-150">
                     {/* Profile Header (Clicking opens ProfileModal) */}
                     <div 
                       onClick={() => {
@@ -570,8 +570,8 @@ function HeaderContent() {
                     <Image src="/globeicon.png" alt="Language" width={36} height={36} className="w-9 h-9 object-contain" />
                   </button>
                   {openLang && (
-                    <div className="absolute right-0 top-full mt-2 w-[180px] bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
-                      <ul className="py-2 max-h-[250px] overflow-y-auto">
+                    <div className="absolute right-0 top-full mt-2 w-45 bg-white border border-[#e5e7eb] rounded-xl shadow-lg overflow-hidden z-50">
+                      <ul className="py-2 max-h-62.5 overflow-y-auto">
                         {LANGUAGES.map(({ code, label }) => (
                           <li key={code}>
                             <button
@@ -593,7 +593,7 @@ function HeaderContent() {
                     setIsMobileMenuOpen(false);
                     setIsAuthOpen(true);
                   }}
-                  className="inline-flex items-center justify-center h-[34px] px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap shadow-sm"
+                  className="inline-flex items-center justify-center h-8.5 px-4 bg-[#38c172] text-white text-[14px] font-medium border-none rounded-xl cursor-pointer no-underline leading-none whitespace-nowrap shadow-sm"
                 >
                   Sign In
                 </button>
@@ -632,7 +632,7 @@ function HeaderContent() {
 export default function Header() {
   return (
     <Suspense fallback={
-      <header className="sticky top-0 z-[100] w-full bg-white border-b border-[#eaeaea] h-[68px] sm:h-[80px]" />
+      <header className="sticky top-0 z-100 w-full bg-white border-b border-[#eaeaea] h-17 sm:h-20" />
     }>
       <HeaderContent />
     </Suspense>

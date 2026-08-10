@@ -113,11 +113,11 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         <BackIcon />
       </button>
 
-      <div className="max-w-[720px] mx-auto">
+      <div className="w-full max-w-180 bg-white rounded-2xl shadow-2xl p-6 sm:p-8 animate-in zoom-in-95 duration-200">
         {/* Seller info row */}
-        <div className="flex items-center justify-between px-4 py-2">
-          <div className="flex items-center gap-2">
-            <div className="w-[24px] h-[24px] sm:w-[28px] sm:h-[28px] rounded-full overflow-hidden shrink-0">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38c172]/10 flex items-center justify-center overflow-hidden shrink-0">
               <Image
                 src="/images/hypeafnancircularlogopic.png"
                 alt="HypeAfnan Logo"
@@ -217,8 +217,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                   <button
                     key={idx}
                     onClick={() => setSelectedImageIdx(idx)}
-                    className={`relative shrink-0 w-[72px] h-[72px] overflow-hidden border-2 transition-all bg-transparent p-0 cursor-pointer ${
-                      selectedImageIdx === idx ? "border-[#38c172]" : "border-transparent"
+                    className={`relative w-18 h-18 rounded-lg overflow-hidden shrink-0 cursor-pointer border-2 transition-all p-0 bg-gray-50 ${
+                      selectedImageIdx === idx ? "border-[#38c172] shadow-xs" : "border-transparent opacity-60 hover:opacity-100"
                     }`}
                   >
                     <Image
