@@ -43,10 +43,27 @@ export default function Home() {
             priority
           />
 
+          {/* Bottom Right: Logo & Stats */}
+          <div className="absolute bottom-5 sm:bottom-7 right-5 sm:right-8 z-10 flex items-center gap-3 drop-shadow-md">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden shrink-0 border border-white/20">
+              <Image 
+                src="/images/hypeafnancircularlogopic.png" 
+                alt="HypeAfnan Logo" 
+                width={56} 
+                height={56} 
+                className="w-full h-full object-cover" 
+              />
+            </div>
+            <div className="flex flex-col">
+              <p className="text-lg sm:text-xl font-bold leading-none mb-1">HypeAfnan</p>
+              <p className="text-sm sm:text-base font-medium leading-none drop-shadow-sm" style={{color: '#ffb6c1'}}>Total Products {allProducts.length}</p>
+            </div>
+          </div>
+
           {/* Center: Title + Tagline */}
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight">
-              HYPEAFNAN
+              HYPEAFNAN.
             </h1>
             <p className="text-lg sm:text-2xl md:text-4xl font-bold tracking-tight mt-0.5" style={{color: '#ffb6c1'}}>
               Sic Parvis Magna.

@@ -148,33 +148,32 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                 />
                 {/* Dark overlay for readability */}
                 <div className="absolute inset-0 bg-black/40" />
-
-                {/* Text Content */}
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center text-white z-10 text-center"
-                  style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}
+                  className="absolute inset-0 flex items-center justify-center text-white z-10"
                 >
-                  <p className="text-[17px] sm:text-[22px] font-bold tracking-wide mb-3" style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.5)" }}>
-                    HYPEAFNAN
-                  </p>
-                  <div className="flex flex-col gap-1.5 items-start px-2 sm:px-0">
-                    <div className="flex items-center gap-2">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
-                        <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-                      </svg>
-                      <span className="text-[9px] sm:text-[11px] font-medium leading-none drop-shadow-md">+923199775990</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
-                        <rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                      </svg>
-                      <span className="text-[9px] sm:text-[11px] font-medium leading-none drop-shadow-md">Afnaninvain@gmail.com</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
-                        <circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /><path d="M2 12h20" />
-                      </svg>
-                      <span className="text-[9px] sm:text-[11px] font-medium leading-none drop-shadow-md">hypeafnan.vercel.app</span>
+                  <div className="flex flex-col items-start">
+                    <p className="text-[18px] sm:text-[22px] tracking-wide mb-2 font-bold" style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.5)", fontFamily: '"Arial Rounded MT Bold", Arial, Helvetica, sans-serif' }}>
+                      HYPEAFNAN
+                    </p>
+                    <div className="flex flex-col gap-1.5" style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
+                      <div className="flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
+                          <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+                        </svg>
+                        <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">+923199775990</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
+                          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                        <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">Afnaninvain@gmail.com</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
+                          <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+                        </svg>
+                        <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">hypeafnan.vercel.app</span>
+                      </div>
                     </div>
                   </div>
                 </div>
