@@ -134,7 +134,7 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
               <Link
                 key={productId}
                 href={`/${locale}/product/${productId}`}
-                className="group relative block overflow-hidden cursor-pointer"
+                className="col-span-2 sm:col-span-1 group relative block overflow-hidden cursor-pointer"
                 style={{ aspectRatio: "1 / 1" }}
               >
                 {/* Background Image */}
@@ -164,13 +164,13 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                       </div>
                       <div className="flex items-center gap-2">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
-                          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                          <rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                         </svg>
                         <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">Afnaninvain@gmail.com</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
-                          <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+                          <circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /><path d="M2 12h20" />
                         </svg>
                         <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">hypeafnan.vercel.app</span>
                       </div>
