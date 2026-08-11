@@ -17,6 +17,7 @@ export interface Product {
   goodsCode?: string;
   category?: string;
   createdAt?: string;
+  isPromo?: boolean;
 }
 
 interface ProductGridProps {
