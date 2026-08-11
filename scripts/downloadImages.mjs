@@ -83,10 +83,10 @@ function downloadBuffer(url) {
   });
 }
 
-async function processOneImage(url, slug, shortId, index) {
+async function processOneImage(url, slug, uniqueId, index) {
   if (!url) return null;
   const angle    = ANGLES[index] || `extra${index}`;
-  const fileName = `${slug}-${angle}-${shortId}.webp`;
+  const fileName = `${slug}-${uniqueId}-${angle}.webp`;
   const destPath = path.join(IMAGES_DIR, fileName);
   const pubPath  = `/images/products/${fileName}`;
 
@@ -112,7 +112,7 @@ async function processOneImage(url, slug, shortId, index) {
 // Process images for a single product concurrently (capped at CONCURRENCY)
 async function processProduct(product) {
   const pId  = product.goodsId || product.id || "prod";
-  const shortId = pId.slice(-4).toLowerCase();
+  const uniqueId = (product.searchCode ? product.searchCode + "-" : "") + pId.replace(/[^a-zA-Z0-9]/g, "").slice(-8).toLowerCase();
   let title = product.title || "";
   if (title.includes("save my information") || !title.trim()) title = "topokay-product";
   const slug = slugify(title);
@@ -124,7 +124,7 @@ async function processProduct(product) {
   for (let i = 0; i < urls.length; i += CONCURRENCY) {
     const batch = urls.slice(i, i + CONCURRENCY);
     const results = await Promise.all(
-      batch.map((url, j) => processOneImage(url, slug, shortId, i + j))
+      batch.map((url, j) => processOneImage(url, slug, uniqueId, i + j))
     );
     localUrls.push(...results.filter(Boolean));
   }
