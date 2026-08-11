@@ -46,5 +46,16 @@
       "reset": "Zurücksetzen",
       "confirm": "Bestätigen"
     }
+  },
+  "hero": {
+    "totalProducts": "Gesamtprodukte",
+    "email": "E-Mail"
+  },
+  "productDetail": {
+    "share": "Teilen",
+    "consultingPrice": "Beratungspreis",
+    "justNow": "Gerade eben",
+    "details": "Details",
+    "searchCode": "Suchcode"
   }
 }

@@ -46,5 +46,16 @@
       "reset": "リセット",
       "confirm": "確認"
     }
+  },
+  "hero": {
+    "totalProducts": "総製品数",
+    "email": "Eメール"
+  },
+  "productDetail": {
+    "share": "共有",
+    "consultingPrice": "相談価格",
+    "justNow": "たった今",
+    "details": "詳細",
+    "searchCode": "検索コード"
   }
 }

@@ -46,5 +46,16 @@
       "reset": "إعادة ضبط",
       "confirm": "تأكيد"
     }
+  },
+  "hero": {
+    "totalProducts": "إجمالي المنتجات",
+    "email": "البريد الإلكتروني"
+  },
+  "productDetail": {
+    "share": "مشاركة",
+    "consultingPrice": "سعر الاستشارة",
+    "justNow": "الآن",
+    "details": "التفاصيل",
+    "searchCode": "كود البحث"
   }
 }

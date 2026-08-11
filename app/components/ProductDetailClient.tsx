@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect, useRef, useTransition, useMemo
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { Product } from "./ProductGrid";
 import { useAppContext } from "../context/AppContext";
 
@@ -44,6 +45,7 @@ function WhatsAppIcon() {
 export default function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
   const { locale, copyToClipboard } = useAppContext();
+  const t = useTranslations("productDetail");
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
 
   // Track whether we have internal navigation history to go back to
@@ -126,7 +128,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </div>
             <div>
               <p className="text-[14px] font-semibold text-gray-900 m-0 leading-tight">HypeAfnan</p>
-              <p className="text-[11px] text-gray-400 m-0 leading-tight">Just now</p>
+              <p className="text-[11px] text-gray-400 m-0 leading-tight">{t("justNow")}</p>
             </div>
           </div>
 
@@ -137,7 +139,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded-full text-[12px] sm:text-[13px] text-gray-600 hover:bg-gray-50 transition-colors bg-transparent cursor-pointer shrink-0"
             >
               <ShareIcon />
-              <span>Share</span>
+              <span>{t("share")}</span>
             </button>
 
             {/* Consulting Price / WhatsApp Button */}
@@ -148,7 +150,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               className="flex items-center gap-1.5 px-4 py-1.5 bg-[#25D366] text-white rounded-full text-[13px] font-medium hover:bg-[#20b858] transition-colors no-underline shadow-sm"
             >
               <WhatsAppIcon />
-              <span>Consulting price</span>
+              <span>{t("consultingPrice")}</span>
             </a>
           </div>
         </div>
@@ -241,7 +243,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
             </svg>
-            Details
+            {t("details")}
           </button>
 
           {/* Category breadcrumb */}
@@ -260,7 +262,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               className="text-[13px] text-gray-600 cursor-pointer hover:text-gray-900 transition-colors"
               title="Click to copy search code"
             >
-              <span className="font-medium">Search Code: </span>
+              <span className="font-medium">{t("searchCode")}: </span>
               <span>{searchCode}</span>
             </div>
           )}

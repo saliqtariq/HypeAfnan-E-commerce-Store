@@ -46,5 +46,16 @@
       "reset": "Сбросить",
       "confirm": "Подтвердить"
     }
+  },
+  "hero": {
+    "totalProducts": "Всего продуктов",
+    "email": "Электронная почта"
+  },
+  "productDetail": {
+    "share": "Поделиться",
+    "consultingPrice": "Цена консультации",
+    "justNow": "Только что",
+    "details": "Подробности",
+    "searchCode": "Код поиска"
   }
 }

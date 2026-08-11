@@ -46,5 +46,16 @@
       "reset": "重置",
       "confirm": "确定"
     }
+  },
+  "hero": {
+    "totalProducts": "总产品数",
+    "email": "电子邮件"
+  },
+  "productDetail": {
+    "share": "分享",
+    "consultingPrice": "咨询价格",
+    "justNow": "刚刚",
+    "details": "详情",
+    "searchCode": "搜索代码"
   }
 }

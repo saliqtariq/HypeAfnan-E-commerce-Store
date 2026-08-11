@@ -11,6 +11,7 @@ const PAGE_LIMIT = 300;
 
 export default function Home() {
   const t = useTranslations("contactBanner");
+  const tHero = useTranslations("hero");
 
   // Read first page of products on the SERVER — baked into the HTML
   // No API call needed from the browser on initial load
@@ -56,7 +57,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <p className="text-lg sm:text-xl font-bold leading-none mb-1">HypeAfnan</p>
-              <p className="text-sm sm:text-base font-medium leading-none drop-shadow-sm" style={{color: '#ffb6c1'}}>Total Products {allProducts.length}</p>
+              <p className="text-sm sm:text-base font-medium leading-none drop-shadow-sm" style={{color: '#ffb6c1'}}>{tHero("totalProducts")} {allProducts.length}</p>
             </div>
           </div>
 
@@ -78,7 +79,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              <span>E-mail: Afnaninvain@gmail.com</span>
+              <span>{tHero("email")}: Afnaninvain@gmail.com</span>
             </div>
             <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>

@@ -129,9 +129,10 @@ function HeaderContent() {
     const currentPath = pathname || `/${locale}`;
     const segments = currentPath.split("/");
     segments[1] = code;
-    startTransition(() => router.push(segments.join("/") + (searchParams.toString() ? `?${searchParams.toString()}` : "")));
+    const newUrl = segments.join("/") + (searchParams.toString() ? `?${searchParams.toString()}` : "");
     setOpenLang(false);
-  }, [pathname, locale, searchParams, router, startTransition]);
+    window.location.href = newUrl;
+  }, [pathname, locale, searchParams]);
 
   const handleSearchSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
