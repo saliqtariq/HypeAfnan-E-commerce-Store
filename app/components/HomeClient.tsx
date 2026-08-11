@@ -48,14 +48,19 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
     }
   }, []);
 
-  // Sync search param changes from Header search modal
+  // Sync search param changes from Header search
   useEffect(() => {
-    if (searchQuery) {
-      setPage(1);
-      setProducts([]);
-      fetchPage(1, activeCategory, true, searchQuery);
-    }
-  }, [searchQuery, activeCategory, fetchPage]);
+    if (!searchQuery) return;
+    let active = true;
+    setPage(1);
+    setProducts([]);
+    // Delay fetch until after render so state is flushed
+    const id = setTimeout(() => {
+      if (active) fetchPage(1, activeCategory, true, searchQuery);
+    }, 0);
+    return () => { active = false; clearTimeout(id); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
   const handleFilterChange = useCallback((filters: {
     category: string;
@@ -91,7 +96,7 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
     );
     if (observerTarget.current) observer.observe(observerTarget.current);
     return () => observer.disconnect();
-  }, [hasMore, fetchPage]);
+  }, [hasMore, activeCategory, searchQuery, fetchPage]);
 
   return (
     <>

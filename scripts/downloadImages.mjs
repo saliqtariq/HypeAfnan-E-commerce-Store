@@ -1,9 +1,11 @@
 /**
  * Image downloader & compressor for HypeAfnan product catalog.
- * 
+ *
  * Strategy: Read products.json in batches, download & compress images
  * with sharp, save results to products_local.json, and track progress
  * in a small checkpoint file so the script can always resume.
+ *
+ * v2: True product-level parallelism — 50 products processed simultaneously.
  */
 
 import fs from "fs";
@@ -20,38 +22,41 @@ const DATA_FILE    = path.join(__dirname, "../app/data/products.json");
 const OUTPUT_FILE  = path.join(__dirname, "../app/data/products_local.json");
 const CHECKPOINT   = path.join(__dirname, "../app/data/download_checkpoint.json");
 const IMAGES_DIR   = path.join(__dirname, "../public/images/products");
-const BATCH_SIZE   = 20;   // products per batch
-const CONCURRENCY  = 5;    // parallel image downloads per product
+const PRODUCT_CONCURRENCY = 50;  // products processed in parallel (was 1 — now 50x faster)
+const IMG_CONCURRENCY     = 4;   // parallel image downloads per product
+const SAVE_EVERY          = 100; // save output file every N products
 const MAX_WIDTH    = 800;
 const QUALITY      = 75;
-const TIMEOUT_MS   = 15000;
+const TIMEOUT_MS   = 12000;
 
 // --- SETUP ---
 fs.mkdirSync(IMAGES_DIR, { recursive: true });
 
-// Load checkpoint (which product index we stopped at)
+// Load checkpoint
 let startIndex = 0;
 if (fs.existsSync(CHECKPOINT)) {
   try { startIndex = JSON.parse(fs.readFileSync(CHECKPOINT, "utf-8")).nextIndex || 0; }
   catch (e) {}
 }
 
-// Load source products (read-once)
+// Load source products
 console.log("Loading products.json...");
 const source = JSON.parse(fs.readFileSync(DATA_FILE, "utf-8"));
 const products = source.products || [];
 console.log(`Total products: ${products.length}. Resuming from index ${startIndex}.\n`);
 
-// Load (or init) local output file
+// Load or init local output file
 let localProducts;
 if (fs.existsSync(OUTPUT_FILE) && startIndex > 0) {
   try {
     localProducts = JSON.parse(fs.readFileSync(OUTPUT_FILE, "utf-8")).products || [];
+    // Pad if needed
+    while (localProducts.length < products.length) localProducts.push(null);
   } catch (e) {
-    localProducts = [...products]; // fallback
+    localProducts = JSON.parse(JSON.stringify(products));
   }
 } else {
-  localProducts = JSON.parse(JSON.stringify(products)); // deep copy
+  localProducts = JSON.parse(JSON.stringify(products));
 }
 
 // --- HELPERS ---
@@ -90,7 +95,7 @@ async function processOneImage(url, slug, uniqueId, index) {
   const destPath = path.join(IMAGES_DIR, fileName);
   const pubPath  = `/images/products/${fileName}`;
 
-  // Skip if already saved
+  // Skip if already saved with valid size
   try {
     const st = fs.statSync(destPath);
     if (st.size > 200) return pubPath;
@@ -104,25 +109,29 @@ async function processOneImage(url, slug, uniqueId, index) {
       .toFile(destPath);
     return pubPath;
   } catch (err) {
-    // Return original URL if download fails — keeps the product visible
-    return url;
+    return url; // keep original URL if download fails
   }
 }
 
-// Process images for a single product concurrently (capped at CONCURRENCY)
-async function processProduct(product) {
-  const pId  = product.goodsId || product.id || "prod";
+async function processProduct(product, globalIdx) {
+  const pId      = product.goodsId || product.id || "prod";
   const uniqueId = (product.searchCode ? product.searchCode + "-" : "") + pId.replace(/[^a-zA-Z0-9]/g, "").slice(-8).toLowerCase();
   let title = product.title || "";
   if (title.includes("save my information") || !title.trim()) title = "topokay-product";
   const slug = slugify(title);
 
+  // Check if already processed correctly
+  const existing = localProducts[globalIdx];
+  if (existing && existing.images && existing.images[0] && existing.images[0].startsWith("/images")) {
+    return existing;
+  }
+
   const urls = Array.isArray(product.images) ? product.images : [];
   const localUrls = [];
 
-  // Process in sub-batches of CONCURRENCY
-  for (let i = 0; i < urls.length; i += CONCURRENCY) {
-    const batch = urls.slice(i, i + CONCURRENCY);
+  // Download images in sub-batches of IMG_CONCURRENCY
+  for (let i = 0; i < urls.length; i += IMG_CONCURRENCY) {
+    const batch = urls.slice(i, i + IMG_CONCURRENCY);
     const results = await Promise.all(
       batch.map((url, j) => processOneImage(url, slug, uniqueId, i + j))
     );
@@ -136,58 +145,71 @@ async function processProduct(product) {
   };
 }
 
+// Semaphore to cap true parallelism
+function semaphore(limit) {
+  let active = 0;
+  const queue = [];
+  return function run(fn) {
+    return new Promise((resolve, reject) => {
+      const execute = async () => {
+        active++;
+        try { resolve(await fn()); }
+        catch (e) { reject(e); }
+        finally {
+          active--;
+          if (queue.length) queue.shift()();
+        }
+      };
+      active < limit ? execute() : queue.push(execute);
+    });
+  };
+}
+
 // --- MAIN LOOP ---
 async function main() {
-  let processed = 0;
-  let errors = 0;
+  const sem = semaphore(PRODUCT_CONCURRENCY);
+  let processed = startIndex;
+  let lastSaved = startIndex;
 
-  for (let i = startIndex; i < products.length; i += BATCH_SIZE) {
-    const batch = products.slice(i, Math.min(i + BATCH_SIZE, products.length));
+  const remaining = products.slice(startIndex);
+  const promises = remaining.map((product, relIdx) => {
+    const globalIdx = startIndex + relIdx;
+    return sem(async () => {
+      const updated = await processProduct(product, globalIdx);
+      localProducts[globalIdx] = updated;
+      processed++;
 
-    // Process each product in the batch sequentially to keep memory flat
-    const results = [];
-    for (const product of batch) {
-      const localIdx = products.indexOf(product);
-      
-      // Skip if already local
-      const existing = localProducts[localIdx];
-      if (existing && existing.images && existing.images[0] && existing.images[0].startsWith("/images")) {
-        results.push(existing);
-        processed++;
-        continue;
+      // Log progress every 50 products
+      if (processed % 50 === 0 || processed === products.length) {
+        const pct = ((processed / products.length) * 100).toFixed(1);
+        console.log(`[${pct}%] ${processed}/${products.length} products processed`);
       }
 
-      const updated = await processProduct(product);
-      results.push(updated);
-      processed++;
-    }
+      // Save checkpoint periodically
+      if (processed - lastSaved >= SAVE_EVERY) {
+        lastSaved = processed;
+        fs.writeFileSync(CHECKPOINT, JSON.stringify({ nextIndex: processed }, null, 2));
+        fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ products: localProducts }, null, 2));
+      }
+    });
+  });
 
-    // Write back to localProducts
-    for (let j = 0; j < results.length; j++) {
-      localProducts[i + j] = results[j];
-    }
+  await Promise.all(promises);
 
-    // Save checkpoint + output file
-    const nextIndex = Math.min(i + BATCH_SIZE, products.length);
-    fs.writeFileSync(CHECKPOINT, JSON.stringify({ nextIndex }, null, 2));
-    fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ products: localProducts }, null, 2));
-
-    const pct = ((nextIndex / products.length) * 100).toFixed(1);
-    console.log(`[${pct}%] Processed ${nextIndex}/${products.length} products (batch ends at ${i + BATCH_SIZE})`);
-  }
-
-  // Done — clean up checkpoint
+  // Final save
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ products: localProducts }, null, 2));
   if (fs.existsSync(CHECKPOINT)) fs.unlinkSync(CHECKPOINT);
+
+  const imgCount = fs.readdirSync(IMAGES_DIR).length;
   console.log(`\n✅ ALL DONE!`);
   console.log(`   Processed : ${processed} products`);
-  console.log(`   Saved to  : ${OUTPUT_FILE}`);
-  
-  // Count downloaded images
-  const imgCount = fs.readdirSync(IMAGES_DIR).length;
   console.log(`   Images    : ${imgCount} files in public/images/products/`);
+  console.log(`   Saved to  : ${OUTPUT_FILE}`);
 }
 
 main().catch(err => {
+  // Emergency save before exit
+  try { fs.writeFileSync(OUTPUT_FILE, JSON.stringify({ products: localProducts }, null, 2)); } catch (_) {}
   console.error("Fatal error:", err);
   process.exit(1);
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
@@ -36,7 +37,7 @@ function HeaderContent() {
 
   const { showToast } = useAppContext();
   const supabase = useMemo(() => createClient(), []);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [openUserMenu, setOpenUserMenu] = useState(false);
 
   const [openLang, setOpenLang] = useState(false);
@@ -112,10 +113,10 @@ function HeaderContent() {
       const avatarUrl = event.target?.result as string;
       try {
         await supabase.auth.updateUser({ data: { avatar_url: avatarUrl } });
-        setUser((prev: any) => ({
+        setUser((prev) => (prev ? {
           ...prev,
-          user_metadata: { ...prev?.user_metadata, avatar_url: avatarUrl },
-        }));
+          user_metadata: { ...prev.user_metadata, avatar_url: avatarUrl },
+        } : null));
         showToast("Avatar updated successfully!");
       } catch {
         showToast("Failed to update avatar");
@@ -168,7 +169,7 @@ function HeaderContent() {
                 priority
               />
               <span className="text-[20px] sm:text-[24px] font-extrabold text-[#1f2937] tracking-[-0.5px] leading-none font-sans">
-                HypeAfnan
+                HypeAfnan.
               </span>
             </Link>
 

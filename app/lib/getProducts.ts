@@ -38,12 +38,36 @@ export function getAllProducts(): Product[] {
   try {
     const raw = fs.readFileSync(file, "utf-8");
     const data = JSON.parse(raw);
-    cachedIndex = (data.products || []) as Product[];
+    const rawProducts = (data.products || []) as Product[];
+    cachedIndex = rawProducts.map(p => {
+      if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
+        return {
+          ...p,
+          title: "HYPEAFNAN",
+          coverImage: "/images/Firstproductbg.jpeg",
+          images: ["/images/Firstproductbg.jpeg"],
+          isPromo: true
+        };
+      }
+      return p;
+    });
   } catch {
     // Fallback to full products.json if index is unreadable
     const raw = fs.readFileSync(fallbackFile, "utf-8");
     const data = JSON.parse(raw);
-    cachedIndex = (data.products || []) as Product[];
+    const rawProducts = (data.products || []) as Product[];
+    cachedIndex = rawProducts.map(p => {
+      if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
+        return {
+          ...p,
+          title: "HYPEAFNAN",
+          coverImage: "/images/Firstproductbg.jpeg",
+          images: ["/images/Firstproductbg.jpeg"],
+          isPromo: true
+        };
+      }
+      return p;
+    });
   }
   return cachedIndex!;
 }
@@ -66,12 +90,36 @@ export function getProductById(id: string): Product | undefined {
     try {
       raw = fs.readFileSync(file, "utf-8");
       const data = JSON.parse(raw);
-      cachedFull = (data.products || []) as Product[];
+      const rawProducts = (data.products || []) as Product[];
+      cachedFull = rawProducts.map(p => {
+        if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
+          return {
+            ...p,
+            title: "HYPEAFNAN",
+            coverImage: "/images/Firstproductbg.jpeg",
+            images: ["/images/Firstproductbg.jpeg"],
+            isPromo: true
+          };
+        }
+        return p;
+      });
     } catch {
       // products_local.json may be mid-write (download script running) — fall back to stable products.json
       raw = fs.readFileSync(mainFile, "utf-8");
       const data = JSON.parse(raw);
-      cachedFull = (data.products || []) as Product[];
+      const rawProducts = (data.products || []) as Product[];
+      cachedFull = rawProducts.map(p => {
+        if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
+          return {
+            ...p,
+            title: "HYPEAFNAN",
+            coverImage: "/images/Firstproductbg.jpeg",
+            images: ["/images/Firstproductbg.jpeg"],
+            isPromo: true
+          };
+        }
+        return p;
+      });
     }
   }
 

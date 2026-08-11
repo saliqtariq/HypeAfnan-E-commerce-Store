@@ -128,7 +128,7 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
           }
 
           // Special first promo card — render with custom background + text overlay
-          if (coverImg.includes('SimpleHeroSection')) {
+          if (productId === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A' || product.isPromo || title.includes('Please save my information')) {
             return (
               <Link
                 key={productId}
@@ -142,38 +142,38 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                   alt="HypeAfnan Promo"
                   fill
                   sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 20vw"
-                  className="object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                  className="object-cover transition-transform duration-300"
                   priority
                 />
                 {/* Dark overlay for readability */}
-                <div className="absolute inset-0 bg-black/50" />
+                <div className="absolute inset-0 bg-black/40" />
 
                 {/* Text Content */}
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2 text-white z-10 text-center"
-                  style={{ fontFamily: '"Arial Rounded MT Bold", "Arial Rounded MT", Arial, sans-serif' }}
+                  className="absolute inset-0 flex flex-col items-center justify-center text-white z-10 text-center"
+                  style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}
                 >
-                  <p className="text-sm sm:text-base leading-none tracking-tight mb-2 font-bold">
+                  <p className="text-[17px] sm:text-[22px] font-bold tracking-wide mb-3" style={{ textShadow: "1px 1px 3px rgba(0,0,0,0.5)" }}>
                     HYPEAFNAN
                   </p>
-                  <div className="flex flex-col gap-0.75">
-                    <div className="flex items-center gap-1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                  <div className="flex flex-col gap-1.5 items-start px-2 sm:px-0">
+                    <div className="flex items-center gap-2">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
                         <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
                       </svg>
-                      <span className="text-[7px] sm:text-[8px] leading-none">+923199775990</span>
+                      <span className="text-[9px] sm:text-[11px] font-medium leading-none drop-shadow-md">+923199775990</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                        <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    <div className="flex items-center gap-2">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
+                        <rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                       </svg>
-                      <span className="text-[7px] sm:text-[8px] leading-none">Afnaninvain@gmail.com</span>
+                      <span className="text-[9px] sm:text-[11px] font-medium leading-none drop-shadow-md">Afnaninvain@gmail.com</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                        <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+                    <div className="flex items-center gap-2">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
+                        <circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /><path d="M2 12h20" />
                       </svg>
-                      <span className="text-[7px] sm:text-[8px] leading-none">hypeafnan.vercel.app</span>
+                      <span className="text-[9px] sm:text-[11px] font-medium leading-none drop-shadow-md">hypeafnan.vercel.app</span>
                     </div>
                   </div>
                 </div>
@@ -196,9 +196,8 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
                   alt={title || "product"}
                   fill
                   sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, (max-width: 1024px) 20vw, 16vw"
-                  className={`${
-                    coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
-                  } group-hover:scale-[1.03] transition-transform duration-300`}
+                  className={`${coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
+                    } group-hover:scale-[1.03] transition-transform duration-300`}
                   loading="lazy"
                   placeholder="blur"
                   blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="

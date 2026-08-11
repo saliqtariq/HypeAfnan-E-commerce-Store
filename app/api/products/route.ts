@@ -58,22 +58,19 @@ export async function GET(req: NextRequest) {
   if (tagId) {
     const targetTagId = Number(tagId);
 
-    // Special case: Top category (85658997) — show newest 300 products
-    if (targetTagId === 85658997) {
-      const sorted = [...products].sort((a: any, b: any) => {
-        const tsA = a.timestamp || a.createdAt || 0;
-        const tsB = b.timestamp || b.createdAt || 0;
-        return tsB - tsA;
-      });
-      filtered = sorted.slice(0, 300);
-    } else {
-      // Strict exact match only — no fuzzy fallback
-      filtered = filtered.filter((p: any) => {
-        const pId = p.goodsId || p.id;
-        const tags = productTagsMap[pId];
-        return tags && tags.includes(targetTagId);
-      });
-    }
+    // Filter strictly by tag ID
+    filtered = filtered.filter((p: any) => {
+      const pId = p.goodsId || p.id;
+      const tags = productTagsMap[pId];
+      return tags && tags.includes(targetTagId);
+    });
+
+    // Sort by timestamp descending (newest first) to match Topokay's exact default order
+    filtered.sort((a: any, b: any) => {
+      const tsA = a.timestamp || a.createdAt || 0;
+      const tsB = b.timestamp || b.createdAt || 0;
+      return tsB - tsA;
+    });
   } else if (groupName && groupName !== "all") {
     // Filter by group — show all tags that belong to this group
     const groupTagIds = Object.keys(tagMap)
