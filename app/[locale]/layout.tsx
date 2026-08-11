@@ -17,9 +17,28 @@ const geistSans = Geist({
 
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.hypeafnan.com"),
   title: "HypeAfnan",
-  description: "HypeAfnan - Your ultimate hype destination",
+  description: "HypeAfnan - Your ultimate hype destination. Shop the latest streetwear, sneakers & exclusive drops.",
+  keywords: ["HypeAfnan", "streetwear", "sneakers", "hype", "fashion", "Pakistan"],
   referrer: "no-referrer",
+  openGraph: {
+    title: "HypeAfnan",
+    description: "Shop the latest streetwear, sneakers & exclusive drops.",
+    url: "https://www.hypeafnan.com",
+    siteName: "HypeAfnan",
+    images: [{ url: "/images/afnanpicnewcroped.jpeg", width: 1200, height: 630, alt: "HypeAfnan" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HypeAfnan",
+    description: "Shop the latest streetwear, sneakers & exclusive drops.",
+    images: ["/images/afnanpicnewcroped.jpeg"],
+  },
+  alternates: {
+    canonical: "https://www.hypeafnan.com",
+  },
 };
 
 export function generateStaticParams() {
