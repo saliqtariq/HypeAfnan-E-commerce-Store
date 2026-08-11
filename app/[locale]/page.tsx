@@ -45,8 +45,8 @@ export default function Home() {
           />
 
           {/* Bottom Right: Logo & Stats */}
-          <div className="absolute bottom-5 sm:bottom-7 right-5 sm:right-8 z-10 flex items-center gap-3 drop-shadow-md">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden shrink-0 border border-white/20">
+          <div className="absolute bottom-3 sm:bottom-7 right-3 sm:right-8 z-10 flex items-center gap-1.5 sm:gap-3 drop-shadow-md">
+            <div className="w-8 h-8 sm:w-14 sm:h-14 rounded-full overflow-hidden shrink-0 border border-white/20">
               <Image 
                 src="/images/hypeafnancircularlogopic.png" 
                 alt="HypeAfnan Logo" 
@@ -56,8 +56,8 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-col">
-              <p className="text-lg sm:text-xl font-bold leading-none mb-1">HypeAfnan</p>
-              <p className="text-sm sm:text-base font-medium leading-none drop-shadow-sm" style={{color: '#ffb6c1'}}>{tHero("totalProducts")} {allProducts.length}</p>
+              <p className="text-xs sm:text-xl font-bold leading-none mb-0.5 sm:mb-1">HypeAfnan</p>
+              <p className="text-[10px] sm:text-base font-medium leading-none drop-shadow-sm" style={{color: '#ffb6c1'}}>{tHero("totalProducts")} {allProducts.length}</p>
             </div>
           </div>
 
@@ -72,18 +72,18 @@ export default function Home() {
           </div>
 
           {/* Bottom: Contact Info */}
-          <div className="absolute bottom-5 sm:bottom-7 left-5 sm:left-8 z-10 flex flex-col items-start gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg>
+          <div className="absolute bottom-3 sm:bottom-7 left-3 sm:left-8 z-10 flex flex-col items-start gap-1 sm:gap-3 max-w-[55%] sm:max-w-none">
+            <div className="flex items-center gap-1.5 sm:gap-3 text-[10px] sm:text-lg font-medium">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 sm:w-[22px] sm:h-[22px]"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg>
               <span>+923199775990</span>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              <span>{tHero("email")}: Afnaninvain@gmail.com</span>
+            <div className="flex items-center gap-1.5 sm:gap-3 text-[10px] sm:text-lg font-medium">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 sm:w-[22px] sm:h-[22px]"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span className="truncate">{tHero("email")}: Afnaninvain@gmail.com</span>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-lg font-medium">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
-              <span>https://hypeafnan.vercel.app/</span>
+            <div className="flex items-center gap-1.5 sm:gap-3 text-[10px] sm:text-lg font-medium">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 sm:w-[22px] sm:h-[22px]"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+              <span className="truncate">https://hypeafnan.vercel.app/</span>
             </div>
           </div>
         </div>
