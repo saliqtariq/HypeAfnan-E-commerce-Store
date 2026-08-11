@@ -104,19 +104,17 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
   return (
     <div className="min-h-screen bg-white relative flex justify-center pt-0 pb-10">
-      {/* Back button — absolutely positioned on the extreme left so it doesn't push down content */}
-      <button
-        onClick={goBack}
-        className="absolute left-4 top-4 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md text-gray-600 hover:text-gray-900 hover:shadow-lg transition-all border border-gray-100 cursor-pointer"
-        aria-label="Go back"
-      >
-        <BackIcon />
-      </button>
-
       <div className="w-full max-w-3xl mx-auto bg-white sm:rounded-2xl sm:shadow-2xl p-4 sm:p-8 animate-in zoom-in-95 duration-200">
         {/* Seller info row */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100 flex-wrap gap-4">
           <div className="flex items-center gap-2.5">
+            <button
+              onClick={goBack}
+              className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-50 shadow-sm text-gray-600 hover:text-gray-900 transition-all border border-gray-200 cursor-pointer shrink-0 sm:mr-2"
+              aria-label="Go back"
+            >
+              <BackIcon />
+            </button>
             <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#38c172]/10 flex items-center justify-center overflow-hidden shrink-0">
               <Image
                 src="/images/hypeafnancircularlogopic.png"
@@ -132,11 +130,11 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Share button */}
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded-full text-[13px] text-gray-600 hover:bg-gray-50 transition-colors bg-transparent cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded-full text-[12px] sm:text-[13px] text-gray-600 hover:bg-gray-50 transition-colors bg-transparent cursor-pointer shrink-0"
             >
               <ShareIcon />
               <span>Share</span>
