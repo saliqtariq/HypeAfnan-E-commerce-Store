@@ -67,6 +67,10 @@ export default async function LocaleLayout({
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://hypeafnan-cdn.afnanimran61.workers.dev" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://hypeafnan-cdn.afnanimran61.workers.dev" />
+      </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppProvider>
