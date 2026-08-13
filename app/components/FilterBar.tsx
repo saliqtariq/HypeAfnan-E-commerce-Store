@@ -16,7 +16,7 @@ interface FilterBarProps {
   }) => void;
 }
 
-export default function FilterBar({ onFilterChange }: FilterBarProps) {
+const FilterBar = React.memo(function FilterBar({ onFilterChange }: FilterBarProps) {
   const t = useTranslations("filterBar");
 
   const [activeTab, setActiveTab] = useState<TabType>("all");
@@ -271,4 +271,6 @@ export default function FilterBar({ onFilterChange }: FilterBarProps) {
       )}
     </div>
   );
-}
+});
+
+export default FilterBar;

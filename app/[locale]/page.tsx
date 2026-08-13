@@ -1,28 +1,47 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import HomeClient from "../components/HomeClient";
 import { getAllProducts } from "../lib/getProducts";
+import { getSanityProducts } from "../../sanity/client";
 import type { Product } from "../components/ProductGrid";
 
-// Regenerate this page every 24 hours on Vercel
-export const revalidate = 86400;
+// Regenerate this page every 60 seconds to pick up new Sanity products
+export const revalidate = 60;
 
 const PAGE_LIMIT = 300;
 
-export default function Home() {
-  const t = useTranslations("contactBanner");
-  const tHero = useTranslations("hero");
+export default async function Home() {
+  const t = await getTranslations("contactBanner");
+  const tHero = await getTranslations("hero");
 
-  // Read first page of products on the SERVER — baked into the HTML
-  // No API call needed from the browser on initial load
-  const allProducts = getAllProducts() as Product[];
-  const total = allProducts.length;
+  // Fetch Sanity products server-side
+  let sanityProducts: Product[] = [];
+  try {
+    const raw = await getSanityProducts();
+    sanityProducts = (raw || []).map((p: any) => ({
+      id: `sanity_${p._id}`,
+      goodsId: `sanity_${p._id}`,
+      searchCode: p.searchCode,
+      category: p.category,
+      subCategory: p.subCategory,
+      coverImage: p.images?.[0] || null,
+      images: p.images || [],
+      _fromSanity: true,
+    }));
+  } catch {
+    // Sanity unavailable — continue with JSON products only
+  }
 
-  // Keep the promo card (first product) pinned — rotate the rest daily
-  // Each day picks a fresh batch of 29 products based on the day number
-  const promoCard = allProducts[0];
-  const restProducts = allProducts.slice(1);
-  const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24)); // changes every 24 hrs
+  // JSON products
+  const jsonProducts = getAllProducts() as Product[];
+  const total = sanityProducts.length + jsonProducts.length;
+
+  // Keep the promo card (first product of JSON) pinned — rotate the rest daily
+  const promoCard = jsonProducts[0];
+  const restJson = jsonProducts.slice(1);
+  const restProducts = [...sanityProducts, ...restJson];
+  
+  const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
   const startIdx = (dayNumber * (PAGE_LIMIT - 1)) % restProducts.length;
   const slice1 = restProducts.slice(startIdx, startIdx + PAGE_LIMIT - 1);
   // Wrap around if we hit the end of the list
@@ -57,7 +76,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <p className="text-sm sm:text-xl font-bold leading-none mb-0.5 sm:mb-1">HypeAfnan</p>
-              <p className="text-[11px] sm:text-base font-medium leading-none drop-shadow-sm" style={{ color: '#ffb6c1' }}>{tHero("totalProducts")} {allProducts.length}</p>
+              <p className="text-[11px] sm:text-base font-medium leading-none drop-shadow-sm" style={{ color: '#ffb6c1' }}>{tHero("totalProducts")} {total}</p>
             </div>
           </div>
 

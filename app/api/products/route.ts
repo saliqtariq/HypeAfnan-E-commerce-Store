@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 import { getAllProducts } from "../../lib/getProducts";
 import productTagsData from "../../data/product_tags.json";
 import tagMapData from "../../data/tag_map.json";
+import { getSanityProducts } from "../../../sanity/client";
 
 const productTagsMap = productTagsData as Record<string, number[]>;
 const tagMap = tagMapData as Record<string, { groupName: string; tagName: string }>;
@@ -17,7 +19,29 @@ export async function GET(req: NextRequest) {
   const tagName = (searchParams.get("tagName") || "").trim().toLowerCase();
   const groupName = (searchParams.get("groupName") || "").trim().toLowerCase();
 
-  const products = getAllProducts();
+  let sanityProducts: any[] = [];
+  try {
+    const raw = await getSanityProducts();
+    sanityProducts = (raw || []).map((p: any) => ({
+      id: `sanity_${p._id}`,
+      goodsId: `sanity_${p._id}`,
+      searchCode: p.searchCode,
+      category: p.category,
+      subCategory: p.subCategory,
+      coverImage: p.images?.[0] || null,
+      images: p.images || [],
+      timestamp: Date.now(), // Always sort Sanity products to the top
+      _fromSanity: true,
+    }));
+    console.log("SANITY FETCH SUCCESS:", sanityProducts.length);
+  } catch (error) {
+    console.error("SANITY FETCH ERROR:", error);
+    // Sanity unavailable — continue with JSON products only
+  }
+
+  const jsonProducts = getAllProducts();
+  // Merge: Sanity products come first so they appear prominently
+  const products = [...sanityProducts, ...jsonProducts];
 
   let filtered = products;
 
@@ -36,11 +60,14 @@ export async function GET(req: NextRequest) {
 
   // Filter by Tab/Category
   if (category === "new") {
-    filtered = [...products].sort((a, b) => {
+    // Sanity products are always newest — pin them first, then sort JSON products by timestamp
+    const sanity = products.filter((p: any) => p._fromSanity);
+    const rest = products.filter((p: any) => !p._fromSanity).sort((a, b) => {
       const tsA = (a.timestamp as number) || 0;
       const tsB = (b.timestamp as number) || 0;
       return tsB - tsA;
     });
+    filtered = [...sanity, ...rest];
   } else if (category === "video") {
     filtered = products.filter((p) => {
       if (p.hasVideo) return true;
@@ -58,34 +85,42 @@ export async function GET(req: NextRequest) {
   if (tagId) {
     const targetTagId = Number(tagId);
 
-    // Filter strictly by tag ID
     filtered = filtered.filter((p: any) => {
+      // Sanity product: match by subCategory string against tagName from URL
+      if (p._fromSanity) {
+        return tagName && (p.subCategory || "").toLowerCase() === tagName.toLowerCase();
+      }
+      // JSON product: match by tag ID
       const pId = p.goodsId || p.id;
       const tags = productTagsMap[pId];
       return tags && tags.includes(targetTagId);
     });
 
-    // Sort by timestamp descending (newest first) to match Topokay's exact default order
     filtered.sort((a: any, b: any) => {
       const tsA = a.timestamp || a.createdAt || 0;
       const tsB = b.timestamp || b.createdAt || 0;
       return tsB - tsA;
     });
   } else if (groupName && groupName !== "all") {
-    // Filter by group — show all tags that belong to this group
     const groupTagIds = Object.keys(tagMap)
       .filter((tid) => tagMap[tid].groupName.toLowerCase() === groupName)
       .map((tid) => Number(tid));
 
-    // Strict exact match only — no fuzzy fallback
     filtered = filtered.filter((p: any) => {
+      // Sanity product: match by category string
+      if (p._fromSanity) {
+        return (p.category || "").toLowerCase() === groupName;
+      }
+      // JSON product: match by tag ID
       const pId = p.goodsId || p.id;
       const tags = productTagsMap[pId];
       return tags && tags.some((t) => groupTagIds.includes(t));
     });
   } else if (tagName) {
-    // Match by tag name string — exact tag name match only
     filtered = filtered.filter((p: any) => {
+      if (p._fromSanity) {
+        return (p.subCategory || "").toLowerCase().includes(tagName);
+      }
       const pId = p.goodsId || p.id;
       const tags = productTagsMap[pId];
       return tags && tags.some((t) => (tagMap[String(t)]?.tagName || "").toLowerCase().includes(tagName));

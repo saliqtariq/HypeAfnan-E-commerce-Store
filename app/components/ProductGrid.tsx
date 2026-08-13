@@ -23,6 +23,7 @@ export interface Product {
 interface ProductGridProps {
   products: Product[];
   viewMode?: "grid" | "list";
+  loading?: boolean;
 }
 
 // Share icon matching Szwego's exact icon
@@ -47,7 +48,7 @@ function ShareIcon() {
   );
 }
 
-export default function ProductGrid({ products, viewMode = "grid" }: ProductGridProps) {
+const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid", loading = false }: ProductGridProps) {
   const { locale, copyToClipboard } = useAppContext();
 
   const handleShareProduct = useCallback(
@@ -65,6 +66,8 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
   );
 
   if (!products || products.length === 0) {
+    if (loading) return null; // Wait for loading to finish before showing "No products found"
+
     return (
       <div className="w-full flex flex-col items-center justify-center py-20 text-gray-400">
         <svg width="48" height="48" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -87,11 +90,20 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
       >
         {products.map((product) => {
           const productId = product.goodsId || product.id || product.searchCode || "";
-          const coverImg =
+          let coverImg =
             product.coverImage ||
             product.imageUrl ||
             (product.images && product.images[0]) ||
             "";
+            
+          // Optimize images on the fly via CDN parameters (drastically speeds up grid loading)
+          if (coverImg) {
+            if (coverImg.includes('szwego.com') && !coverImg.includes('imageMogr2')) {
+              coverImg += '?imageMogr2/auto-orient/thumbnail/!400x400r/quality/90/format/jpg';
+            } else if (coverImg.includes('cdn.sanity.io') && !coverImg.includes('?')) {
+              coverImg += '?w=400&h=400&fit=crop&q=80';
+            }
+          }
           const title = product.title || product.name || "";
 
           if (viewMode === "list") {
@@ -226,4 +238,6 @@ export default function ProductGrid({ products, viewMode = "grid" }: ProductGrid
       </div>
     </div>
   );
-}
+});
+
+export default ProductGrid;

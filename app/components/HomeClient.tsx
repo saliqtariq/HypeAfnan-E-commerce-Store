@@ -101,7 +101,7 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
   return (
     <>
       <FilterBar onFilterChange={handleFilterChange} />
-      <ProductGrid products={products} viewMode={viewMode} />
+      <ProductGrid products={products} viewMode={viewMode} loading={loading} />
 
       {/* Infinite scroll sentinel */}
       {hasMore && (
