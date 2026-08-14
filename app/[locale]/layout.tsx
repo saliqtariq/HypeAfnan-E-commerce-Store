@@ -19,26 +19,55 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hypeafnan.com"),
-  title: "HypeAfnan",
-  description: "HypeAfnan - Your ultimate hype destination. Shop the latest streetwear, sneakers & exclusive drops.",
-  keywords: ["HypeAfnan", "streetwear", "sneakers", "hype", "fashion", "Pakistan"],
-  referrer: "no-referrer",
+  title: {
+    template: "%s | HypeAfnan",
+    default: "HypeAfnan | Premium Streetwear, Sneakers & Luxury Fashion",
+  },
+  description: "HypeAfnan is your ultimate destination for premium streetwear, exclusive sneakers, and luxury designer clothing. Shop the latest hype fashion trends today.",
+  keywords: [
+    "HypeAfnan", "Hype Afnan", "Afnan", "Hype", "streetwear", "sneakers", 
+    "luxury fashion", "designer clothes", "hypebeast clothing", "exclusive drops", 
+    "premium apparel", "Pakistan streetwear", "online clothing store", 
+    "men's fashion", "women's fashion", "high-end streetwear", "designer sneakers"
+  ],
+  authors: [{ name: "HypeAfnan" }],
+  creator: "HypeAfnan",
+  publisher: "HypeAfnan",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: "HypeAfnan",
-    description: "Shop the latest streetwear, sneakers & exclusive drops.",
+    title: "HypeAfnan | Premium Streetwear & Sneakers",
+    description: "Shop the latest streetwear, exclusive sneakers, and luxury fashion at HypeAfnan.",
     url: "https://www.hypeafnan.com",
     siteName: "HypeAfnan",
-    images: [{ url: "/images/afnanpicnewcroped.jpeg", width: 1200, height: 630, alt: "HypeAfnan" }],
+    images: [{ url: "/images/afnanpicnewcroped.jpeg", width: 1200, height: 630, alt: "HypeAfnan Premium Fashion" }],
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "HypeAfnan",
-    description: "Shop the latest streetwear, sneakers & exclusive drops.",
+    title: "HypeAfnan | Premium Streetwear & Sneakers",
+    description: "Shop the latest streetwear, exclusive sneakers, and luxury fashion at HypeAfnan.",
     images: ["/images/afnanpicnewcroped.jpeg"],
+    creator: "@HypeAfnan",
   },
   alternates: {
     canonical: "https://www.hypeafnan.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
