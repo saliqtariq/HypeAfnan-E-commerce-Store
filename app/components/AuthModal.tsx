@@ -13,7 +13,7 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
   const { showToast } = useAppContext();
-  const [view, setView] = useState<"options" | "email_signin" | "email_signup">("options");
+  const [view, setView] = useState<"options" | "email_signin" | "email_signup" | "verify_email">("options");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -74,8 +74,8 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
           },
         });
         if (error) throw error;
-        setSuccessMsg("Check your email for confirmation!");
-        showToast("Sign up successful! Please check your email.");
+        // Show the verify email screen — don't close the modal yet
+        setView("verify_email");
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -145,6 +145,33 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
           </div>
         )}
 
+        {/* VERIFY EMAIL VIEW */}
+        {view === "verify_email" && (
+          <div className="flex flex-col items-center text-center gap-4 py-4">
+            <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#38c172" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-gray-900 m-0">Verify your email</h3>
+              <p className="text-sm text-gray-500 mt-1.5 leading-relaxed">
+                We sent a confirmation link to<br />
+                <span className="font-semibold text-gray-700">{email}</span>
+              </p>
+              <p className="text-xs text-gray-400 mt-3">Click the link in the email to activate your account. Check your spam folder if you don&apos;t see it.</p>
+            </div>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="w-full h-11 bg-[#38c172] hover:bg-[#20b858] text-white font-medium text-sm rounded-xl transition-colors cursor-pointer"
+            >
+              Got it!
+            </button>
+          </div>
+        )}
+
         {/* OPTIONS VIEW (Matching Topokay exact layout) */}
         {view === "options" && (
           <div className="flex flex-col gap-3.5">
@@ -202,26 +229,26 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm outline-none focus:bg-white focus:border-[#38c172] transition-colors"
                 />
                 
-                <div className="grid grid-cols-2 gap-2">
-                  <select
-                    required
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm outline-none focus:bg-white focus:border-[#38c172] transition-colors text-gray-700"
-                  >
-                    <option value="" disabled>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
+                <select
+                  required
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm outline-none focus:bg-white focus:border-[#38c172] transition-colors text-gray-700"
+                >
+                  <option value="" disabled>Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
 
+                <div className="flex flex-col gap-1">
+                  <label className="text-[11px] text-gray-400 pl-1">Date of Birth</label>
                   <input
                     type="date"
                     required
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
-                    placeholder="Date of Birth"
-                    className="w-full px-2.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs outline-none focus:bg-white focus:border-[#38c172] transition-colors text-gray-700"
+                    className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm outline-none focus:bg-white focus:border-[#38c172] transition-colors text-gray-700"
                   />
                 </div>
               </>

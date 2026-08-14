@@ -54,16 +54,30 @@ function HeaderContent() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // Initial session check
     supabase.auth.getUser().then(({ data }) => {
       setUser(data?.user || null);
     });
 
+    // Listen for auth state changes (sign in, sign out, token refresh)
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
     });
 
+    // Re-check session when user switches back to this tab
+    // (needed after clicking email verification link in another tab)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        supabase.auth.getSession().then(({ data }) => {
+          setUser(data?.session?.user || null);
+        });
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
       authListener.subscription.unsubscribe();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [supabase]);
 
