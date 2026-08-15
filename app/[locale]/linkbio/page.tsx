@@ -155,83 +155,75 @@ export default function LinkBioPage() {
       {/* Share Modal */}
       {shareOpen && (
         <>
-          {/* Backdrop */}
+          {/* Modal Container */}
           <div
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm sm:p-4"
             onClick={() => setShareOpen(false)}
-          />
-
-          {/* Modal card — always centered via transform */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 51,
-              width: "calc(100% - 32px)",
-              maxWidth: "380px",
-              maxHeight: "85vh",
-              overflowY: "auto",
-              background: "white",
-              borderRadius: "20px",
-              boxShadow: "0 25px 60px rgba(0,0,0,0.3)",
-              animation: "slideUp 0.25s ease-out",
-            }}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 pt-5 pb-3">
-              <h2 className="text-[17px] font-bold text-gray-800">Share this page</h2>
-              <button
-                onClick={() => setShareOpen(false)}
-                className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors border-none cursor-pointer"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-
-            {/* URL bar */}
-            <div className="mx-5 mb-4 flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#ef4444] flex items-center justify-center shrink-0">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                </svg>
-              </div>
-              <span className="text-[13px] text-gray-500 flex-1 truncate">{LINKBIO_URL}</span>
-              <button
-                onClick={handleCopy}
-                className="text-[13px] font-semibold text-[#ef4444] shrink-0 hover:opacity-70 transition-opacity border-none bg-transparent cursor-pointer"
-              >
-                {copied ? "✓ Copied!" : "Copy"}
-              </button>
-            </div>
-
-            {/* Share options grid */}
-            <div className="px-5 pb-6">
-              <p className="text-[12px] text-gray-400 uppercase tracking-wider font-semibold mb-3">Share via</p>
-              <div className="grid grid-cols-3 gap-3">
-                {shareOptions.map((opt) => (
-                  <a
-                    key={opt.label}
-                    href={opt.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white w-full sm:max-w-[380px] rounded-t-[20px] sm:rounded-[20px] shadow-2xl flex flex-col"
+              style={{
+                maxHeight: "90vh",
+                animation: "slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              }}
+            >
+              {/* Scrollable inner content */}
+              <div className="overflow-y-auto w-full pb-safe">
+                {/* Header */}
+                <div className="flex items-center justify-between px-5 pt-5 pb-3">
+                  <h2 className="text-[17px] font-bold text-gray-800">Share this page</h2>
+                  <button
+                    onClick={() => setShareOpen(false)}
+                    className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors border-none cursor-pointer"
                   >
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform"
-                      style={{ backgroundColor: opt.color }}
-                    >
-                      {opt.icon}
-                    </div>
-                    <span className="text-[11px] text-gray-600 font-medium text-center leading-tight">{opt.label}</span>
-                  </a>
-                ))}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* URL bar */}
+                <div className="mx-5 mb-4 flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[#ef4444] flex items-center justify-center shrink-0">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                  </div>
+                  <span className="text-[13px] text-gray-500 flex-1 truncate">{LINKBIO_URL}</span>
+                  <button
+                    onClick={handleCopy}
+                    className="text-[13px] font-semibold text-[#ef4444] shrink-0 hover:opacity-70 transition-opacity border-none bg-transparent cursor-pointer"
+                  >
+                    {copied ? "✓ Copied!" : "Copy"}
+                  </button>
+                </div>
+
+                {/* Share options grid */}
+                <div className="px-5 pb-6">
+                  <p className="text-[12px] text-gray-400 uppercase tracking-wider font-semibold mb-3">Share via</p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {shareOptions.map((opt) => (
+                      <a
+                        key={opt.label}
+                        href={opt.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+                      >
+                        <div
+                          className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform"
+                          style={{ backgroundColor: opt.color }}
+                        >
+                          {opt.icon}
+                        </div>
+                        <span className="text-[11px] text-gray-600 font-medium text-center leading-tight">{opt.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -239,8 +231,8 @@ export default function LinkBioPage() {
       )}
 
       <style>{`
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUpModal {
+          from { opacity: 0; transform: translateY(100%); }
           to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
@@ -285,11 +277,9 @@ export default function LinkBioPage() {
         <h1 className="text-[22px] font-bold mb-1 tracking-normal">HypeAfnan</h1>
 
         {/* Description — edit subtextLines array above to change text/line breaks */}
-        <span className={`${poppins.className} text-[15px] leading-[1.6] mb-8 text-[#F5F6F7] font-normal px-4 opacity-100 block max-w-xl`}>
-          {subtextLines.map((line, i) => (
-            <span key={i} className="block whitespace-nowrap">{line}</span>
-          ))}
-        </span>
+        <p className={`${poppins.className} text-[15px] leading-[1.6] mb-8 text-[#F5F6F7] font-normal px-4 opacity-100 block max-w-xl text-center`}>
+          {subtextLines.join(" ")}
+        </p>
 
         {/* Mini Social Icons */}
         <div className="flex items-center gap-5 mb-8">
