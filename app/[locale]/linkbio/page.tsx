@@ -119,11 +119,11 @@ export default function LinkBioPage() {
     },
     {
       id: 3,
-      title: "Afnanimran61@gmail.com",
+      title: "Afnaninvain@gmail.com",
       icon: (
         <Image src="/images/GmailLogo.png" alt="Email" width={64} height={64} className="w-full h-full object-contain scale-[1.6]" />
       ),
-      url: "mailto:Afnanimran61@gmail.com",
+      url: "mailto:Afnaninvain@gmail.com",
     },
     {
       id: 4,
