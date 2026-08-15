@@ -36,6 +36,8 @@ export default function SearchPage() {
       const displayTitle = tagName || groupName || initialQuery || "Products";
       setCategoryTitle(displayTitle);
 
+      let isRedirecting = false;
+
       try {
         const urlParams = new URLSearchParams();
         if (initialQuery) urlParams.set("search", initialQuery);
@@ -48,23 +50,22 @@ export default function SearchPage() {
         if (!res.ok) throw new Error("Search failed");
         const data = await res.json();
 
-        // If API found an exact code match, go straight to product detail only when it's unique
-        if (data.exactMatch) {
-          if (data.products?.length === 1) {
-            const match = data.products[0];
-            const targetId = match.goodsId || match.id || match.searchCode;
-            router.push(`/${locale}/product/${targetId}`);
-            return;
-          }
-          // Multiple products share this code — fall through to show grid
-        }
-
         setProducts(data.products || []);
+
+        if (data.exactMatch && data.products?.length === 1) {
+          const match = data.products[0];
+          const targetId = match.goodsId || match.id || match.searchCode;
+          isRedirecting = true;
+          router.push(`/${locale}/product/${targetId}`);
+          return;
+        }
       } catch (e) {
         console.error("Fetch products error:", e);
         setProducts([]);
       } finally {
-        setLoading(false);
+        if (!isRedirecting) {
+          setLoading(false);
+        }
       }
     }
 
