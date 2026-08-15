@@ -146,12 +146,13 @@ export default function LinkBioPage() {
         <>
           {/* Modal Container */}
           <div
-            className="fixed inset-0 z-50 flex items-end sm:items-start justify-center bg-black/50 backdrop-blur-sm p-0 sm:pt-[12vh]"
+            className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 backdrop-blur-sm p-4 pt-[15vh]"
             onClick={() => setShareOpen(false)}
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="bg-white w-full sm:max-w-[380px] rounded-t-[24px] sm:rounded-[24px] shadow-2xl flex flex-col modal-animate"
+              className="bg-white w-full max-w-[380px] rounded-[24px] shadow-2xl flex flex-col"
+              style={{ animation: "slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             >
               <div className="w-full pb-safe">
                 {/* Header */}
@@ -215,21 +216,9 @@ export default function LinkBioPage() {
       )}
 
       <style>{`
-        @keyframes slideUpMobile {
-          from { opacity: 0; transform: translateY(100%); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideUpDesktop {
+        @keyframes slideUp {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
-        }
-        .modal-animate {
-          animation: slideUpMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @media (min-width: 640px) {
-          .modal-animate {
-            animation: slideUpDesktop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          }
         }
       `}</style>
 
