@@ -157,19 +157,14 @@ export default function LinkBioPage() {
         <>
           {/* Modal Container */}
           <div
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm sm:p-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-start justify-center bg-black/50 backdrop-blur-sm p-0 sm:pt-[12vh]"
             onClick={() => setShareOpen(false)}
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="bg-white w-full sm:max-w-[380px] rounded-t-[20px] sm:rounded-[20px] shadow-2xl flex flex-col"
-              style={{
-                maxHeight: "90vh",
-                animation: "slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-              }}
+              className="bg-white w-full sm:max-w-[380px] rounded-t-[24px] sm:rounded-[24px] shadow-2xl flex flex-col modal-animate"
             >
-              {/* Scrollable inner content */}
-              <div className="overflow-y-auto w-full pb-safe">
+              <div className="w-full pb-safe">
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 pt-5 pb-3">
                   <h2 className="text-[17px] font-bold text-gray-800">Share this page</h2>
@@ -231,9 +226,21 @@ export default function LinkBioPage() {
       )}
 
       <style>{`
-        @keyframes slideUpModal {
+        @keyframes slideUpMobile {
           from { opacity: 0; transform: translateY(100%); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUpDesktop {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .modal-animate {
+          animation: slideUpMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @media (min-width: 640px) {
+          .modal-animate {
+            animation: slideUpDesktop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          }
         }
       `}</style>
 
@@ -277,9 +284,11 @@ export default function LinkBioPage() {
         <h1 className="text-[22px] font-bold mb-1 tracking-normal">HypeAfnan</h1>
 
         {/* Description — edit subtextLines array above to change text/line breaks */}
-        <p className={`${poppins.className} text-[15px] leading-[1.6] mb-8 text-[#F5F6F7] font-normal px-4 opacity-100 block max-w-xl text-center`}>
-          {subtextLines.join(" ")}
-        </p>
+        <span className={`${poppins.className} text-[15px] leading-[1.6] mb-8 text-[#F5F6F7] font-normal px-4 opacity-100 block max-w-xl`}>
+          {subtextLines.map((line, i) => (
+            <span key={i} className="block whitespace-nowrap">{line}</span>
+          ))}
+        </span>
 
         {/* Mini Social Icons */}
         <div className="flex items-center gap-5 mb-8">
