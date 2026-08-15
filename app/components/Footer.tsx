@@ -31,6 +31,9 @@ export default function Footer() {
             <Link href={`/${locale}/terms-of-service`} className="hover:text-[#38c172] transition-colors">
               Terms of Service
             </Link>
+            <Link href={`/${locale}/linkbio`} className="hover:text-[#38c172] transition-colors">
+              Linkbio
+            </Link>
           </div>
           <div className="hidden md:block w-px h-4 bg-gray-300"></div>
           <a href="tel:+923199775990" className="hover:text-[#38c172] transition-colors">

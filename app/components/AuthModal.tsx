@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { createClient } from "../lib/supabase/client";
 import { useAppContext } from "../context/AppContext";
@@ -26,7 +26,7 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
 
   if (!isOpen) return null;
 
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   const handleOAuth = async (provider: "google" | "facebook") => {
     setLoading(true);

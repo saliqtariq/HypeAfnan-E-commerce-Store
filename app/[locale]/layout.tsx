@@ -4,18 +4,14 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
-import Header from "../components/Header";
-import WhatsAppButton from "../components/WhatsAppButton";
 import RouteProgressBar from "../components/RouteProgressBar";
-import Footer from "../components/Footer";
+import LayoutWrapper from "../components/LayoutWrapper";
 import { AppProvider } from "../context/AppContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
-
-
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.hypeafnan.com"),
@@ -105,12 +101,9 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AppProvider>
             <RouteProgressBar />
-            <Header />
-            <main className="flex-1">
+            <LayoutWrapper>
               {children}
-            </main>
-            <Footer />
-            <WhatsAppButton />
+            </LayoutWrapper>
           </AppProvider>
         </NextIntlClientProvider>
       </body>
