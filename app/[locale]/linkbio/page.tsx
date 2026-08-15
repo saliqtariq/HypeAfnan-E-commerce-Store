@@ -135,22 +135,11 @@ export default function LinkBioPage() {
     },
   ];
 
-  // ✏️ EDIT YOUR SUBTEXT LINES HERE — each string = one line on screen
-  const subtextLines = [
-    "Global Shipping. Please contact customer service staff via.",
-    "WhatsApp to place an order. The highest quality in the Global",
-    "market. Our store has been operating worldwide for",
-    "many years. There is sufficient price advantage and high quality ",
-    "control. Special channel: Over 200 countries are exempt",
-    "from tariffs. The customs clearance rate is higher than 98%. if the",
-    "package is detained by customs, a new package can be resent free",
-    "of delivery charge. There are a large number of inquiries every day. if there",
-    "is no response for a long time, please send frequent messages or",
-    "call customer service staff via voice call.",
-  ];
+  // ✏️ EDIT YOUR SUBTEXT HERE — the text will automatically wrap to perfectly fit any screen (mobile or desktop)
+  const subtextText = "Global Shipping. Please contact customer service staff via WhatsApp to place an order. The highest quality in the Global market. Our store has been operating worldwide for many years. There is sufficient price advantage and high quality control. Special channel: Over 200 countries are exempt from tariffs. The customs clearance rate is higher than 98%. If the package is detained by customs, a new package can be resent free of delivery charge. There are a large number of inquiries every day. If there is no response for a long time, please send frequent messages or call customer service staff via voice call.";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-300 to-slate-500 font-sans pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 to-pink-200 font-sans pb-20">
 
       {/* Share Modal */}
       {shareOpen && (
@@ -244,9 +233,9 @@ export default function LinkBioPage() {
         }
       `}</style>
 
-      <main className="relative w-full max-w-[520px] mx-auto px-6 pt-20 flex flex-col items-center text-white text-center">
+      <main className="relative w-full max-w-[520px] mx-auto px-6 pt-20 flex flex-col items-center text-gray-800 text-center">
         {/* Top action button (Share) */}
-        <div className="absolute top-4 right-1 sm:-right-2">
+        <div className="absolute top-4 right-4 sm:-right-2">
           <button
             onClick={() => setShareOpen(true)}
             className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors cursor-pointer border-none"
@@ -283,12 +272,10 @@ export default function LinkBioPage() {
         {/* Title */}
         <h1 className="text-[22px] font-bold mb-1 tracking-normal">HypeAfnan</h1>
 
-        {/* Description — edit subtextLines array above to change text/line breaks */}
-        <span className={`${poppins.className} text-[15px] leading-[1.6] mb-8 text-[#F5F6F7] font-normal px-4 opacity-100 block max-w-xl`}>
-          {subtextLines.map((line, i) => (
-            <span key={i} className="block whitespace-nowrap">{line}</span>
-          ))}
-        </span>
+        {/* Description */}
+        <p className={`${poppins.className} text-[15px] leading-[1.6] mb-8 text-gray-700 font-normal px-4 opacity-100 max-w-xl text-center`}>
+          {subtextText}
+        </p>
 
         {/* Mini Social Icons */}
         <div className="flex items-center gap-5 mb-8">
