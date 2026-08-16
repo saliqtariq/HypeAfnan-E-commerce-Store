@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-export const dynamic = "force-dynamic";
+export const revalidate = 60; // Allow Vercel Data Cache
 import { getAllProducts } from "../../lib/getProducts";
 import productTagsData from "../../data/product_tags.json";
 import tagMapData from "../../data/tag_map.json";

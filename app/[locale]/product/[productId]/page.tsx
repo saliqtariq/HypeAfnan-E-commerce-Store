@@ -3,8 +3,8 @@ import ProductDetailClient from "../../../components/ProductDetailClient";
 import { getProductById } from "../../../lib/getProducts";
 import { sanityClient } from "../../../../sanity/client";
 
-// Render dynamically — cached by Vercel after first visit (no giant static build)
-export const dynamic = "force-dynamic";
+// Cache pages for 60 seconds (ISR) so new products appear almost instantly while still saving massive CPU
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ locale: string; productId: string }>;
