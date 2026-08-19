@@ -24,9 +24,9 @@ export default function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  if (!isOpen) return null;
-
   const supabase = useMemo(() => createClient(), []);
+
+  if (!isOpen) return null;
 
   const handleOAuth = async (provider: "google" | "facebook") => {
     setLoading(true);
