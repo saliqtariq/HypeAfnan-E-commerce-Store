@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /api/
+Allow: /
+
+# Add crawl delay for bots to reduce serverless function invocations
+Crawl-delay: 10

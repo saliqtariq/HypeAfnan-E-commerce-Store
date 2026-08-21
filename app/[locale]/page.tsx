@@ -5,8 +5,8 @@ import { getAllProducts } from "../lib/getProducts";
 import { getSanityProducts } from "../../sanity/client";
 import type { Product } from "../components/ProductGrid";
 
-// Regenerate this page every 60 seconds to pick up new Sanity products
-export const revalidate = 60;
+// Regenerate this page every 1 hour to pick up new Sanity products while saving function invocations
+export const revalidate = 3600;
 
 const PAGE_LIMIT = 300;
 

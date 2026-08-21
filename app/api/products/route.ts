@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-export const revalidate = 60; // Allow Vercel Data Cache
+export const revalidate = 86400; // Allow Vercel Data Cache (1 day to save invocations)
 import { getAllProducts } from "../../lib/getProducts";
 import productTagsData from "../../data/product_tags.json";
 import tagMapData from "../../data/tag_map.json";
@@ -164,7 +164,7 @@ export async function GET(req: NextRequest) {
         // Cache category pages (Top etc.) for 24 hours; regular pages for 1 minute
         "Cache-Control": tagId === "85658997"
           ? "public, s-maxage=86400, stale-while-revalidate=3600"
-          : "public, s-maxage=60, stale-while-revalidate=300",
+          : "public, s-maxage=86400, stale-while-revalidate=3600",
       },
     }
   );
