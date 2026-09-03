@@ -177,7 +177,7 @@ function buildApiUrl(params = {}) {
         hasMore = false;
       }
 
-      if (pageNum > 1000) { hasMore = false; console.log("Safety limit reached."); }
+      if (pageNum > 100000) { hasMore = false; console.log("Safety limit reached."); }
     } catch (err) {
       console.error(`Error on page ${pageNum}:`, err.message);
       hasMore = false;

@@ -155,16 +155,17 @@ export async function GET(req: NextRequest) {
   const total = filtered.length;
   const totalPages = Math.ceil(total / limit);
   const start = (page - 1) * limit;
-  const items = filtered.slice(start, start + limit);
+  const paginated = filtered.slice(start, start + limit);
+  const hasMore = start + limit < filtered.length;
 
   return NextResponse.json(
-    { products: items, total, page, limit, totalPages },
+    { products: paginated, total: filtered.length, hasMore, exactMatch: false },
     {
+      status: 200,
       headers: {
-        // Cache category pages (Top etc.) for 24 hours; regular pages for 1 minute
-        "Cache-Control": tagId === "85658997"
-          ? "public, s-maxage=86400, stale-while-revalidate=3600"
-          : "public, s-maxage=86400, stale-while-revalidate=3600",
+        "Cache-Control": tagId === "85658997" 
+          ? "public, max-age=60"  // Top category updates frequently
+          : "public, max-age=86400, stale-while-revalidate=43200"
       },
     }
   );

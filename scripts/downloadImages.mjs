@@ -22,12 +22,17 @@ const DATA_FILE    = path.join(__dirname, "../app/data/products.json");
 const OUTPUT_FILE  = path.join(__dirname, "../app/data/products_local.json");
 const CHECKPOINT   = path.join(__dirname, "../app/data/download_checkpoint.json");
 const IMAGES_DIR   = path.join(__dirname, "../public/images/products");
-const PRODUCT_CONCURRENCY = 50;  // products processed in parallel (was 1 — now 50x faster)
-const IMG_CONCURRENCY     = 4;   // parallel image downloads per product
-const SAVE_EVERY          = 100; // save output file every N products
+const PRODUCT_CONCURRENCY = 100; // SUPER MAX
+const IMG_CONCURRENCY     = 5;   // 5 images per product
+const DELAY_BETWEEN_MS    = 0;   // no delay
+const SAVE_EVERY          = 50;
 const MAX_WIDTH    = 800;
 const QUALITY      = 75;
-const TIMEOUT_MS   = 12000;
+const TIMEOUT_MS   = 4000;       // fail fast on bad URLs — don't block the queue
+
+// custom agents to prevent socket exhaustion and increase speed
+const httpAgent = new http.Agent({ keepAlive: true, maxSockets: 200, timeout: 4000 });
+const httpsAgent = new https.Agent({ keepAlive: true, maxSockets: 200, timeout: 4000 });
 
 // --- SETUP ---
 fs.mkdirSync(IMAGES_DIR, { recursive: true });
@@ -77,7 +82,8 @@ function downloadBuffer(url) {
     if (!raw.startsWith("http")) return reject(new Error("bad url"));
 
     const mod = raw.startsWith("https") ? https : http;
-    const req = mod.get(raw, { headers: { "User-Agent": "Mozilla/5.0", "Referer": "https://szwego.com" } }, (res) => {
+    const agent = raw.startsWith("https") ? httpsAgent : httpAgent;
+    const req = mod.get(raw, { agent, headers: { "User-Agent": "Mozilla/5.0", "Referer": "https://szwego.com" } }, (res) => {
       if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
       const chunks = [];
       res.on("data", c => chunks.push(c));
@@ -129,13 +135,12 @@ async function processProduct(product, globalIdx) {
   const urls = Array.isArray(product.images) ? product.images : [];
   const localUrls = [];
 
-  // Download images in sub-batches of IMG_CONCURRENCY
-  for (let i = 0; i < urls.length; i += IMG_CONCURRENCY) {
-    const batch = urls.slice(i, i + IMG_CONCURRENCY);
-    const results = await Promise.all(
-      batch.map((url, j) => processOneImage(url, slug, uniqueId, i + j))
-    );
-    localUrls.push(...results.filter(Boolean));
+  // Download images in parallel for maximum speed
+  const results = await Promise.all(
+    urls.map((url, i) => processOneImage(url, slug, uniqueId, i))
+  );
+  for (const result of results) {
+    if (result) localUrls.push(result);
   }
 
   return {

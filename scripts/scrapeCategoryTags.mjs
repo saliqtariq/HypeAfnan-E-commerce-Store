@@ -163,7 +163,7 @@ function buildApiUrl(params = {}) {
         hasMore = false;
       }
 
-      if (pageNum > 2000) { hasMore = false; console.log("Safety limit."); }
+      if (pageNum > 100000) { hasMore = false; console.log("Safety limit."); }
     } catch (err) {
       console.error(`Error on page ${pageNum}:`, err.message);
       hasMore = false;
