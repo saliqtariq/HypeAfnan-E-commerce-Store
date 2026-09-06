@@ -9,5 +9,6 @@ export const CATEGORIES = [
   'glasses',
   'Watch',
   'Belt',
-  'Ungrouped'
+  'Ungrouped',
+  'Exclusive 1:1 Loro Piana'
 ]

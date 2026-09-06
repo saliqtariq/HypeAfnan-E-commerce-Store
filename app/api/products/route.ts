@@ -5,8 +5,11 @@ import productTagsData from "../../data/product_tags.json";
 import tagMapData from "../../data/tag_map.json";
 import { getSanityProducts } from "../../../sanity/client";
 
+import categoriesData from "../../data/categories.json";
+
 const productTagsMap = productTagsData as Record<string, number[]>;
 const tagMap = tagMapData as Record<string, { groupName: string; tagName: string }>;
+const categoriesList = categoriesData as Array<{ groupName: string; tags: Array<{ tagId: number }> }>;
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -40,8 +43,20 @@ export async function GET(req: NextRequest) {
   }
 
   const jsonProducts = getAllProducts();
-  // Merge: Sanity products come first so they appear prominently
-  const products = [...sanityProducts, ...jsonProducts];
+  
+  // Create a hardcoded promo card that will always be pinned to the front
+  const hardcodedPromoCard = {
+    id: "promo-card-hero",
+    goodsId: "promo-card-hero",
+    title: "HYPEAFNAN",
+    coverImage: "SimpleHeroSection",
+    images: ["/images/Firstproductbg.jpeg"],
+    isPromo: true,
+    timestamp: Date.now() + 1000000, // Ensure it sorts to the top if sorting is applied
+  };
+
+  // Merge: Promo Card first, then Sanity products, then JSON products
+  const products = [hardcodedPromoCard, ...sanityProducts, ...jsonProducts];
 
   let filtered = products;
 
@@ -51,7 +66,7 @@ export async function GET(req: NextRequest) {
     const restProducts = products.slice(1);
     const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
     const startIdx = (dayNumber * 299) % restProducts.length;
-    
+
     // Create the fully rotated array
     const slice1 = restProducts.slice(startIdx);
     const slice2 = restProducts.slice(0, startIdx);
@@ -102,9 +117,16 @@ export async function GET(req: NextRequest) {
       return tsB - tsA;
     });
   } else if (groupName && groupName !== "all") {
-    const groupTagIds = Object.keys(tagMap)
+    const fromTagMap = Object.keys(tagMap)
       .filter((tid) => tagMap[tid].groupName.toLowerCase() === groupName)
       .map((tid) => Number(tid));
+    const matchingGroup = categoriesList.find(
+      (g) => (g.groupName || "").toLowerCase() === groupName
+    );
+    const fromCategories = matchingGroup && matchingGroup.tags
+      ? matchingGroup.tags.map((t) => Number(t.tagId))
+      : [];
+    const groupTagIds = Array.from(new Set([...fromTagMap, ...fromCategories]));
 
     filtered = filtered.filter((p: any) => {
       // Sanity product: match by category string
@@ -163,7 +185,7 @@ export async function GET(req: NextRequest) {
     {
       status: 200,
       headers: {
-        "Cache-Control": tagId === "85658997" 
+        "Cache-Control": tagId === "85658997"
           ? "public, max-age=60"  // Top category updates frequently
           : "public, max-age=86400, stale-while-revalidate=43200"
       },

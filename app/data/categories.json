@@ -1356,5 +1356,19 @@
         "cdnImage": "https://xcimg.szwego.com/imgHD/f04956a2/20251130/cmp_i1764513952821_6455_0_6.jpg?imageView2/2/w/310/h/310/format/jpg"
       }
     ]
+  },
+  {
+    "groupId": -4,
+    "groupName": "Exclusive 1:1 Loro Piana",
+    "order": 0,
+    "tags": [
+      {
+        "tagId": 999901,
+        "tagName": "LP Clothes",
+        "tagImage": "/images/categories/cat_85660449.jpg",
+        "itemCount": 1042,
+        "cdnImage": "https://xcimg.szwego.com/normal/db44d733/i1749505323383_2215_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg"
+      }
+    ]
   }
 ]

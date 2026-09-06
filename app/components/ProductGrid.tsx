@@ -89,13 +89,19 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
         }
       >
         {products.map((product) => {
-          const productId = product.goodsId || product.id || product.searchCode || "";
+          const productId =
+            // For Yupoo products use the human-readable searchCode (e.g. LP100001)
+            // instead of the internal yupoo_lp_* id — looks cleaner in URLs.
+            (product.id?.startsWith('yupoo_') && product.searchCode)
+              ? product.searchCode
+              : (product.goodsId || product.id || product.searchCode || "");
+
           let coverImg =
             product.coverImage ||
             product.imageUrl ||
             (product.images && product.images[0]) ||
             "";
-            
+
           // Optimize images on the fly via CDN parameters (drastically speeds up grid loading)
           if (coverImg) {
             if (coverImg.includes('szwego.com') && !coverImg.includes('imageMogr2')) {
@@ -104,6 +110,21 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
               coverImg += '?w=400&h=400&fit=crop&q=80';
             }
           }
+
+          // In local dev, ISPs may block Backblaze/CDN directly in the browser.
+          // Proxy through the Next.js server instead (server-side fetch is not blocked).
+          // NOTE: Do NOT proxy szwego.com — Szwego CDN works fine directly in browser.
+          if (
+            process.env.NODE_ENV === 'development' &&
+            coverImg &&
+            !coverImg.startsWith('/api/img') &&
+            (coverImg.includes('backblazeb2.com') ||
+              coverImg.includes('workers.dev') ||
+              coverImg.includes('cdn.hypeafnan.com'))
+          ) {
+            coverImg = `/api/img?url=${encodeURIComponent(coverImg)}`;
+          }
+
           const title = product.title || product.name || "";
 
           if (viewMode === "list") {
@@ -203,16 +224,15 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
             >
               {/* Product Image */}
               {coverImg ? (
-                <Image
+                // Using plain <img> instead of Next.js <Image fill> to avoid lazy-load
+                // positioning issues that cause thumbnails to appear blank in the grid.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
                   src={coverImg}
                   alt={title || "product"}
-                  fill
-                  sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, (max-width: 1024px) 20vw, 16vw"
-                  className={`${coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
+                  className={`absolute inset-0 w-full h-full ${coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
                     } group-hover:scale-[1.03] transition-transform duration-300`}
                   loading="lazy"
-                  placeholder="blur"
-                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="
                 />
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">

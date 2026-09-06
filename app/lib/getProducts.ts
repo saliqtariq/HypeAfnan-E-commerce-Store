@@ -1,4 +1,4 @@
-// force reload 3
+// force reload 4
 import path from "path";
 import fs from "fs";
 
@@ -21,6 +21,34 @@ export type Product = {
 let cachedIndex: Product[] | null = null;
 let cachedFull: Product[] | null = null;
 
+// Helper to route Backblaze URLs through the Cloudflare Worker CDN
+function applyCdn(p: Product): Product {
+  if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
+    return {
+      ...p,
+      title: "HYPEAFNAN",
+      coverImage: "/images/Firstproductbg.jpeg",
+      images: ["/images/Firstproductbg.jpeg"],
+      isPromo: true
+    };
+  }
+
+  const workerUrl = "https://hypeafnan-cdn.afnanimran61.workers.dev";
+  const rewrite = (url: string) => {
+    if (!url) return url;
+    return url
+      .replace("https://f005.backblazeb2.com/file/HypeAfnan-images", workerUrl)
+      .replace("https://HypeAfnan-images.s3.us-east-005.backblazeb2.com", workerUrl);
+  };
+
+  return {
+    ...p,
+    coverImage: p.coverImage ? rewrite(p.coverImage) : p.coverImage,
+    imageUrl: p.imageUrl ? rewrite(p.imageUrl) : p.imageUrl,
+    images: p.images ? p.images.map(rewrite) : p.images,
+  };
+}
+
 /**
  * Returns lean products for listing (id, title, coverImage, category only).
  * Uses products_index.json (4.5MB) — much faster cold starts than products.json (24.7MB).
@@ -39,35 +67,13 @@ export function getAllProducts(): Product[] {
     const raw = fs.readFileSync(file, "utf-8");
     const data = JSON.parse(raw);
     const rawProducts = (data.products || []) as Product[];
-    cachedIndex = rawProducts.map(p => {
-      if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
-        return {
-          ...p,
-          title: "HYPEAFNAN",
-          coverImage: "/images/Firstproductbg.jpeg",
-          images: ["/images/Firstproductbg.jpeg"],
-          isPromo: true
-        };
-      }
-      return p;
-    });
+    cachedIndex = rawProducts.map(applyCdn);
   } catch {
     // Fallback to full products.json if index is unreadable
     const raw = fs.readFileSync(fallbackFile, "utf-8");
     const data = JSON.parse(raw);
     const rawProducts = (data.products || []) as Product[];
-    cachedIndex = rawProducts.map(p => {
-      if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
-        return {
-          ...p,
-          title: "HYPEAFNAN",
-          coverImage: "/images/Firstproductbg.jpeg",
-          images: ["/images/Firstproductbg.jpeg"],
-          isPromo: true
-        };
-      }
-      return p;
-    });
+    cachedIndex = rawProducts.map(applyCdn);
   }
   return cachedIndex!;
 }
@@ -91,36 +97,25 @@ export function getProductById(id: string): Product | undefined {
       raw = fs.readFileSync(file, "utf-8");
       const data = JSON.parse(raw);
       const rawProducts = (data.products || []) as Product[];
-      cachedFull = rawProducts.map(p => {
-        if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
-          return {
-            ...p,
-            title: "HYPEAFNAN",
-            coverImage: "/images/Firstproductbg.jpeg",
-            images: ["/images/Firstproductbg.jpeg"],
-            isPromo: true
-          };
-        }
-        return p;
-      });
+      cachedFull = rawProducts.map(applyCdn);
     } catch {
       // products_local.json may be mid-write (download script running) — fall back to stable products.json
       raw = fs.readFileSync(mainFile, "utf-8");
       const data = JSON.parse(raw);
       const rawProducts = (data.products || []) as Product[];
-      cachedFull = rawProducts.map(p => {
-        if (p.searchCode === '183822' || p.id === '_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A') {
-          return {
-            ...p,
-            title: "HYPEAFNAN",
-            coverImage: "/images/Firstproductbg.jpeg",
-            images: ["/images/Firstproductbg.jpeg"],
-            isPromo: true
-          };
-        }
-        return p;
-      });
+      cachedFull = rawProducts.map(applyCdn);
     }
+  }
+
+  if (id === 'promo-card-hero') {
+    return {
+      id: "promo-card-hero",
+      goodsId: "promo-card-hero",
+      title: "HYPEAFNAN",
+      coverImage: "/images/Firstproductbg.jpeg",
+      images: ["/images/Firstproductbg.jpeg"],
+      isPromo: true
+    };
   }
 
   return cachedFull.find(

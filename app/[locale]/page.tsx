@@ -36,10 +36,19 @@ export default async function Home() {
   const jsonProducts = getAllProducts() as Product[];
   const total = sanityProducts.length + jsonProducts.length;
 
-  // Keep the promo card (first product of JSON) pinned — rotate the rest daily
-  const promoCard = jsonProducts[0];
-  const restJson = jsonProducts.slice(1);
-  const restProducts = [...sanityProducts, ...restJson];
+  // Create a hardcoded promo card that will always be pinned to the front
+  const hardcodedPromoCard = {
+    id: "promo-card-hero",
+    goodsId: "promo-card-hero",
+    title: "HYPEAFNAN",
+    coverImage: "SimpleHeroSection",
+    images: ["/images/Firstproductbg.jpeg"],
+    isPromo: true,
+  };
+
+  // Keep the promo card pinned — rotate the rest daily
+  const promoCard = hardcodedPromoCard;
+  const restProducts = [...sanityProducts, ...jsonProducts];
   
   const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
   const startIdx = (dayNumber * (PAGE_LIMIT - 1)) % restProducts.length;
