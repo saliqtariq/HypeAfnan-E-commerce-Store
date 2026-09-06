@@ -205,7 +205,7 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 drop-shadow-md">
                           <circle cx="12" cy="12" r="10" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /><path d="M2 12h20" />
                         </svg>
-                        <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">hypeafnan.vercel.app</span>
+                        <span className="text-[10px] sm:text-[12px] font-bold leading-none drop-shadow-md">hypeafnan.com</span>
                       </div>
                     </div>
                   </div>
