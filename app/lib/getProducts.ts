@@ -1,4 +1,4 @@
-// force reload 4
+// force reload 5
 import path from "path";
 import fs from "fs";
 
@@ -85,42 +85,6 @@ export function getAllProducts(): Product[] {
  * Locally: uses products_local.json (local WebP paths) if available.
  */
 export function getProductById(id: string): Product | undefined {
-  // Fast-path: promo card — no JSON load needed
-  if (id === 'promo-card-hero') {
-    return {
-      id: "promo-card-hero",
-      goodsId: "promo-card-hero",
-      title: "HYPEAFNAN",
-      coverImage: "/images/Firstproductbg.jpeg",
-      images: ["/images/Firstproductbg.jpeg"],
-      isPromo: true
-    };
-  }
-
-  // Fast-path: payment screenshots — read directly from public/Payments
-  if (id.startsWith('payment_')) {
-    const index = parseInt(id.replace('payment_', ''), 10);
-    const paymentsDir = path.join(process.cwd(), "public", "Payments");
-    if (fs.existsSync(paymentsDir)) {
-      const files = fs.readdirSync(paymentsDir).filter(
-        f => f.toLowerCase().endsWith('.jpg') || f.toLowerCase().endsWith('.jpeg') || f.toLowerCase().endsWith('.png')
-      );
-      if (!isNaN(index) && files[index]) {
-        const encodedFilename = encodeURIComponent(files[index]);
-        return {
-          id: `payment_${index}`,
-          goodsId: `payment_${index}`,
-          title: "Payment Screenshot",
-          coverImage: `/Payments/${encodedFilename}`,
-          images: [`/Payments/${encodedFilename}`],
-          isPromo: false
-        };
-      }
-    }
-    return undefined;
-  }
-
-  // General path: load full products.json
   if (!cachedFull) {
     const cwd = process.cwd();
     const localFile = path.join(cwd, "app/data/products_local.json");
@@ -143,8 +107,18 @@ export function getProductById(id: string): Product | undefined {
     }
   }
 
-  return cachedFull!.find(
+  if (id === 'promo-card-hero') {
+    return {
+      id: "promo-card-hero",
+      goodsId: "promo-card-hero",
+      title: "HYPEAFNAN",
+      coverImage: "/images/Firstproductbg.jpeg",
+      images: ["/images/Firstproductbg.jpeg"],
+      isPromo: true
+    };
+  }
+
+  return cachedFull.find(
     (p) => p.goodsId === id || p.id === id || p.searchCode === id
   );
 }
-

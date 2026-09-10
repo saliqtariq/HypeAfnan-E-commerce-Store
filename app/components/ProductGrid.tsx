@@ -24,6 +24,7 @@ interface ProductGridProps {
   products: Product[];
   viewMode?: "grid" | "list";
   loading?: boolean;
+  onProductClick?: () => void;
 }
 
 // Share icon matching Szwego's exact icon
@@ -48,7 +49,7 @@ function ShareIcon() {
   );
 }
 
-const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid", loading = false }: ProductGridProps) {
+const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid", loading = false, onProductClick }: ProductGridProps) {
   const { locale, copyToClipboard } = useAppContext();
 
   const handleShareProduct = useCallback(
@@ -133,6 +134,7 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
                 key={productId}
                 href={`/${locale}/product/${productId}`}
                 className="flex items-center gap-3 px-4 py-3 bg-white hover:bg-gray-50 transition-colors border-b border-gray-100"
+                onClick={() => onProductClick?.()}
               >
                 <div className="relative w-20 h-20 bg-gray-100 rounded shrink-0 overflow-hidden">
                   {coverImg && (
@@ -167,6 +169,7 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
               <Link
                 key={productId}
                 href={`/${locale}/product/${productId}`}
+                onClick={() => onProductClick?.()}
                 className="col-span-2 sm:col-span-1 group relative block overflow-hidden cursor-pointer"
                 style={{ aspectRatio: "1 / 1" }}
               >
@@ -219,6 +222,7 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
             <Link
               key={productId}
               href={`/${locale}/product/${productId}`}
+              onClick={() => onProductClick?.()}
               className="group relative block overflow-hidden bg-gray-100 cursor-pointer"
               style={{ aspectRatio: "1 / 1" }}
             >

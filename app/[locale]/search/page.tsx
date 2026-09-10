@@ -21,6 +21,11 @@ const IOSSpinner = () => (
   </svg>
 );
 
+// Unique sessionStorage key for a given search state
+function getScrollKey(searchKey: string) {
+  return `scroll_snap__${searchKey}`;
+}
+
 export default function SearchPage() {
   const router = useRouter();
   const params = useParams();
@@ -32,6 +37,9 @@ export default function SearchPage() {
   const tagId = searchParams.get("tagId") || "";
   const tagName = searchParams.get("tagName") || "";
 
+  // Stable key that uniquely identifies this search/category view
+  const searchKey = `${initialQuery}||${groupName}||${tagId}||${tagName}`;
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
@@ -41,9 +49,103 @@ export default function SearchPage() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
+  // True while we are waiting to scroll to the restored position — hides content to prevent flash
+  const [isScrollRestoring, setIsScrollRestoring] = useState(false);
 
+  // Whether we restored from session (skip fresh fetch)
+  const restoredFromSession = useRef(false);
+  // Track scroll position continuously via scroll listener
+  const scrollPositionRef = useRef(0);
+  // Target scroll Y to restore after products render
+  const pendingScrollY = useRef<number | null>(null);
+
+  // --- Take control of scroll restoration from browser & Next.js ---
   useEffect(() => {
-    // No query and no filters — just show empty prompt
+    // Prevent browser from auto-restoring scroll position on back/forward —
+    // we handle it manually so it doesn't race with our product rendering.
+    if (typeof window !== "undefined") {
+      history.scrollRestoration = "manual";
+    }
+    const onScroll = () => {
+      scrollPositionRef.current = window.scrollY;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      // Restore default when leaving the page
+      if (typeof window !== "undefined") {
+        history.scrollRestoration = "auto";
+      }
+    };
+  }, []);
+
+  // --- On mount: check if we have a saved snapshot for this search key ---
+  useEffect(() => {
+    if (!searchKey || searchKey === "||||") return;
+
+    try {
+      const raw = sessionStorage.getItem(getScrollKey(searchKey));
+      if (raw) {
+        const snap = JSON.parse(raw);
+        if (snap && snap.products && snap.products.length > 0) {
+          // Restore state — no re-fetch needed
+          setProducts(snap.products);
+          setPage(snap.page || 1);
+          setHasMore(snap.hasMore || false);
+          setTotalCount(snap.totalCount || snap.products.length);
+          setCategoryTitle(snap.categoryTitle || "");
+          setSearched(true);
+          setLoading(false);
+          restoredFromSession.current = true;
+          pendingScrollY.current = snap.scrollY || 0;
+          setIsScrollRestoring(true); // Hide grid until scroll lands
+
+          // Clear snapshot — next fresh visit re-fetches normally
+          sessionStorage.removeItem(getScrollKey(searchKey));
+        }
+      }
+    } catch {
+      // sessionStorage unavailable — no-op
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Intentionally only on mount
+
+  // --- Retry scroll until page is tall enough to reach target position ---
+  useEffect(() => {
+    if (pendingScrollY.current === null || products.length === 0) return;
+    const targetY = pendingScrollY.current;
+    let attempts = 0;
+    const maxAttempts = 60; // ~2 seconds at 60fps
+
+    const tryScroll = () => {
+      attempts++;
+      // Only scroll once the document is at least as tall as the target
+      if (document.documentElement.scrollHeight >= targetY + window.innerHeight) {
+        window.scrollTo({ top: targetY, behavior: "instant" });
+        pendingScrollY.current = null;
+        setIsScrollRestoring(false); // Reveal grid now that we're in position
+        return;
+      }
+      if (attempts < maxAttempts) {
+        requestAnimationFrame(tryScroll);
+      } else {
+        // Give up gracefully — scroll as far as possible
+        window.scrollTo({ top: targetY, behavior: "instant" });
+        pendingScrollY.current = null;
+        setIsScrollRestoring(false);
+      }
+    };
+
+    requestAnimationFrame(tryScroll);
+  }, [products.length]); // Re-runs whenever products array grows
+
+  // --- Fresh fetch (skip when restoring from session) ---
+  useEffect(() => {
+    if (restoredFromSession.current) {
+      restoredFromSession.current = false;
+      return;
+    }
+
     if (!initialQuery && !groupName && !tagId && !tagName) {
       setProducts([]);
       setSearched(false);
@@ -68,7 +170,7 @@ export default function SearchPage() {
         if (tagId) urlParams.set("tagId", tagId);
         if (tagName) urlParams.set("tagName", tagName);
         if (groupName) urlParams.set("groupName", groupName);
-        urlParams.set("limit", "150"); // Loading 150 per page for better performance
+        urlParams.set("limit", "150");
         urlParams.set("page", "1");
 
         const res = await fetch(`/api/products?${urlParams.toString()}`);
@@ -100,6 +202,23 @@ export default function SearchPage() {
     loadCategoryProducts();
   }, [initialQuery, groupName, tagId, tagName, locale, router]);
 
+  // --- Called by ProductGrid right before navigating to a product ---
+  const saveScrollSnapshot = useCallback(() => {
+    try {
+      const snap = {
+        products,
+        page,
+        hasMore,
+        totalCount,
+        categoryTitle,
+        scrollY: scrollPositionRef.current,
+      };
+      sessionStorage.setItem(getScrollKey(searchKey), JSON.stringify(snap));
+    } catch {
+      // sessionStorage full or unavailable — ignore
+    }
+  }, [products, page, hasMore, totalCount, categoryTitle, searchKey]);
+
   const observer = useRef<IntersectionObserver | null>(null);
   const lastProductElementRef = useCallback((node: HTMLDivElement) => {
     if (loadingMore) return;
@@ -109,10 +228,11 @@ export default function SearchPage() {
       if (entries[0].isIntersecting && hasMore) {
         loadMore();
       }
-    }, { rootMargin: '400px' }); // Load a bit before they hit the absolute bottom
+    }, { rootMargin: '400px' });
     
     if (node) observer.current.observe(node);
-  }, [loadingMore, hasMore, page]); // page dependency ensures we have the latest loadMore closure or we can use ref for page
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingMore, hasMore, page]);
 
   const loadMore = async () => {
     if (loadingMore || !hasMore) return;
@@ -144,7 +264,7 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="max-w-360 mx-auto py-6">
+      <main className="max-w-360 mx-auto py-6" style={{ visibility: isScrollRestoring ? 'hidden' : 'visible' }}>
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
             <IOSSpinner />
@@ -152,7 +272,6 @@ export default function SearchPage() {
           </div>
         )}
 
-        {/* No query yet — prompt the user */}
         {!loading && !searched && (
           <div className="flex flex-col items-center justify-center py-20 gap-2 text-center px-4">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -178,7 +297,7 @@ export default function SearchPage() {
                 Found {totalCount.toLocaleString()} product{totalCount !== 1 ? "s" : ""}
               </p>
             </div>
-            <ProductGrid products={products} viewMode="grid" />
+            <ProductGrid products={products} viewMode="grid" onProductClick={saveScrollSnapshot} />
             
             {hasMore && (
               <div ref={lastProductElementRef} className="mt-12 flex justify-center py-6">

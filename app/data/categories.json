@@ -1342,13 +1342,6 @@
         "cdnImage": "https://xcimg.szwego.com/normal/db44d733/i1749504142481_299_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg"
       },
       {
-        "tagId": 85671499,
-        "tagName": "Transaction records",
-        "tagImage": "/images/categories/cat_85671499.jpg",
-        "itemCount": 58,
-        "cdnImage": "https://xcimg.szwego.com/normal/db44d733/i1749504247865_8754_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg"
-      },
-      {
         "tagId": 85659414,
         "tagName": "Other brands",
         "tagImage": "/images/categories/cat_85659414.jpg",
@@ -1368,6 +1361,34 @@
         "tagImage": "/images/categories/cat_85660449.jpg",
         "itemCount": 1042,
         "cdnImage": "https://xcimg.szwego.com/normal/db44d733/i1749505323383_2215_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg"
+      }
+    ]
+  },
+  {
+    "groupId": -5,
+    "groupName": "Transaction Records",
+    "order": 1,
+    "tags": [
+      {
+        "tagId": 999902,
+        "tagName": "Payments",
+        "tagImage": "/images/categories/cat_85671499.jpg",
+        "itemCount": 82,
+        "cdnImage": "https://xcimg.szwego.com/normal/db44d733/i1749504247865_8754_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg"
+      }
+    ]
+  },
+  {
+    "groupId": -6,
+    "groupName": "Shipment Records",
+    "order": 2,
+    "tags": [
+      {
+        "tagId": 999903,
+        "tagName": "Dispatched",
+        "tagImage": "/images/categories/cat_85683106.jpg",
+        "itemCount": 0,
+        "cdnImage": "https://xcimg.szwego.com/normal/db44d733/i1749504142481_299_1_0.jpg?imageMogr2/auto-orient/thumbnail/!310x310r/quality/100/format/jpg"
       }
     ]
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useEffect, useRef, useTransition, useMemo } from "react";
+import React, { useState, useCallback, useTransition, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -48,25 +48,15 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const t = useTranslations("productDetail");
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
 
-  // Track whether we have internal navigation history to go back to
-  const hasInternalHistory = useRef(false);
-
-  useEffect(() => {
-    // If the page loaded with a referrer from the same origin, we have history to go back to.
-    // Also, Next.js client-side navigation pushes to history, so we track via popstate.
-    const referrer = document.referrer;
-    if (referrer && new URL(referrer).origin === window.location.origin) {
-      hasInternalHistory.current = true;
-    }
-  }, []);
-
   const [, startTransition] = useTransition();
 
   const goBack = useCallback(() => {
-    if (hasInternalHistory.current && window.history.length > 1) {
+    // window.history.length is 1 only when this page was opened directly
+    // in a fresh tab with no previous history at all.
+    // In all other cases (including Next.js client-side navigation) just go back.
+    if (window.history.length > 1) {
       startTransition(() => router.back());
     } else {
-      // No internal history — navigate home instead of exiting the browser
       startTransition(() => router.push(`/${locale}`));
     }
   }, [router, locale, startTransition]);

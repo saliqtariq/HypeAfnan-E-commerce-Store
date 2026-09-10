@@ -10,5 +10,7 @@ export const CATEGORIES = [
   'Watch',
   'Belt',
   'Ungrouped',
-  'Exclusive 1:1 Loro Piana'
+  'Exclusive 1:1 Loro Piana',
+  'Transaction Records',
+  'Shipments Record'
 ]
