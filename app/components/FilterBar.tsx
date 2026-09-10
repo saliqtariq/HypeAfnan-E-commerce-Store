@@ -21,6 +21,7 @@ const FilterBar = React.memo(function FilterBar({ onFilterChange }: FilterBarPro
 
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isAllDropdownOpen, setIsAllDropdownOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   // Filter state
@@ -29,13 +30,37 @@ const FilterBar = React.memo(function FilterBar({ onFilterChange }: FilterBarPro
   const [selectedTimeFrame, setSelectedTimeFrame] = useState<string>("");
   const [selectedShare, setSelectedShare] = useState<string>("");
 
-  const tabs: { key: TabType; label: string }[] = [
+  // Top-level tabs (Video & Photos moved into dropdown)
+  const mainTabs: { key: TabType; label: string }[] = [
     { key: "all", label: t("tabs.all") },
     { key: "new", label: t("tabs.new") },
-    { key: "video", label: t("tabs.video") },
-    { key: "photos", label: t("tabs.photos") },
     { key: "payments", label: t("tabs.payments") },
     { key: "dispatched", label: t("tabs.dispatched") },
+  ];
+
+  // Dropdown items under "All"
+  const allDropdownItems: { key: TabType; label: string; icon: React.ReactNode }[] = [
+    {
+      key: "video",
+      label: t("tabs.video"),
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="23 7 16 12 23 17 23 7" />
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+        </svg>
+      ),
+    },
+    {
+      key: "photos",
+      label: t("tabs.photos"),
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <circle cx="8.5" cy="8.5" r="1.5" />
+          <polyline points="21 15 16 10 5 21" />
+        </svg>
+      ),
+    },
   ];
 
   const timeFrameKeys = [
@@ -66,6 +91,7 @@ const FilterBar = React.memo(function FilterBar({ onFilterChange }: FilterBarPro
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
+    setIsAllDropdownOpen(false);
     triggerFilterChange({ category: tab });
   };
 
@@ -88,13 +114,97 @@ const FilterBar = React.memo(function FilterBar({ onFilterChange }: FilterBarPro
     triggerFilterChange();
   };
 
+  const isAllGroupActive = activeTab === "all" || activeTab === "video" || activeTab === "photos";
+
   return (
     <div className="w-full px-5 sm:px-8 py-4">
       {/* Navigation and Action Icons Bar */}
       <div className="flex items-center justify-between border-b border-[#eaeaea] pb-2">
         {/* Left Tabs */}
         <div className="flex items-center gap-6 sm:gap-8">
-          {tabs.map(({ key, label }) => {
+          {/* ALL tab with dropdown chevron */}
+          <div className="relative">
+            <div className="flex items-center gap-1">
+              {/* All label */}
+              <button
+                onClick={() => handleTabChange("all")}
+                className={`relative pb-2 text-[16px] sm:text-[17px] text-black transition-colors border-none bg-transparent cursor-pointer ${
+                  isAllGroupActive ? "font-semibold" : "font-normal"
+                }`}
+              >
+                {t("tabs.all")}
+                {isAllGroupActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.75 bg-[#38c172] rounded-full" />
+                )}
+              </button>
+
+              {/* Chevron toggle */}
+              <button
+                onClick={() => setIsAllDropdownOpen((prev) => !prev)}
+                className="pb-1 bg-transparent border-none cursor-pointer text-[#6b7280] hover:text-black transition-colors flex items-center"
+                aria-label="Show more filters"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    transform: isAllDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.2s ease",
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Dropdown menu */}
+            {isAllDropdownOpen && (
+              <>
+                {/* Backdrop */}
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={() => setIsAllDropdownOpen(false)}
+                />
+                <div className="absolute top-full left-0 mt-2 z-50 bg-white rounded-xl shadow-xl border border-[#e5e7eb] overflow-hidden min-w-[140px]">
+                  {allDropdownItems.map(({ key, label, icon }) => {
+                    const isActive = activeTab === key;
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => handleTabChange(key)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-[14.5px] text-left transition-colors cursor-pointer border-none ${
+                          isActive
+                            ? "bg-[#f0fdf4] text-[#16a34a] font-semibold"
+                            : "bg-white text-[#374151] hover:bg-[#f9fafb]"
+                        }`}
+                      >
+                        <span className={isActive ? "text-[#16a34a]" : "text-[#6b7280]"}>
+                          {icon}
+                        </span>
+                        {label}
+                        {isActive && (
+                          <span className="ml-auto">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Remaining top-level tabs: New, Payments, Dispatched */}
+          {mainTabs.slice(1).map(({ key, label }) => {
             const isActive = activeTab === key;
             return (
               <button
