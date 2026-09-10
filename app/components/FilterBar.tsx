@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 
-type TabType = "all" | "new" | "video" | "photos";
+type TabType = "all" | "new" | "video" | "photos" | "payments" | "dispatched";
 
 interface FilterBarProps {
   onFilterChange?: (filters: {
@@ -34,6 +34,8 @@ const FilterBar = React.memo(function FilterBar({ onFilterChange }: FilterBarPro
     { key: "new", label: t("tabs.new") },
     { key: "video", label: t("tabs.video") },
     { key: "photos", label: t("tabs.photos") },
+    { key: "payments", label: t("tabs.payments") },
+    { key: "dispatched", label: t("tabs.dispatched") },
   ];
 
   const timeFrameKeys = [

@@ -9,6 +9,15 @@ import { useSearchParams } from "next/navigation";
 
 const PAGE_LIMIT = 300;
 
+// Tabs that show only the promo card — no products fetched from the API
+const PROMO_ONLY_TABS = ["dispatched"];
+
+// A minimal product object that renders the promo card in ProductGrid
+const PROMO_CARD: Product = {
+  id: "_dubqfZxLSiD8-BmUmOI1zx5MzZv762JAPgNgi8A",
+  isPromo: true,
+};
+
 interface HomeClientProps {
   initialProducts: Product[];
   initialTotal: number;
@@ -75,6 +84,14 @@ export default function HomeClient({ initialProducts, initialTotal }: HomeClient
     if (filters.category !== activeCategory) {
       setActiveCategory(filters.category);
       setPage(1);
+
+      // Payments / Dispatched tabs: show only the promo card, skip API
+      if (PROMO_ONLY_TABS.includes(filters.category)) {
+        setProducts([PROMO_CARD]);
+        setHasMore(false);
+        return;
+      }
+
       setProducts([]);
       fetchPage(1, filters.category, true);
     }

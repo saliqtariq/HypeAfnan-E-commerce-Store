@@ -27,7 +27,9 @@
       "all": "Todos",
       "new": "Novo",
       "video": "Vídeo",
-      "photos": "Fotos"
+      "photos": "Fotos",
+      "payments": "Pagamentos",
+      "dispatched": "Despachado"
     },
     "drawer": {
       "title": "Filtro",

@@ -27,7 +27,9 @@
       "all": "الكل",
       "new": "الجديد",
       "video": "فيديو",
-      "photos": "صور"
+      "photos": "صور",
+      "payments": "المدفوعات",
+      "dispatched": "تم الشحن"
     },
     "drawer": {
       "title": "تصفية",

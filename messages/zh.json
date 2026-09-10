@@ -27,7 +27,9 @@
       "all": "全部",
       "new": "最新",
       "video": "视频",
-      "photos": "图片"
+      "photos": "图片",
+      "payments": "付款",
+      "dispatched": "已发货"
     },
     "drawer": {
       "title": "筛选",

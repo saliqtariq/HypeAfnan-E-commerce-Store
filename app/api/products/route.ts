@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 export const revalidate = 86400; // Allow Vercel Data Cache (1 day to save invocations)
 import { getAllProducts } from "../../lib/getProducts";
 import productTagsData from "../../data/product_tags.json";
@@ -59,6 +61,38 @@ export async function GET(req: NextRequest) {
   const products = [hardcodedPromoCard, ...sanityProducts, ...jsonProducts];
 
   let filtered = products;
+
+  if (category === "payments") {
+    const paymentsDir = path.join(process.cwd(), "public", "Payments");
+    let paymentProducts: any[] = [];
+    if (fs.existsSync(paymentsDir)) {
+      const files = fs.readdirSync(paymentsDir);
+      paymentProducts = files
+        .filter(f => f.toLowerCase().endsWith('.jpg') || f.toLowerCase().endsWith('.jpeg') || f.toLowerCase().endsWith('.png'))
+        .map((f, i) => ({
+          id: `payment_${i}`,
+          goodsId: `payment_${i}`,
+          title: "",
+          coverImage: `/Payments/${f}`,
+          images: [`/Payments/${f}`],
+          isPromo: false,
+          timestamp: Date.now() - i,
+        }));
+    }
+    
+    filtered = [hardcodedPromoCard, ...paymentProducts];
+    
+    const total = filtered.length;
+    const totalPages = Math.ceil(total / limit);
+    const start = (page - 1) * limit;
+    const paginated = filtered.slice(start, start + limit);
+    const hasMore = start + limit < filtered.length;
+
+    return NextResponse.json(
+      { products: paginated, total: filtered.length, hasMore, exactMatch: false },
+      { status: 200 }
+    );
+  }
 
   // Apply daily rotation to the default catalog so pagination stays in sync with homepage
   if (category === "all" && !tagId && !tagName && !groupName && !search) {

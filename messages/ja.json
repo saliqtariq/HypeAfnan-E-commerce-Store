@@ -27,7 +27,9 @@
       "all": "すべて",
       "new": "新着",
       "video": "動画",
-      "photos": "写真"
+      "photos": "写真",
+      "payments": "支払い",
+      "dispatched": "発送済み"
     },
     "drawer": {
       "title": "フィルター",

@@ -27,7 +27,9 @@
       "all": "Все",
       "new": "Новое",
       "video": "Видео",
-      "photos": "Фото"
+      "photos": "Фото",
+      "payments": "Платежи",
+      "dispatched": "Отправлено"
     },
     "drawer": {
       "title": "Фильтр",
