@@ -4,7 +4,8 @@ import { getProductById } from "../../../lib/getProducts";
 import { sanityClient } from "../../../../sanity/client";
 
 // Cache pages for 24 hours (ISR) so new products appear almost instantly while still saving massive CPU
-export const revalidate = 86400;
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ locale: string; productId: string }>;

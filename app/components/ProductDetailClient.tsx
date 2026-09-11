@@ -189,14 +189,25 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                   </div>
                 </>
               ) : (
-                <Image
-                  src={images[selectedImageIdx]}
-                  alt={title || "product"}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 720px"
-                  className="object-cover"
-                />
+                images[selectedImageIdx]?.toLowerCase().endsWith(".mp4") ? (
+                  <video
+                    src={images[selectedImageIdx]}
+                    controls
+                    autoPlay
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={images[selectedImageIdx]}
+                    alt={title || "product"}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 720px"
+                    className="object-cover"
+                  />
+                )
               )}
             </div>
 
@@ -211,13 +222,22 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                       selectedImageIdx === idx ? "border-[#38c172] shadow-xs" : "border-transparent opacity-60 hover:opacity-100"
                     }`}
                   >
-                    <Image
-                      src={img}
-                      alt={`View ${idx + 1}`}
-                      fill
-                      sizes="72px"
-                      className="object-cover"
-                    />
+                    {img.toLowerCase().endsWith(".mp4") ? (
+                      <video
+                        src={img}
+                        muted
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={img}
+                        alt={`View ${idx + 1}`}
+                        fill
+                        sizes="72px"
+                        className="object-cover"
+                      />
+                    )}
                   </button>
                 ))}
               </div>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-export const revalidate = 86400; // Allow Vercel Data Cache (1 day to save invocations)
+export const revalidate = 0; // force fresh reads
 import { getAllProducts } from "../../lib/getProducts";
 import productTagsData from "../../data/product_tags.json";
 import tagMapData from "../../data/tag_map.json";

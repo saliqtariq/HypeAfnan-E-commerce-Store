@@ -1,4 +1,4 @@
-// force reload 5
+// force reload 6
 import path from "path";
 import fs from "fs";
 
@@ -20,6 +20,8 @@ export type Product = {
 // Separate cache for listing (lean index) vs detail (full data)
 let cachedIndex: Product[] | null = null;
 let cachedFull: Product[] | null = null;
+let cachedIndexMtime = 0;
+let cachedFullMtime = 0; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 // Helper to route Backblaze URLs through the Cloudflare Worker CDN
 function applyCdn(p: Product): Product {
@@ -52,10 +54,9 @@ function applyCdn(p: Product): Product {
 /**
  * Returns lean products for listing (id, title, coverImage, category only).
  * Uses products_index.json (4.5MB) — much faster cold starts than products.json (24.7MB).
+ * Cache is mtime-aware: automatically reloads if the JSON file changes on disk.
  */
 export function getAllProducts(): Product[] {
-  if (cachedIndex) return cachedIndex;
-
   const cwd = process.cwd();
 
   // Always prefer the lean index for listing — works on Vercel and locally
@@ -63,17 +64,24 @@ export function getAllProducts(): Product[] {
   const fallbackFile = path.join(cwd, "app/data/products.json");
   const file = fs.existsSync(indexFile) ? indexFile : fallbackFile;
 
+  // Invalidate cache if the file has been modified since last read
+  let mtime = 0;
+  try { mtime = fs.statSync(file).mtimeMs; } catch { /* ignore */ }
+  if (cachedIndex && mtime === cachedIndexMtime) return cachedIndex;
+
   try {
     const raw = fs.readFileSync(file, "utf-8");
     const data = JSON.parse(raw);
     const rawProducts = (data.products || []) as Product[];
     cachedIndex = rawProducts.map(applyCdn);
+    cachedIndexMtime = mtime;
   } catch {
     // Fallback to full products.json if index is unreadable
     const raw = fs.readFileSync(fallbackFile, "utf-8");
     const data = JSON.parse(raw);
     const rawProducts = (data.products || []) as Product[];
     cachedIndex = rawProducts.map(applyCdn);
+    cachedIndexMtime = mtime;
   }
   return cachedIndex!;
 }
@@ -85,25 +93,30 @@ export function getAllProducts(): Product[] {
  * Locally: uses products_local.json (local WebP paths) if available.
  */
 export function getProductById(id: string): Product | undefined {
-  if (!cachedFull) {
-    const cwd = process.cwd();
-    const localFile = path.join(cwd, "app/data/products_local.json");
-    const mainFile = path.join(cwd, "app/data/products.json");
-    const isVercel = !!process.env.VERCEL;
-    const file = !isVercel && fs.existsSync(localFile) ? localFile : mainFile;
+  const cwd = process.cwd();
+  const localFile = path.join(cwd, "app/data/products_local.json");
+  const mainFile = path.join(cwd, "app/data/products.json");
+  const isVercel = !!process.env.VERCEL;
+  const file = !isVercel && fs.existsSync(localFile) ? localFile : mainFile;
 
+  // Invalidate cache if the file has been modified since last read
+  let mtime = 0;
+  try { mtime = fs.statSync(file).mtimeMs; } catch { /* ignore */ }
+  if (!cachedFull || mtime !== cachedFullMtime) {
     let raw: string;
     try {
       raw = fs.readFileSync(file, "utf-8");
       const data = JSON.parse(raw);
       const rawProducts = (data.products || []) as Product[];
       cachedFull = rawProducts.map(applyCdn);
+      cachedFullMtime = mtime;
     } catch {
       // products_local.json may be mid-write (download script running) — fall back to stable products.json
       raw = fs.readFileSync(mainFile, "utf-8");
       const data = JSON.parse(raw);
       const rawProducts = (data.products || []) as Product[];
       cachedFull = rawProducts.map(applyCdn);
+      cachedFullMtime = mtime;
     }
   }
 

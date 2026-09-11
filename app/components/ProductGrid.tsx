@@ -226,18 +226,29 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
               className="group relative block overflow-hidden bg-gray-100 cursor-pointer"
               style={{ aspectRatio: "1 / 1" }}
             >
-              {/* Product Image */}
+              {/* Product Image or Video */}
               {coverImg ? (
-                // Using plain <img> instead of Next.js <Image fill> to avoid lazy-load
-                // positioning issues that cause thumbnails to appear blank in the grid.
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={coverImg}
-                  alt={title || "product"}
-                  className={`absolute inset-0 w-full h-full ${coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
-                    } group-hover:scale-[1.03] transition-transform duration-300`}
-                  loading="lazy"
-                />
+                coverImg.toLowerCase().endsWith(".mp4") ? (
+                  <video
+                    src={coverImg}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                  />
+                ) : (
+                  // Using plain <img> instead of Next.js <Image fill> to avoid lazy-load
+                  // positioning issues that cause thumbnails to appear blank in the grid.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={coverImg}
+                    alt={title || "product"}
+                    className={`absolute inset-0 w-full h-full ${coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
+                      } group-hover:scale-[1.03] transition-transform duration-300`}
+                    loading="lazy"
+                  />
+                )
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                   <svg width="32" height="32" fill="none" stroke="#ccc" strokeWidth="1.5" viewBox="0 0 24 24">
