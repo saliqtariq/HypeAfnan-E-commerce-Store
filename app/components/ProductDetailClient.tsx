@@ -96,6 +96,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const searchCode = product?.searchCode || product?.goodsCode || "";
   const productId = product?.goodsId || product?.id || searchCode || "";
 
+  // Use object-contain for products that need full image visibility (payments, non-cropped shots)
+  const isPayment = (productId as string).startsWith("payment_");
+  const imgFit = isPayment ? "object-contain" : "object-cover";
+
   const whatsappMessage = useMemo(() => {
     return encodeURIComponent(
       `Hi, I'm interested in this product:\n${title ? `Name: ${title}\n` : ""}${searchCode ? `Search Code: ${searchCode}\n` : ""}${productId ? `Product ID: ${productId}\n` : ""}Please advise on the price.`
@@ -223,7 +227,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                     fill
                     priority
                     sizes="(max-width: 768px) 100vw, 720px"
-                    className="object-cover"
+                    className={imgFit}
                   />
                 )
               )}
