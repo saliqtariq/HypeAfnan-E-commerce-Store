@@ -46,7 +46,25 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const router = useRouter();
   const { locale, copyToClipboard } = useAppContext();
   const t = useTranslations("productDetail");
-  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  // For dispatched videos: auto-start on the first MP4 slide instead of the JPG thumbnail
+  const initialSlide = useMemo(() => {
+    if (!product) return 0;
+    const id = product.goodsId || product.id || "";
+    if (!id.toString().startsWith("dispatched_video_")) return 0;
+    const allImgs: string[] = [];
+    if (product.coverImage) allImgs.push(product.coverImage as string);
+    if (product.imageUrl && !allImgs.includes(product.imageUrl as string)) allImgs.push(product.imageUrl as string);
+    if (product.images) {
+      for (const img of product.images as string[]) {
+        if (!allImgs.includes(img)) allImgs.push(img);
+      }
+    }
+    const mp4Idx = allImgs.findIndex(img => img.toLowerCase().endsWith(".mp4"));
+    return mp4Idx !== -1 ? mp4Idx : 0;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.goodsId, product?.id]);
+
+  const [selectedImageIdx, setSelectedImageIdx] = useState(() => initialSlide);
 
   const [, startTransition] = useTransition();
 
