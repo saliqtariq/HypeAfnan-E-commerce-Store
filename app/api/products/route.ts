@@ -185,9 +185,7 @@ export async function GET(req: NextRequest) {
     {
       status: 200,
       headers: {
-        "Cache-Control": tagId === "85658997"
-          ? "public, max-age=60"  // Top category updates frequently
-          : "public, max-age=86400, stale-while-revalidate=43200"
+        "Cache-Control": "public, max-age=0, must-revalidate"
       },
     }
   );

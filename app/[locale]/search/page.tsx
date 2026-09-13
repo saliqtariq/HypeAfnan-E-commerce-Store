@@ -172,6 +172,7 @@ export default function SearchPage() {
         if (groupName) urlParams.set("groupName", groupName);
         urlParams.set("limit", "150");
         urlParams.set("page", "1");
+        urlParams.set("_t", Date.now().toString()); // Bypass browser cache
 
         const res = await fetch(`/api/products?${urlParams.toString()}`);
         if (!res.ok) throw new Error("Search failed");
@@ -247,6 +248,7 @@ export default function SearchPage() {
       if (groupName) urlParams.set("groupName", groupName);
       urlParams.set("limit", "150");
       urlParams.set("page", nextPage.toString());
+      urlParams.set("_t", Date.now().toString());
 
       const res = await fetch(`/api/products?${urlParams.toString()}`);
       if (!res.ok) throw new Error("Load more failed");
