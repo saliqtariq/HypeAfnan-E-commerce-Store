@@ -237,6 +237,13 @@ const ProductGrid = React.memo(function ProductGrid({ products, viewMode = "grid
                   className={`absolute inset-0 w-full h-full ${coverImg.includes('SimpleHeroSection') ? 'object-contain bg-black' : 'object-cover'
                     } group-hover:scale-[1.03] transition-transform duration-300`}
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    if (target.parentElement) {
+                      target.parentElement.classList.add('flex', 'items-center', 'justify-center', 'bg-gray-100');
+                    }
+                  }}
                 />
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
