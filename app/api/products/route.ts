@@ -63,7 +63,11 @@ export async function GET(req: NextRequest) {
   // Apply daily rotation to the default catalog so pagination stays in sync with homepage
   if (category === "all" && !tagId && !tagName && !groupName && !search) {
     const promoCard = products[0];
-    const restProducts = products.slice(1);
+    // Exclude Backblaze-hosted products from the public feed — they only appear in their own category
+    const restProducts = products.slice(1).filter((p: any) => {
+      const c = p.coverImage || p.imageUrl || "";
+      return !c.includes("backblazeb2.com") && !c.includes("workers.dev");
+    });
     const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
     const startIdx = (dayNumber * 299) % restProducts.length;
 
@@ -76,8 +80,13 @@ export async function GET(req: NextRequest) {
   // Filter by Tab/Category
   if (category === "new") {
     // Sanity products are always newest — pin them first, then sort JSON products by timestamp
+    // Exclude Backblaze products from the New feed
     const sanity = products.filter((p: any) => p._fromSanity);
-    const rest = products.filter((p: any) => !p._fromSanity).sort((a, b) => {
+    const rest = products.filter((p: any) => {
+      if (p._fromSanity) return false;
+      const c = p.coverImage || p.imageUrl || "";
+      return !c.includes("backblazeb2.com") && !c.includes("workers.dev");
+    }).sort((a, b) => {
       const tsA = (a.timestamp as number) || 0;
       const tsB = (b.timestamp as number) || 0;
       return tsB - tsA;

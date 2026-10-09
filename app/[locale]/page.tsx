@@ -47,8 +47,14 @@ export default async function Home() {
   };
 
   // Keep the promo card pinned — rotate the rest daily
+  // Exclude Backblaze-hosted products (LP clothes, etc.) from the homepage so B2 bandwidth
+  // is only consumed by users who explicitly browse those categories.
   const promoCard = hardcodedPromoCard;
-  const restProducts = [...sanityProducts, ...jsonProducts];
+  const isB2Product = (p: Product) => {
+    const c = p.coverImage || "";
+    return c.includes("backblazeb2.com") || c.includes("workers.dev");
+  };
+  const restProducts = [...sanityProducts, ...jsonProducts].filter((p) => !isB2Product(p));
   
   const dayNumber = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
   const startIdx = (dayNumber * (PAGE_LIMIT - 1)) % restProducts.length;
