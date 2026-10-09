@@ -228,7 +228,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                       autoPlay
                       loop
                       playsInline
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-contain bg-black"
                     />
                   ) : (
                     <Image
